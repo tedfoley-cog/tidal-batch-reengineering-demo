@@ -1,0 +1,18 @@
+name: CI
+on: [push, pull_request]
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate XML well-formedness
+        run: |
+          sudo apt-get install -y -qq libxml2-utils
+          find tidal_jobs -name '*.xml' -exec xmllint --noout {} \;
+      - name: Verify repo structure
+        run: |
+          for dir in tidal_jobs cobol_programs jcl_scripts shell_scripts sql_procedures logs dashboard docs; do
+            test -d "$dir" || { echo "Missing directory: $dir"; exit 1; }
+          done
+          test -f docs/flowchart.html || { echo "Missing flowchart"; exit 1; }
+          echo "Structure OK"

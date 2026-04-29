@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Tidal Workload Automation — Finance Daily Batch Jobs
+  Exported from TES Client Manager REST API
+  Server: PRODTIDAL01  |  Export date: 2026-03-15
+-->
+<entry xmlns="http://purl.org/atom/ns#">
+  <tes:JobDefinitions xmlns:tes="http://www.tidalsoftware.com/client/teservlet">
+
+    <!-- ============================================================ -->
+    <!-- ACCT_DAILY_EXTRACT — Account Daily Extract                   -->
+    <!-- Extracts all account transactions from the previous day      -->
+    <!-- from DB2 ACCTDB and writes to a sequential dataset.          -->
+    <!-- ============================================================ -->
+    <tes:job>
+      <tes:id>1001</tes:id>
+      <tes:name>ACCT_DAILY_EXTRACT</tes:name>
+      <tes:alias>ACCTEXTR</tes:alias>
+      <tes:description>Extract daily account transactions from DB2 ACCTDB to sequential file for downstream processing. Runs COBOL program ACCTEXTRACT via JCL ACCTEXTR.JCL on z/OS LPAR PROD1.</tes:description>
+      <tes:type>2</tes:type>  <!-- OSJob -->
+      <tes:command>/opt/tidal/agents/zos/submit_jcl.sh ACCTEXTR.JCL</tes:command>
+      <tes:parentid>5001</tes:parentid>
+      <tes:parentname>FINANCE_DAILY</tes:parentname>
+      <tes:priority>80</tes:priority>
+      <tes:active>Y</tes:active>
+      <tes:ownerid>12</tes:ownerid>
+      <tes:ownername>BATCH_FINANCE</tes:ownername>
+      <tes:agentname>ZOS_PROD1</tes:agentname>
+      <tes:normalexitfromrange>0</tes:normalexitfromrange>
+      <tes:normalexittorange>0</tes:normalexittorange>
+      <tes:durationestimated>1200</tes:durationestimated>
+      <tes:durationminimum>900</tes:durationminimum>
+      <tes:durationmaximum>3600</tes:durationmaximum>
+      <tes:inheritoptions>N</tes:inheritoptions>
+      <tes:inheritagent>N</tes:inheritagent>
+      <tes:inheritcalendar>Y</tes:inheritcalendar>
+      <tes:allowrerun>Y</tes:allowrerun>
+      <tes:concurrency>1</tes:concurrency>
+      <tes:historyretention>90</tes:historyretention>
+      <tes:calendarid>100</tes:calendarid>
+      <tes:calendarname>WEEKDAY_BUSINESS</tes:calendarname>
+      <tes:timewindow>
+        <tes:fromtime>02:00</tes:fromtime>
+        <tes:totime>05:00</tes:totime>
+      </tes:timewindow>
+      <tes:dependencies/>
+      <tes:variables>
+        <tes:variable name="EXTRACT_DATE" value="&amp;SYSDATE-1"/>
+        <tes:variable name="OUTPUT_DSN" value="ACME.ACCT.EXTRACT.D&amp;SYSDATE"/>
+      </tes:variables>
+      <tes:notifications>
+        <tes:notification event="abnormal" action="email" recipient="batch-ops@acme-corp.internal"/>
+      </tes:notifications>
+    </tes:job>
+
+    <!-- ============================================================ -->
+    <!-- ACCT_VALIDATION — Account Data Validation                    -->
+    <!-- Validates extracted records: checksums, record counts,       -->
+    <!-- referential integrity against GL master.                     -->
+    <!-- ============================================================ -->
+    <tes:job>
+      <tes:id>1002</tes:id>
+      <tes:name>ACCT_VALIDATION</tes:name>
+      <tes:alias>ACCTVAL</tes:alias>
+      <tes:description>Validate extracted account data: record count reconciliation, checksum verification, and referential integrity check against GL master file.</tes:description>
+      <tes:type>2</tes:type>
+      <tes:command>/opt/tidal/agents/zos/submit_jcl.sh ACCTVAL.JCL</tes:command>
+      <tes:parentid>5001</tes:parentid>
+      <tes:parentname>FINANCE_DAILY</tes:parentname>
+      <tes:priority>75</tes:priority>
+      <tes:active>Y</tes:active>
+      <tes:ownerid>12</tes:ownerid>
+      <tes:ownername>BATCH_FINANCE</tes:ownername>
+      <tes:agentname>ZOS_PROD1</tes:agentname>
+      <tes:normalexitfromrange>0</tes:normalexitfromrange>
+      <tes:normalexittorange>0</tes:normalexittorange>
+      <tes:durationestimated>300</tes:durationestimated>
+      <tes:durationminimum>180</tes:durationminimum>
+      <tes:durationmaximum>900</tes:durationmaximum>
+      <tes:allowrerun>Y</tes:allowrerun>
+      <tes:concurrency>1</tes:concurrency>
+      <tes:historyretention>90</tes:historyretention>
+      <tes:calendarname>WEEKDAY_BUSINESS</tes:calendarname>
+      <tes:dependencies>
+        <tes:dependency type="job" jobid="1001" jobname="ACCT_DAILY_EXTRACT" condition="completed_normally"/>
+      </tes:dependencies>
+      <tes:notifications>
+        <tes:notification event="abnormal" action="email" recipient="batch-ops@acme-corp.internal"/>
+        <tes:notification event="abnormal" action="page" recipient="oncall-finance"/>
+      </tes:notifications>
+    </tes:job>
+
+    <!-- ============================================================ -->
+    <!-- GL_POSTING_BATCH — General Ledger Posting                    -->
+    <!-- Posts validated transactions to the general ledger.           -->
+    <!-- Runs COBOL program GLPOSTING.                                -->
+    <!-- ============================================================ -->
+    <tes:job>
+      <tes:id>1003</tes:id>
+      <tes:name>GL_POSTING_BATCH</tes:name>
+      <tes:alias>GLPOST</tes:alias>
+      <tes:description>Post validated daily transactions to the General Ledger. Runs COBOL program GLPOSTING via JCL GLPOST.JCL. Updates GL master file and produces posting report.</tes:description>
+      <tes:type>2</tes:type>
+      <tes:command>/opt/tidal/agents/zos/submit_jcl.sh GLPOST.JCL</tes:command>
+      <tes:parentid>5001</tes:parentid>
+      <tes:parentname>FINANCE_DAILY</tes:parentname>
+      <tes:priority>80</tes:priority>
+      <tes:active>Y</tes:active>
+      <tes:ownerid>12</tes:ownerid>
+      <tes:ownername>BATCH_FINANCE</tes:ownername>
+      <tes:agentname>ZOS_PROD1</tes:agentname>
+      <tes:normalexitfromrange>0</tes:normalexitfromrange>
+      <tes:normalexittorange>4</tes:normalexittorange>
+      <tes:durationestimated>1800</tes:durationestimated>
+      <tes:durationminimum>1200</tes:durationminimum>
+      <tes:durationmaximum>5400</tes:durationmaximum>
+      <tes:allowrerun>N</tes:allowrerun>
+      <tes:concurrency>1</tes:concurrency>
+      <tes:historyretention>365</tes:historyretention>
+      <tes:calendarname>WEEKDAY_BUSINESS</tes:calendarname>
+      <tes:dependencies>
+        <tes:dependency type="job" jobid="1002" jobname="ACCT_VALIDATION" condition="completed_normally"/>
+        <tes:dependency type="job" jobid="2003" jobname="SP_GL_VALIDATION" condition="completed_normally"/>
+      </tes:dependencies>
+      <tes:variables>
+        <tes:variable name="GL_PERIOD" value="&amp;SYSMONTH"/>
+        <tes:variable name="POSTING_MODE" value="FINAL"/>
+      </tes:variables>
+      <tes:notifications>
+        <tes:notification event="abnormal" action="email" recipient="gl-team@acme-corp.internal"/>
+        <tes:notification event="abnormal" action="page" recipient="oncall-finance"/>
+        <tes:notification event="completed" action="email" recipient="finance-mgr@acme-corp.internal"/>
+      </tes:notifications>
+    </tes:job>
+
+    <!-- ============================================================ -->
+    <!-- GL_REPORT_DAILY — GL Daily Summary Report                    -->
+    <!-- Generates the daily GL summary report and sends to           -->
+    <!-- finance distribution list.                                   -->
+    <!-- ============================================================ -->
+    <tes:job>
+      <tes:id>1004</tes:id>
+      <tes:name>GL_REPORT_DAILY</tes:name>
+      <tes:alias>GLRPT</tes:alias>
+      <tes:description>Generate daily General Ledger summary report. Reads posted transactions, produces PDF report, and distributes via email.</tes:description>
+      <tes:type>2</tes:type>
+      <tes:command>/opt/tidal/agents/unix/run_report.sh gl_daily_summary</tes:command>
+      <tes:parentid>5001</tes:parentid>
+      <tes:parentname>FINANCE_DAILY</tes:parentname>
+      <tes:priority>60</tes:priority>
+      <tes:active>Y</tes:active>
+      <tes:ownerid>12</tes:ownerid>
+      <tes:ownername>BATCH_FINANCE</tes:ownername>
+      <tes:agentname>UNIX_RPT01</tes:agentname>
+      <tes:durationestimated>600</tes:durationestimated>
+      <tes:durationminimum>300</tes:durationminimum>
+      <tes:durationmaximum>1800</tes:durationmaximum>
+      <tes:allowrerun>Y</tes:allowrerun>
+      <tes:concurrency>1</tes:concurrency>
+      <tes:calendarname>WEEKDAY_BUSINESS</tes:calendarname>
+      <tes:dependencies>
+        <tes:dependency type="job" jobid="1003" jobname="GL_POSTING_BATCH" condition="completed_normally"/>
+      </tes:dependencies>
+    </tes:job>
+
+    <!-- ============================================================ -->
+    <!-- ACCT_ARCHIVE — Archive Processed Account Data                -->
+    <!-- Moves processed extract files to archive storage.            -->
+    <!-- ============================================================ -->
+    <tes:job>
+      <tes:id>1005</tes:id>
+      <tes:name>ACCT_ARCHIVE</tes:name>
+      <tes:alias>ACCTARC</tes:alias>
+      <tes:description>Archive processed daily account extract files. Compresses and moves to tape archive. Retains 7 years per SOX compliance.</tes:description>
+      <tes:type>2</tes:type>
+      <tes:command>/opt/tidal/agents/unix/archive_logs.sh ACCT</tes:command>
+      <tes:parentid>5001</tes:parentid>
+      <tes:parentname>FINANCE_DAILY</tes:parentname>
+      <tes:priority>40</tes:priority>
+      <tes:active>Y</tes:active>
+      <tes:ownerid>12</tes:ownerid>
+      <tes:ownername>BATCH_FINANCE</tes:ownername>
+      <tes:agentname>UNIX_ARCHIVE01</tes:agentname>
+      <tes:durationestimated>300</tes:durationestimated>
+      <tes:allowrerun>Y</tes:allowrerun>
+      <tes:calendarname>WEEKDAY_BUSINESS</tes:calendarname>
+      <tes:dependencies>
+        <tes:dependency type="job" jobid="1003" jobname="GL_POSTING_BATCH" condition="completed_normally"/>
+        <tes:dependency type="job" jobid="1004" jobname="GL_REPORT_DAILY" condition="completed_normally"/>
+      </tes:dependencies>
+    </tes:job>
+
+    <!-- ============================================================ -->
+    <!-- FTP_GL_DOWNSTREAM — Transfer GL data to downstream systems   -->
+    <!-- FTP job: sends GL posting file to ERP integration server.    -->
+    <!-- ============================================================ -->
+    <tes:job>
+      <tes:id>1006</tes:id>
+      <tes:name>FTP_GL_DOWNSTREAM</tes:name>
+      <tes:alias>FTPGLDS</tes:alias>
+      <tes:description>Transfer GL posting results to ERP integration server via SFTP. Target: erp-integration.acme-corp.internal:/incoming/gl/</tes:description>
+      <tes:type>1</tes:type>  <!-- FTPJob -->
+      <tes:command>sftp</tes:command>
+      <tes:parentid>5001</tes:parentid>
+      <tes:parentname>FINANCE_DAILY</tes:parentname>
+      <tes:priority>70</tes:priority>
+      <tes:active>Y</tes:active>
+      <tes:ownerid>12</tes:ownerid>
+      <tes:ownername>BATCH_FINANCE</tes:ownername>
+      <tes:agentname>UNIX_FTP01</tes:agentname>
+      <tes:durationestimated>120</tes:durationestimated>
+      <tes:allowrerun>Y</tes:allowrerun>
+      <tes:calendarname>WEEKDAY_BUSINESS</tes:calendarname>
+      <tes:dependencies>
+        <tes:dependency type="job" jobid="1003" jobname="GL_POSTING_BATCH" condition="completed_normally"/>
+      </tes:dependencies>
+      <tes:variables>
+        <tes:variable name="FTP_HOST" value="erp-integration.acme-corp.internal"/>
+        <tes:variable name="FTP_REMOTE_DIR" value="/incoming/gl/"/>
+        <tes:variable name="FTP_LOCAL_FILE" value="/data/gl/posted/GL_POSTED_&amp;SYSDATE.dat"/>
+      </tes:variables>
+    </tes:job>
+
+    <!-- ============================================================ -->
+    <!-- SP_GL_VALIDATION — GL Validation Stored Procedure            -->
+    <!-- Calls DB2 stored procedure to validate GL balances.          -->
+    <!-- ============================================================ -->
+    <tes:job>
+      <tes:id>2003</tes:id>
+      <tes:name>SP_GL_VALIDATION</tes:name>
+      <tes:alias>SPGLVAL</tes:alias>
+      <tes:description>Execute DB2 stored procedure SP_GL_VALIDATION to verify trial balance integrity and cross-check control totals before GL posting.</tes:description>
+      <tes:type>8</tes:type>  <!-- ServiceJob -->
+      <tes:command>/opt/tidal/agents/db2/call_sp.sh SP_GL_VALIDATION</tes:command>
+      <tes:parentid>5001</tes:parentid>
+      <tes:parentname>FINANCE_DAILY</tes:parentname>
+      <tes:priority>75</tes:priority>
+      <tes:active>Y</tes:active>
+      <tes:ownerid>15</tes:ownerid>
+      <tes:ownername>DBA_TEAM</tes:ownername>
+      <tes:agentname>DB2_PROD1</tes:agentname>
+      <tes:durationestimated>180</tes:durationestimated>
+      <tes:allowrerun>Y</tes:allowrerun>
+      <tes:calendarname>WEEKDAY_BUSINESS</tes:calendarname>
+      <tes:dependencies>
+        <tes:dependency type="job" jobid="1002" jobname="ACCT_VALIDATION" condition="completed_normally"/>
+      </tes:dependencies>
+    </tes:job>
+
+  </tes:JobDefinitions>
+</entry>

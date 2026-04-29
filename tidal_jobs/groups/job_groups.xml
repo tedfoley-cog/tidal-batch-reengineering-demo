@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Tidal Workload Automation — Job Group Definitions
+  Server: PRODTIDAL01  |  Export date: 2026-03-15
+-->
+<entry xmlns="http://purl.org/atom/ns#">
+  <tes:JobDefinitions xmlns:tes="http://www.tidalsoftware.com/client/teservlet">
+
+    <tes:job>
+      <tes:id>5001</tes:id>
+      <tes:name>FINANCE_DAILY</tes:name>
+      <tes:alias>FINDLY</tes:alias>
+      <tes:description>Finance daily batch processing group. Contains account extraction, validation, GL posting, reporting, archival, and downstream file transfers.</tes:description>
+      <tes:type>3</tes:type>  <!-- JobGroup -->
+      <tes:parentid>5000</tes:parentid>
+      <tes:parentname>PRODUCTION_ROOT</tes:parentname>
+      <tes:priority>80</tes:priority>
+      <tes:active>Y</tes:active>
+      <tes:ownerid>12</tes:ownerid>
+      <tes:ownername>BATCH_FINANCE</tes:ownername>
+      <tes:childrencount>7</tes:childrencount>
+      <tes:calendarname>WEEKDAY_BUSINESS</tes:calendarname>
+    </tes:job>
+
+    <tes:job>
+      <tes:id>5002</tes:id>
+      <tes:name>PAYROLL_BIWEEKLY</tes:name>
+      <tes:alias>PAYBWK</tes:alias>
+      <tes:description>Biweekly payroll processing group. Time import, calculation, ACH generation, and summary reporting.</tes:description>
+      <tes:type>3</tes:type>
+      <tes:parentid>5000</tes:parentid>
+      <tes:parentname>PRODUCTION_ROOT</tes:parentname>
+      <tes:priority>90</tes:priority>
+      <tes:active>Y</tes:active>
+      <tes:ownerid>14</tes:ownerid>
+      <tes:ownername>BATCH_PAYROLL</tes:ownername>
+      <tes:childrencount>4</tes:childrencount>
+      <tes:calendarname>BIWEEKLY_PAYROLL</tes:calendarname>
+    </tes:job>
+
+    <tes:job>
+      <tes:id>5003</tes:id>
+      <tes:name>EOD_NIGHTLY</tes:name>
+      <tes:alias>EODGRP</tes:alias>
+      <tes:description>End-of-day nightly processing group. Reconciliation, backups, notifications, log cleanup.</tes:description>
+      <tes:type>3</tes:type>
+      <tes:parentid>5000</tes:parentid>
+      <tes:parentname>PRODUCTION_ROOT</tes:parentname>
+      <tes:priority>85</tes:priority>
+      <tes:active>Y</tes:active>
+      <tes:ownerid>16</tes:ownerid>
+      <tes:ownername>INFRA_OPS</tes:ownername>
+      <tes:childrencount>5</tes:childrencount>
+      <tes:calendarname>EVERY_DAY</tes:calendarname>
+    </tes:job>
+
+    <tes:job>
+      <tes:id>5004</tes:id>
+      <tes:name>MISC_LEGACY</tes:name>
+      <tes:alias>MISCLEG</tes:alias>
+      <tes:description></tes:description>
+      <tes:type>3</tes:type>
+      <tes:parentid>5000</tes:parentid>
+      <tes:parentname>PRODUCTION_ROOT</tes:parentname>
+      <tes:priority>50</tes:priority>
+      <tes:active>Y</tes:active>
+      <tes:ownerid>0</tes:ownerid>
+      <tes:ownername></tes:ownername>
+      <tes:childrencount>4</tes:childrencount>
+      <tes:calendarname>WEEKDAY_BUSINESS</tes:calendarname>
+    </tes:job>
+
+  </tes:JobDefinitions>
+</entry>

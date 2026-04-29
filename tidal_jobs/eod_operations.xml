@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Tidal Workload Automation — End-of-Day Operations
+  Exported from TES Client Manager REST API
+  Server: PRODTIDAL01  |  Export date: 2026-03-15
+-->
+<entry xmlns="http://purl.org/atom/ns#">
+  <tes:JobDefinitions xmlns:tes="http://www.tidalsoftware.com/client/teservlet">
+
+    <!-- ============================================================ -->
+    <!-- EOD_RECONCILIATION — End-of-Day Reconciliation               -->
+    <!-- Reconciles all daily transactions across sub-ledgers.        -->
+    <!-- This is the critical control job that gates month-end close. -->
+    <!-- ============================================================ -->
+    <tes:job>
+      <tes:id>3001</tes:id>
+      <tes:name>EOD_RECONCILIATION</tes:name>
+      <tes:alias>EODRECON</tes:alias>
+      <tes:description>End-of-day reconciliation across all sub-ledgers. Verifies that sum of sub-ledger postings equals GL control totals. Generates exception report for out-of-balance conditions. Runs via JCL EODRECON.JCL.</tes:description>
+      <tes:type>2</tes:type>
+      <tes:command>/opt/tidal/agents/zos/submit_jcl.sh EODRECON.JCL</tes:command>
+      <tes:parentid>5003</tes:parentid>
+      <tes:parentname>EOD_NIGHTLY</tes:parentname>
+      <tes:priority>90</tes:priority>
+      <tes:active>Y</tes:active>
+      <tes:ownerid>12</tes:ownerid>
+      <tes:ownername>BATCH_FINANCE</tes:ownername>
+      <tes:agentname>ZOS_PROD1</tes:agentname>
+      <tes:normalexitfromrange>0</tes:normalexitfromrange>
+      <tes:normalexittorange>0</tes:normalexittorange>
+      <tes:durationestimated>2400</tes:durationestimated>
+      <tes:durationminimum>1800</tes:durationminimum>
+      <tes:durationmaximum>5400</tes:durationmaximum>
+      <tes:allowrerun>Y</tes:allowrerun>
+      <tes:concurrency>1</tes:concurrency>
+      <tes:historyretention>365</tes:historyretention>
+      <tes:calendarname>WEEKDAY_BUSINESS</tes:calendarname>
+      <tes:timewindow>
+        <tes:fromtime>22:00</tes:fromtime>
+        <tes:totime>02:00</tes:totime>
+      </tes:timewindow>
+      <tes:dependencies>
+        <tes:dependency type="job" jobid="1003" jobname="GL_POSTING_BATCH" condition="completed_normally"/>
+        <tes:dependency type="job" jobid="3005" jobname="JOB_X47B" condition="completed_normally"/>
+      </tes:dependencies>
+      <tes:notifications>
+        <tes:notification event="abnormal" action="email" recipient="batch-ops@acme-corp.internal"/>
+        <tes:notification event="abnormal" action="page" recipient="oncall-finance"/>
+      </tes:notifications>
+    </tes:job>
+
+    <!-- ============================================================ -->
+    <!-- EOD_BACKUP — End-of-Day Database Backup                      -->
+    <!-- Full backup of all production databases after EOD processing. -->
+    <!-- ============================================================ -->
+    <tes:job>
+      <tes:id>3002</tes:id>
+      <tes:name>EOD_BACKUP</tes:name>
+      <tes:alias>EODBKUP</tes:alias>
+      <tes:description>Full backup of production databases (ACCTDB, GLDB, PAYROLLDB, HRDB) after end-of-day processing completes. Writes to tape and verifies checksums.</tes:description>
+      <tes:type>2</tes:type>
+      <tes:command>/opt/tidal/agents/unix/eod_backup.sh</tes:command>
+      <tes:parentid>5003</tes:parentid>
+      <tes:parentname>EOD_NIGHTLY</tes:parentname>
+      <tes:priority>85</tes:priority>
+      <tes:active>Y</tes:active>
+      <tes:ownerid>16</tes:ownerid>
+      <tes:ownername>INFRA_OPS</tes:ownername>
+      <tes:agentname>UNIX_BACKUP01</tes:agentname>
+      <tes:durationestimated>5400</tes:durationestimated>
+      <tes:durationminimum>3600</tes:durationminimum>
+      <tes:durationmaximum>10800</tes:durationmaximum>
+      <tes:allowrerun>Y</tes:allowrerun>
+      <tes:calendarname>EVERY_DAY</tes:calendarname>
+      <tes:dependencies>
+        <tes:dependency type="job" jobid="3001" jobname="EOD_RECONCILIATION" condition="completed_normally"/>
+      </tes:dependencies>
+    </tes:job>
+
+    <!-- ============================================================ -->
+    <!-- EOD_NOTIFY_COMPLETE — Send EOD Completion Notification       -->
+    <!-- Sends summary email to management when EOD batch completes.  -->
+    <!-- ============================================================ -->
+    <tes:job>
+      <tes:id>3003</tes:id>
+      <tes:name>EOD_NOTIFY_COMPLETE</tes:name>
+      <tes:alias>EODNOTFY</tes:alias>
+      <tes:description>Send end-of-day completion notification with summary statistics to management distribution list. Includes job run times, record counts, and exception summary.</tes:description>
+      <tes:type>2</tes:type>
+      <tes:command>/opt/tidal/agents/unix/notify_ops.sh EOD_COMPLETE</tes:command>
+      <tes:parentid>5003</tes:parentid>
+      <tes:parentname>EOD_NIGHTLY</tes:parentname>
+      <tes:priority>50</tes:priority>
+      <tes:active>Y</tes:active>
+      <tes:ownerid>16</tes:ownerid>
+      <tes:ownername>INFRA_OPS</tes:ownername>
+      <tes:agentname>UNIX_NOTIFY01</tes:agentname>
+      <tes:durationestimated>30</tes:durationestimated>
+      <tes:allowrerun>Y</tes:allowrerun>
+      <tes:calendarname>EVERY_DAY</tes:calendarname>
+      <tes:dependencies>
+        <tes:dependency type="job" jobid="3002" jobname="EOD_BACKUP" condition="completed_normally"/>
+        <tes:dependency type="job" jobid="1005" jobname="ACCT_ARCHIVE" condition="completed_normally"/>
+      </tes:dependencies>
+    </tes:job>
+
+    <!-- ============================================================ -->
+    <!-- EOD_LOG_CLEANUP — Archive and Purge Old Logs                 -->
+    <!-- Rotates application and batch log files.                     -->
+    <!-- ============================================================ -->
+    <tes:job>
+      <tes:id>3004</tes:id>
+      <tes:name>EOD_LOG_CLEANUP</tes:name>
+      <tes:alias>EODLOGS</tes:alias>
+      <tes:description>Archive and purge application logs older than 30 days. Compresses to gzip and moves to long-term storage. Cleans up /var/log/batch/ and /data/logs/.</tes:description>
+      <tes:type>2</tes:type>
+      <tes:command>/opt/tidal/agents/unix/archive_logs.sh ALL</tes:command>
+      <tes:parentid>5003</tes:parentid>
+      <tes:parentname>EOD_NIGHTLY</tes:parentname>
+      <tes:priority>30</tes:priority>
+      <tes:active>Y</tes:active>
+      <tes:ownerid>16</tes:ownerid>
+      <tes:ownername>INFRA_OPS</tes:ownername>
+      <tes:agentname>UNIX_MAINT01</tes:agentname>
+      <tes:durationestimated>600</tes:durationestimated>
+      <tes:allowrerun>Y</tes:allowrerun>
+      <tes:calendarname>EVERY_DAY</tes:calendarname>
+      <tes:dependencies>
+        <tes:dependency type="job" jobid="3002" jobname="EOD_BACKUP" condition="completed_normally"/>
+      </tes:dependencies>
+    </tes:job>
+
+    <!-- ============================================================ -->
+    <!-- JOB_X47B — [UNDOCUMENTED LEGACY JOB]                         -->
+    <!-- Purpose unclear. Appears to be a data staging step.          -->
+    <!-- No description, no owner assigned, cryptic alias.            -->
+    <!-- Referenced by EOD_RECONCILIATION as a dependency.            -->
+    <!-- ============================================================ -->
+    <tes:job>
+      <tes:id>3005</tes:id>
+      <tes:name>JOB_X47B</tes:name>
+      <tes:alias>X47B</tes:alias>
+      <tes:description></tes:description>
+      <tes:type>2</tes:type>
+      <tes:command>/opt/tidal/agents/zos/submit_jcl.sh X47BRUN.JCL</tes:command>
+      <tes:parentid>5003</tes:parentid>
+      <tes:parentname>EOD_NIGHTLY</tes:parentname>
+      <tes:priority>75</tes:priority>
+      <tes:active>Y</tes:active>
+      <tes:ownerid>0</tes:ownerid>
+      <tes:ownername></tes:ownername>
+      <tes:agentname>ZOS_PROD1</tes:agentname>
+      <tes:durationestimated>450</tes:durationestimated>
+      <tes:allowrerun>N</tes:allowrerun>
+      <tes:calendarname>WEEKDAY_BUSINESS</tes:calendarname>
+      <tes:dependencies>
+        <tes:dependency type="job" jobid="1003" jobname="GL_POSTING_BATCH" condition="completed_normally"/>
+      </tes:dependencies>
+    </tes:job>
+
+  </tes:JobDefinitions>
+</entry>

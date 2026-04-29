@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tidal Batch Job Reengineering &mdash; Demo Flow</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: #f5f7fa;
+      color: #1e293b;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    header {
+      width: 100%;
+      background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 100%);
+      color: #fff;
+      text-align: center;
+      padding: 2rem 1rem 1.75rem;
+      box-shadow: 0 4px 20px rgba(0,0,0,.15);
+    }
+    header h1 {
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+    header p {
+      margin-top: .5rem;
+      font-size: .95rem;
+      color: #94a3b8;
+    }
+
+    main {
+      flex: 1;
+      width: 100%;
+      max-width: 1400px;
+      padding: 2rem 1rem;
+      display: flex;
+      justify-content: center;
+    }
+
+    #flowchart {
+      width: 100%;
+      overflow-x: auto;
+    }
+
+    .mermaid svg { margin: 0 auto; display: block; }
+
+    .legend {
+      width: 100%;
+      max-width: 1400px;
+      padding: 0 1rem 2.5rem;
+    }
+    .legend-inner {
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 1.25rem 1.75rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.25rem;
+      align-items: center;
+      box-shadow: 0 1px 3px rgba(0,0,0,.06);
+    }
+    .legend-title {
+      font-weight: 600;
+      font-size: .85rem;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      color: #64748b;
+      margin-right: .5rem;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: .45rem;
+      font-size: .85rem;
+      color: #334155;
+    }
+    .legend-swatch {
+      width: 16px;
+      height: 16px;
+      border-radius: 4px;
+      flex-shrink: 0;
+    }
+
+    footer {
+      width: 100%;
+      text-align: center;
+      padding: 1rem;
+      font-size: .8rem;
+      color: #94a3b8;
+      border-top: 1px solid #e2e8f0;
+      background: #fff;
+    }
+
+    @media (max-width: 600px) {
+      header { padding: 1.25rem .75rem 1rem; }
+      main { padding: 1rem .5rem; }
+      .legend-inner { padding: 1rem; gap: .75rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Tidal Batch Job Reengineering &mdash; Demo Flow</h1>
+    <p>End-to-end: from opaque Tidal job exports to fully documented, interactive dependency dashboard</p>
+  </header>
+
+  <main>
+    <div id="flowchart">
+      <pre class="mermaid">
+%%{init: {
+  'theme': 'base',
+  'themeVariables': {
+    'primaryColor':      '#dbeafe',
+    'primaryTextColor':  '#1e293b',
+    'primaryBorderColor':'#3b82f6',
+    'secondaryColor':    '#f0fdf4',
+    'tertiaryColor':     '#fef3c7',
+    'lineColor':         '#64748b',
+    'fontSize':          '14px',
+    'fontFamily':        'Segoe UI, system-ui, sans-serif',
+    'nodeTextColor':     '#1e293b'
+  }
+}}%%
+
+flowchart TD
+  %% ── Starting State ──
+  REPO["📂 <b>Demo Repository</b><br/>Tidal XML exports, COBOL programs,<br/>JCL scripts, failure logs<br/><i>20 interconnected batch jobs</i>"]
+  PROMPT["💬 <b>Presenter Prompts Devin</b><br/>Analyze the Tidal job landscape<br/>and generate documentation"]
+
+  %% ── Devin Analysis Phase ──
+  PARSE["🔍 <b>Parse Tidal XML</b><br/>Extract job definitions, dependencies,<br/>schedules, agents, variables<br/><i>tes: namespace, 4 job groups</i>"]
+
+  subgraph ANALYSIS ["  Parallel Analysis  "]
+    direction TB
+    DEP["📊 <b>Map Dependencies</b><br/>Build full job DAG<br/>Detect broken references<br/><i>LEGACY_CTRL_CHK missing</i>"]
+    COBOL["📄 <b>Reverse-Engineer COBOL</b><br/>Document business logic<br/>Extract data flows<br/><i>3 programs, DB2 interactions</i>"]
+    FAIL["🔴 <b>Trace Failure Chain</b><br/>S0C7 abend root cause<br/>Cascading impact analysis<br/><i>5 downstream jobs blocked</i>"]
+  end
+
+  TAG["🏷️ <b>Tag Job Metadata</b><br/>Purpose, owner, schedule,<br/>data sources, technology stack"]
+
+  %% ── Output Phase ──
+  DASH["📈 <b>Generate Dashboard</b><br/>Interactive HTML with Mermaid<br/>dependency graph, job cards,<br/>failure trace visualization"]
+
+  BROWSER["🌐 <b>Open in Browser</b><br/>Presenter shows audience<br/>the complete job landscape"]
+
+  %% ── Connections ──
+  REPO --> PROMPT
+  PROMPT --> PARSE
+  PARSE --> DEP
+  PARSE --> COBOL
+  PARSE --> FAIL
+  DEP --> TAG
+  COBOL --> TAG
+  FAIL --> TAG
+  TAG --> DASH
+  DASH --> BROWSER
+
+  %% ── Styles ──
+  classDef repoNode    fill:#f0fdf4,stroke:#059669,stroke-width:2px,color:#064e3b
+  classDef promptNode  fill:#e0e7ff,stroke:#6366f1,stroke-width:2px,color:#312e81
+  classDef parseNode   fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#1e3a8a
+  classDef analysis    fill:#f0f9ff,stroke:#0ea5e9,stroke-width:1.5px,color:#0c4a6e
+  classDef tagNode     fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#78350f
+  classDef dashNode    fill:#d1fae5,stroke:#10b981,stroke-width:2px,color:#064e3b
+  classDef browserNode fill:#f3e8ff,stroke:#a855f7,stroke-width:2px,color:#581c87
+
+  class REPO repoNode
+  class PROMPT promptNode
+  class PARSE parseNode
+  class DEP,COBOL,FAIL analysis
+  class TAG tagNode
+  class DASH dashNode
+  class BROWSER browserNode
+      </pre>
+    </div>
+  </main>
+
+  <section class="legend">
+    <div class="legend-inner">
+      <span class="legend-title">Legend</span>
+      <span class="legend-item"><span class="legend-swatch" style="background:#f0fdf4;border:2px solid #059669;"></span> Repository (Before State)</span>
+      <span class="legend-item"><span class="legend-swatch" style="background:#e0e7ff;border:2px solid #6366f1;"></span> Presenter Action</span>
+      <span class="legend-item"><span class="legend-swatch" style="background:#dbeafe;border:2px solid #3b82f6;"></span> Devin Parsing</span>
+      <span class="legend-item"><span class="legend-swatch" style="background:#f0f9ff;border:2px solid #0ea5e9;"></span> Devin Analysis</span>
+      <span class="legend-item"><span class="legend-swatch" style="background:#fef3c7;border:2px solid #f59e0b;"></span> Metadata Tagging</span>
+      <span class="legend-item"><span class="legend-swatch" style="background:#d1fae5;border:2px solid #10b981;"></span> Dashboard Generation</span>
+      <span class="legend-item"><span class="legend-swatch" style="background:#f3e8ff;border:2px solid #a855f7;"></span> Audience View</span>
+    </div>
+  </section>
+
+  <footer>
+    Tidal Batch Job Reengineering Demo &copy; 2026 &middot; Tidal Workload Automation &middot; COBOL / JCL / DB2
+  </footer>
+
+  <script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+    mermaid.initialize({
+      startOnLoad: true,
+      securityLevel: 'loose',
+      flowchart: {
+        htmlLabels: true,
+        curve: 'basis',
+        rankSpacing: 60,
+        nodeSpacing: 40,
+        padding: 16,
+        useMaxWidth: false
+      }
+    });
+  </script>
+</body>
+</html>

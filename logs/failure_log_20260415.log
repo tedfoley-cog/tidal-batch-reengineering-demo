@@ -1,0 +1,148 @@
+================================================================================
+TIDAL WORKLOAD AUTOMATION — JOB EXECUTION LOG
+Server: PRODTIDAL01 | Date: 2026-04-15 | Production Schedule: DAILY_20260415
+================================================================================
+
+22:01:03 [SCHEDULER] Production schedule DAILY_20260415 activated
+22:01:03 [SCHEDULER] 14 jobs queued for execution
+
+--- FINANCE_DAILY GROUP ---
+
+02:00:15 [JOB-1001] ACCT_DAILY_EXTRACT — Status: LAUNCHED
+02:00:15 [JOB-1001] Agent: ZOS_PROD1 | Command: submit_jcl.sh ACCTEXTR.JCL
+02:00:16 [JOB-1001] JCL submitted: JOB03847
+02:14:22 [JOB-1001] JCL JOB03847 completed: RC=0000
+02:14:22 [JOB-1001] Records extracted: 47,832 | File size: 7.2MB
+02:14:22 [JOB-1001] ACCT_DAILY_EXTRACT — Status: COMPLETED NORMALLY
+02:14:22 [JOB-1001] Duration: 14m 07s (estimated: 20m 00s)
+
+02:14:25 [JOB-1002] ACCT_VALIDATION — Status: LAUNCHED
+02:14:25 [JOB-1002] Agent: ZOS_PROD1 | Command: submit_jcl.sh ACCTVAL.JCL
+02:14:26 [JOB-1002] JCL submitted: JOB03848
+02:17:51 [JOB-1002] JCL JOB03848 completed: RC=0000
+02:17:51 [JOB-1002] Validation: 47,832 records OK | Checksums verified
+02:17:51 [JOB-1002] ACCT_VALIDATION — Status: COMPLETED NORMALLY
+
+02:17:55 [JOB-2003] SP_GL_VALIDATION — Status: LAUNCHED
+02:17:55 [JOB-2003] Agent: DB2_PROD1 | Command: call_sp.sh SP_GL_VALIDATION
+02:19:12 [JOB-2003] SP returned: RC=0, "VALIDATION PASSED. Trial balance OK."
+02:19:12 [JOB-2003] SP_GL_VALIDATION — Status: COMPLETED NORMALLY
+
+02:19:15 [JOB-1003] GL_POSTING_BATCH — Status: LAUNCHED
+02:19:15 [JOB-1003] Agent: ZOS_PROD1 | Command: submit_jcl.sh GLPOST.JCL
+02:19:16 [JOB-1003] JCL submitted: JOB03849
+02:19:16 [JOB-1003] Dependencies satisfied: ACCT_VALIDATION(OK), SP_GL_VALIDATION(OK)
+02:48:03 [JOB-1003] JCL JOB03849 completed: RC=0000
+02:48:03 [JOB-1003] Posted: 47,831 records | Skipped: 1 (no GL acct) | Errors: 0
+02:48:03 [JOB-1003] GL_POSTING_BATCH — Status: COMPLETED NORMALLY
+02:48:03 [JOB-1003] Duration: 28m 48s (estimated: 30m 00s)
+
+02:48:06 [JOB-1004] GL_REPORT_DAILY — Status: LAUNCHED
+02:48:06 [JOB-1004] Agent: UNIX_RPT01 | Command: run_report.sh gl_daily_summary
+02:53:41 [JOB-1004] Report generated: GL_DAILY_20260415.pdf (142 pages)
+02:53:41 [JOB-1004] GL_REPORT_DAILY — Status: COMPLETED NORMALLY
+
+02:48:08 [JOB-1006] FTP_GL_DOWNSTREAM — Status: LAUNCHED
+02:48:08 [JOB-1006] Agent: UNIX_FTP01 | Command: sftp
+02:48:08 [JOB-1006] Transferring GL_POSTED_20260415.dat to erp-integration.acme-corp.internal
+02:48:42 [JOB-1006] Transfer complete: 7.1MB in 34s
+02:48:42 [JOB-1006] FTP_GL_DOWNSTREAM — Status: COMPLETED NORMALLY
+
+--- MISC_LEGACY GROUP ---
+
+02:48:10 [JOB-4001] PROC_LEGACY_01 — Status: LAUNCHED
+02:48:10 [JOB-4001] Agent: UNIX_LEGACY01 | Command: /opt/legacy/bin/proc_transform.sh -c /opt/legacy/conf/leg01.cfg
+03:01:45 [JOB-4001] PROC_LEGACY_01 — Status: COMPLETED NORMALLY
+
+03:01:48 [JOB-4002] PROC_LEGACY_02 — Status: LAUNCHED
+03:01:48 [JOB-4002] Agent: UNIX_LEGACY02 | Command: /opt/legacy/bin/proc_transform.sh -c /opt/legacy/conf/leg02.cfg -m MERGE
+03:07:22 [JOB-4002] WARNING: Exit code 4 — merge produced 3 duplicate key warnings
+03:07:22 [JOB-4002] PROC_LEGACY_02 — Status: COMPLETED NORMALLY (with warnings)
+
+--- EOD_NIGHTLY GROUP ---
+
+02:48:12 [JOB-3005] JOB_X47B — Status: LAUNCHED
+02:48:12 [JOB-3005] Agent: ZOS_PROD1 | Command: submit_jcl.sh X47BRUN.JCL
+02:48:13 [JOB-3005] JCL submitted: JOB03850
+02:48:13 [JOB-3005] Dependencies satisfied: GL_POSTING_BATCH(OK)
+02:55:37 [JOB-3005] JCL JOB03850 completed: RC=0000
+02:55:37 [JOB-3005] JOB_X47B — Status: COMPLETED NORMALLY
+02:55:37 [JOB-3005] Duration: 7m 25s (estimated: 7m 30s)
+
+22:00:05 [JOB-3001] EOD_RECONCILIATION — Status: WAITING ON DEPENDENCIES
+22:00:05 [JOB-3001] Waiting for: GL_POSTING_BATCH(OK), JOB_X47B(OK)
+22:00:06 [JOB-3001] Dependencies satisfied: GL_POSTING_BATCH(02:48), JOB_X47B(02:55)
+22:00:06 [JOB-3001] EOD_RECONCILIATION — Status: LAUNCHED
+22:00:06 [JOB-3001] Agent: ZOS_PROD1 | Command: submit_jcl.sh EODRECON.JCL
+22:00:07 [JOB-3001] JCL submitted: JOB03892
+
+22:32:14 [JOB-3001] JCL JOB03892 STEP EXTRACT completed: RC=0000
+22:32:14 [JOB-3001] Sub-ledger control totals extracted
+
+22:38:47 [JOB-3001] JCL JOB03892 STEP COMPARE — ABEND S0C7
+22:38:47 [JOB-3001] *** ABEND IN STEP COMPARE ***
+22:38:47 [JOB-3001] System completion code: S0C7 (Data Exception)
+22:38:47 [JOB-3001] PSW at ABEND: 078D1000  80A2C4E8
+22:38:47 [JOB-3001] Failing instruction: AP 0(8,R7),0(4,R8)
+22:38:47 [JOB-3001] Register contents at ABEND:
+22:38:47 [JOB-3001]   R7=00A2C000 R8=00B14F20 R9=00000000
+22:38:47 [JOB-3001] Dump written to: ACME.EODRECON.DUMP.D20260415
+22:38:48 [JOB-3001] EOD_RECONCILIATION — Status: COMPLETED ABNORMALLY
+22:38:48 [JOB-3001] Duration: 38m 42s
+22:38:48 [JOB-3001] Notification sent: batch-ops@acme-corp.internal (email)
+22:38:48 [JOB-3001] Notification sent: oncall-finance (page)
+
+22:38:50 [JOB-3002] EOD_BACKUP — Status: CANCELLED (dependency failed)
+22:38:50 [JOB-3002] Reason: Predecessor EOD_RECONCILIATION completed abnormally
+22:38:50 [JOB-3003] EOD_NOTIFY_COMPLETE — Status: CANCELLED (dependency failed)
+22:38:50 [JOB-3004] EOD_LOG_CLEANUP — Status: CANCELLED (dependency failed)
+
+22:38:52 [JOB-4003] REGULATORY_FEED — Status: CANCELLED (dependency failed)
+22:38:52 [JOB-4003] Reason: Predecessor EOD_RECONCILIATION completed abnormally
+22:38:52 [JOB-4003] WARNING: Additional dependency LEGACY_CTRL_CHK (ID 9999) — job definition not found
+22:38:52 [JOB-4004] FTP_REG_SUBMIT — Status: CANCELLED (dependency failed)
+22:38:52 [JOB-4004] Reason: Predecessor REGULATORY_FEED not completed
+
+--- ARCHIVE JOBS ---
+
+02:53:45 [JOB-1005] ACCT_ARCHIVE — Status: WAITING ON DEPENDENCIES
+02:53:45 [JOB-1005] Waiting for: GL_POSTING_BATCH(OK), GL_REPORT_DAILY(OK)
+02:53:45 [JOB-1005] Dependencies satisfied
+02:53:45 [JOB-1005] ACCT_ARCHIVE — Status: LAUNCHED
+02:53:45 [JOB-1005] Agent: UNIX_ARCHIVE01 | Command: archive_logs.sh ACCT
+02:57:12 [JOB-1005] Archived 12 files from /data/acct/extract
+02:57:12 [JOB-1005] ACCT_ARCHIVE — Status: COMPLETED NORMALLY
+
+================================================================================
+DAILY SCHEDULE SUMMARY — 2026-04-15
+================================================================================
+
+COMPLETED NORMALLY:    10 jobs
+  ACCT_DAILY_EXTRACT, ACCT_VALIDATION, SP_GL_VALIDATION,
+  GL_POSTING_BATCH, GL_REPORT_DAILY, FTP_GL_DOWNSTREAM,
+  ACCT_ARCHIVE, PROC_LEGACY_01, PROC_LEGACY_02*, JOB_X47B
+
+COMPLETED ABNORMALLY:   1 job
+  EOD_RECONCILIATION (S0C7 ABEND in COMPARE step)
+
+CANCELLED:              4 jobs
+  EOD_BACKUP, EOD_NOTIFY_COMPLETE, EOD_LOG_CLEANUP,
+  REGULATORY_FEED, FTP_REG_SUBMIT
+
+WARNINGS:
+  * PROC_LEGACY_02 completed with RC=4 (duplicate key warnings)
+  * REGULATORY_FEED has broken dependency reference: LEGACY_CTRL_CHK (ID 9999)
+
+ROOT CAUSE ANALYSIS NEEDED:
+  The S0C7 abend in EOD_RECONCILIATION's COMPARE step indicates a data
+  exception (invalid packed decimal data). This likely originates from
+  upstream — either the GL posting produced a record with corrupted
+  numeric data, or the sub-ledger extract contains non-numeric data
+  in a numeric field. The one record skipped by GL_POSTING_BATCH
+  (no GL account) may be related.
+
+  The cascading failure blocked 5 downstream jobs, including the
+  regulatory compliance feed (REGULATORY_FEED) which has an SLA
+  of delivery by 06:00 EST to the regulator portal.
+
+================================================================================

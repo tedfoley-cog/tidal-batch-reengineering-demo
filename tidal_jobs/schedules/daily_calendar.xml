@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Tidal Workload Automation — Calendar / Schedule Definitions
+  Server: PRODTIDAL01  |  Export date: 2026-03-15
+-->
+<entry xmlns="http://purl.org/atom/ns#">
+  <tes:CalendarDefinitions xmlns:tes="http://www.tidalsoftware.com/client/teservlet">
+
+    <tes:calendar>
+      <tes:id>100</tes:id>
+      <tes:name>WEEKDAY_BUSINESS</tes:name>
+      <tes:description>Monday through Friday, excluding US federal holidays and company-specific closures.</tes:description>
+      <tes:type>standard</tes:type>
+      <tes:days>MON,TUE,WED,THU,FRI</tes:days>
+      <tes:excludeholidays>Y</tes:excludeholidays>
+      <tes:holidaycalendar>US_FEDERAL</tes:holidaycalendar>
+    </tes:calendar>
+
+    <tes:calendar>
+      <tes:id>101</tes:id>
+      <tes:name>EVERY_DAY</tes:name>
+      <tes:description>Every day including weekends and holidays. Used for infrastructure jobs that must always run.</tes:description>
+      <tes:type>standard</tes:type>
+      <tes:days>MON,TUE,WED,THU,FRI,SAT,SUN</tes:days>
+      <tes:excludeholidays>N</tes:excludeholidays>
+    </tes:calendar>
+
+    <tes:calendar>
+      <tes:id>102</tes:id>
+      <tes:name>BIWEEKLY_PAYROLL</tes:name>
+      <tes:description>Every other Wednesday — payroll processing days. Anchor date: 2026-01-08.</tes:description>
+      <tes:type>repeating</tes:type>
+      <tes:interval>14</tes:interval>
+      <tes:anchordate>2026-01-08</tes:anchordate>
+      <tes:excludeholidays>Y</tes:excludeholidays>
+      <tes:holidaycalendar>US_FEDERAL</tes:holidaycalendar>
+    </tes:calendar>
+
+  </tes:CalendarDefinitions>
+</entry>

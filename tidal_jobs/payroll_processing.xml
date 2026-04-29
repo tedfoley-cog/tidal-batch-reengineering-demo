@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Tidal Workload Automation — Payroll Processing Jobs
+  Exported from TES Client Manager REST API
+  Server: PRODTIDAL01  |  Export date: 2026-03-15
+-->
+<entry xmlns="http://purl.org/atom/ns#">
+  <tes:JobDefinitions xmlns:tes="http://www.tidalsoftware.com/client/teservlet">
+
+    <!-- ============================================================ -->
+    <!-- PAYROLL_CALC — Payroll Calculation                           -->
+    <!-- Main payroll calculation run. Processes time records,        -->
+    <!-- applies tax tables, deductions, and benefits.                -->
+    <!-- ============================================================ -->
+    <tes:job>
+      <tes:id>2001</tes:id>
+      <tes:name>PAYROLL_CALC</tes:name>
+      <tes:alias>PAYCALC</tes:alias>
+      <tes:description>Execute payroll calculation for all active employees. Processes time records, applies federal/state tax tables, deductions, benefits, and garnishments. Runs COBOL program PAYROLLCALC via JCL.</tes:description>
+      <tes:type>2</tes:type>
+      <tes:command>/opt/tidal/agents/zos/submit_jcl.sh PAYROLL.JCL</tes:command>
+      <tes:parentid>5002</tes:parentid>
+      <tes:parentname>PAYROLL_BIWEEKLY</tes:parentname>
+      <tes:priority>90</tes:priority>
+      <tes:active>Y</tes:active>
+      <tes:ownerid>14</tes:ownerid>
+      <tes:ownername>BATCH_PAYROLL</tes:ownername>
+      <tes:agentname>ZOS_PROD1</tes:agentname>
+      <tes:normalexitfromrange>0</tes:normalexitfromrange>
+      <tes:normalexittorange>0</tes:normalexittorange>
+      <tes:durationestimated>3600</tes:durationestimated>
+      <tes:durationminimum>2400</tes:durationminimum>
+      <tes:durationmaximum>7200</tes:durationmaximum>
+      <tes:allowrerun>N</tes:allowrerun>
+      <tes:concurrency>1</tes:concurrency>
+      <tes:historyretention>365</tes:historyretention>
+      <tes:calendarid>102</tes:calendarid>
+      <tes:calendarname>BIWEEKLY_PAYROLL</tes:calendarname>
+      <tes:timewindow>
+        <tes:fromtime>01:00</tes:fromtime>
+        <tes:totime>06:00</tes:totime>
+      </tes:timewindow>
+      <tes:dependencies>
+        <tes:dependency type="job" jobid="2004" jobname="PAYROLL_TIME_IMPORT" condition="completed_normally"/>
+      </tes:dependencies>
+      <tes:variables>
+        <tes:variable name="PAY_PERIOD_END" value="&amp;SYSDATE"/>
+        <tes:variable name="TAX_TABLE_YEAR" value="2026"/>
+      </tes:variables>
+      <tes:notifications>
+        <tes:notification event="abnormal" action="email" recipient="payroll-ops@acme-corp.internal"/>
+        <tes:notification event="abnormal" action="page" recipient="oncall-payroll"/>
+        <tes:notification event="completed" action="email" recipient="payroll-mgr@acme-corp.internal"/>
+      </tes:notifications>
+    </tes:job>
+
+    <!-- ============================================================ -->
+    <!-- PAYROLL_TIME_IMPORT — Import Time Records                    -->
+    <!-- Imports employee time records from Kronos export file.       -->
+    <!-- ============================================================ -->
+    <tes:job>
+      <tes:id>2004</tes:id>
+      <tes:name>PAYROLL_TIME_IMPORT</tes:name>
+      <tes:alias>PAYTIME</tes:alias>
+      <tes:description>Import employee time records from Kronos timekeeping export. Validates employee IDs against HR master, checks for duplicate entries, and loads to payroll staging table.</tes:description>
+      <tes:type>2</tes:type>
+      <tes:command>/opt/tidal/agents/unix/import_time_records.sh</tes:command>
+      <tes:parentid>5002</tes:parentid>
+      <tes:parentname>PAYROLL_BIWEEKLY</tes:parentname>
+      <tes:priority>85</tes:priority>
+      <tes:active>Y</tes:active>
+      <tes:ownerid>14</tes:ownerid>
+      <tes:ownername>BATCH_PAYROLL</tes:ownername>
+      <tes:agentname>UNIX_PAYROLL01</tes:agentname>
+      <tes:durationestimated>600</tes:durationestimated>
+      <tes:allowrerun>Y</tes:allowrerun>
+      <tes:calendarname>BIWEEKLY_PAYROLL</tes:calendarname>
+      <tes:dependencies>
+        <tes:dependency type="file" filepath="/data/kronos/export/TIME_EXPORT_*.csv" condition="exists"/>
+      </tes:dependencies>
+    </tes:job>
+
+    <!-- ============================================================ -->
+    <!-- PAYROLL_ACH_FILE — Generate ACH Payment File                 -->
+    <!-- Generates NACHA ACH file for direct deposit payments.        -->
+    <!-- ============================================================ -->
+    <tes:job>
+      <tes:id>2002</tes:id>
+      <tes:name>PAYROLL_ACH_FILE</tes:name>
+      <tes:alias>PAYACH</tes:alias>
+      <tes:description>Generate NACHA-format ACH file for direct deposit payments. Reads payroll calculation output, formats per NACHA specifications, and stages for bank transmission.</tes:description>
+      <tes:type>2</tes:type>
+      <tes:command>/opt/tidal/agents/zos/submit_jcl.sh PAYACH.JCL</tes:command>
+      <tes:parentid>5002</tes:parentid>
+      <tes:parentname>PAYROLL_BIWEEKLY</tes:parentname>
+      <tes:priority>85</tes:priority>
+      <tes:active>Y</tes:active>
+      <tes:ownerid>14</tes:ownerid>
+      <tes:ownername>BATCH_PAYROLL</tes:ownername>
+      <tes:agentname>ZOS_PROD1</tes:agentname>
+      <tes:durationestimated>900</tes:durationestimated>
+      <tes:allowrerun>N</tes:allowrerun>
+      <tes:calendarname>BIWEEKLY_PAYROLL</tes:calendarname>
+      <tes:dependencies>
+        <tes:dependency type="job" jobid="2001" jobname="PAYROLL_CALC" condition="completed_normally"/>
+      </tes:dependencies>
+      <tes:notifications>
+        <tes:notification event="abnormal" action="page" recipient="oncall-payroll"/>
+        <tes:notification event="completed" action="email" recipient="treasury@acme-corp.internal"/>
+      </tes:notifications>
+    </tes:job>
+
+    <!-- ============================================================ -->
+    <!-- SP_PAYROLL_SUMMARY — Payroll Summary Stored Procedure        -->
+    <!-- Generates summary statistics after payroll run.              -->
+    <!-- ============================================================ -->
+    <tes:job>
+      <tes:id>2005</tes:id>
+      <tes:name>SP_PAYROLL_SUMMARY</tes:name>
+      <tes:alias>SPPAYSUM</tes:alias>
+      <tes:description>Execute stored procedure to generate payroll summary statistics: total gross, net, taxes by jurisdiction, deduction totals. Writes to PAYROLL_SUMMARY table.</tes:description>
+      <tes:type>8</tes:type>
+      <tes:command>/opt/tidal/agents/db2/call_sp.sh SP_PAYROLL_SUMMARY</tes:command>
+      <tes:parentid>5002</tes:parentid>
+      <tes:parentname>PAYROLL_BIWEEKLY</tes:parentname>
+      <tes:priority>70</tes:priority>
+      <tes:active>Y</tes:active>
+      <tes:ownerid>15</tes:ownerid>
+      <tes:ownername>DBA_TEAM</tes:ownername>
+      <tes:agentname>DB2_PROD1</tes:agentname>
+      <tes:durationestimated>120</tes:durationestimated>
+      <tes:allowrerun>Y</tes:allowrerun>
+      <tes:calendarname>BIWEEKLY_PAYROLL</tes:calendarname>
+      <tes:dependencies>
+        <tes:dependency type="job" jobid="2001" jobname="PAYROLL_CALC" condition="completed_normally"/>
+      </tes:dependencies>
+    </tes:job>
+
+  </tes:JobDefinitions>
+</entry>

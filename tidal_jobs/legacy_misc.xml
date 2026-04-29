@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Tidal Workload Automation — Legacy / Miscellaneous Jobs
+  Exported from TES Client Manager REST API
+  Server: PRODTIDAL01  |  Export date: 2026-03-15
+
+  NOTE: These jobs have incomplete or missing documentation.
+  Several were created by former employees and their purpose
+  is not fully understood by the current operations team.
+-->
+<entry xmlns="http://purl.org/atom/ns#">
+  <tes:JobDefinitions xmlns:tes="http://www.tidalsoftware.com/client/teservlet">
+
+    <!-- ============================================================ -->
+    <!-- PROC_LEGACY_01 — [UNDOCUMENTED LEGACY PROCESS]               -->
+    <!-- Created 2014. Original developer no longer with company.     -->
+    <!-- Appears to transform data between two internal formats.      -->
+    <!-- ============================================================ -->
+    <tes:job>
+      <tes:id>4001</tes:id>
+      <tes:name>PROC_LEGACY_01</tes:name>
+      <tes:alias>LEG01</tes:alias>
+      <tes:description>legacy transformation proc - DO NOT MODIFY - see ticket INC00847392</tes:description>
+      <tes:type>2</tes:type>
+      <tes:command>/opt/legacy/bin/proc_transform.sh -c /opt/legacy/conf/leg01.cfg</tes:command>
+      <tes:parentid>5004</tes:parentid>
+      <tes:parentname>MISC_LEGACY</tes:parentname>
+      <tes:priority>60</tes:priority>
+      <tes:active>Y</tes:active>
+      <tes:ownerid>0</tes:ownerid>
+      <tes:ownername></tes:ownername>
+      <tes:agentname>UNIX_LEGACY01</tes:agentname>
+      <tes:durationestimated>900</tes:durationestimated>
+      <tes:allowrerun>N</tes:allowrerun>
+      <tes:calendarname>WEEKDAY_BUSINESS</tes:calendarname>
+      <tes:dependencies>
+        <tes:dependency type="job" jobid="1001" jobname="ACCT_DAILY_EXTRACT" condition="completed_normally"/>
+      </tes:dependencies>
+    </tes:job>
+
+    <!-- ============================================================ -->
+    <!-- PROC_LEGACY_02 — [UNDOCUMENTED LEGACY PROCESS]               -->
+    <!-- Appears related to PROC_LEGACY_01 but runs on different      -->
+    <!-- agent. Dependency chain is unclear.                           -->
+    <!-- ============================================================ -->
+    <tes:job>
+      <tes:id>4002</tes:id>
+      <tes:name>PROC_LEGACY_02</tes:name>
+      <tes:alias>LEG02</tes:alias>
+      <tes:description></tes:description>
+      <tes:type>2</tes:type>
+      <tes:command>/opt/legacy/bin/proc_transform.sh -c /opt/legacy/conf/leg02.cfg -m MERGE</tes:command>
+      <tes:parentid>5004</tes:parentid>
+      <tes:parentname>MISC_LEGACY</tes:parentname>
+      <tes:priority>55</tes:priority>
+      <tes:active>Y</tes:active>
+      <tes:ownerid>0</tes:ownerid>
+      <tes:ownername></tes:ownername>
+      <tes:agentname>UNIX_LEGACY02</tes:agentname>
+      <tes:durationestimated>600</tes:durationestimated>
+      <tes:allowrerun>Y</tes:allowrerun>
+      <tes:calendarname>WEEKDAY_BUSINESS</tes:calendarname>
+      <tes:dependencies>
+        <tes:dependency type="job" jobid="4001" jobname="PROC_LEGACY_01" condition="completed_normally"/>
+      </tes:dependencies>
+    </tes:job>
+
+    <!-- ============================================================ -->
+    <!-- REGULATORY_FEED — Regulatory Reporting Data Feed             -->
+    <!-- Generates regulatory compliance data extract.                -->
+    <!-- Broken dependency: references deleted job LEGACY_CTRL_CHK.   -->
+    <!-- ============================================================ -->
+    <tes:job>
+      <tes:id>4003</tes:id>
+      <tes:name>REGULATORY_FEED</tes:name>
+      <tes:alias>REGFEED</tes:alias>
+      <tes:description>Generate daily regulatory compliance data feed for SOX reporting. Extracts transaction audit trail and control totals.</tes:description>
+      <tes:type>2</tes:type>
+      <tes:command>/opt/tidal/agents/unix/reg_feed_extract.sh</tes:command>
+      <tes:parentid>5004</tes:parentid>
+      <tes:parentname>MISC_LEGACY</tes:parentname>
+      <tes:priority>80</tes:priority>
+      <tes:active>Y</tes:active>
+      <tes:ownerid>13</tes:ownerid>
+      <tes:ownername>COMPLIANCE_TEAM</tes:ownername>
+      <tes:agentname>UNIX_COMPLIANCE01</tes:agentname>
+      <tes:durationestimated>1200</tes:durationestimated>
+      <tes:allowrerun>Y</tes:allowrerun>
+      <tes:calendarname>WEEKDAY_BUSINESS</tes:calendarname>
+      <tes:dependencies>
+        <tes:dependency type="job" jobid="3001" jobname="EOD_RECONCILIATION" condition="completed_normally"/>
+        <!-- BROKEN REFERENCE: Job 9999 (LEGACY_CTRL_CHK) was deleted but dependency remains -->
+        <tes:dependency type="job" jobid="9999" jobname="LEGACY_CTRL_CHK" condition="completed_normally"/>
+      </tes:dependencies>
+      <tes:notifications>
+        <tes:notification event="abnormal" action="email" recipient="compliance@acme-corp.internal"/>
+      </tes:notifications>
+    </tes:job>
+
+    <!-- ============================================================ -->
+    <!-- FTP_REG_SUBMIT — FTP Regulatory Submission File              -->
+    <!-- Transfers regulatory feed to external regulator portal.      -->
+    <!-- ============================================================ -->
+    <tes:job>
+      <tes:id>4004</tes:id>
+      <tes:name>FTP_REG_SUBMIT</tes:name>
+      <tes:alias>FTPREG</tes:alias>
+      <tes:description>Transfer regulatory compliance feed to external regulator portal via SFTP. Target: regportal.gov.example:/intake/daily/</tes:description>
+      <tes:type>1</tes:type>
+      <tes:command>sftp</tes:command>
+      <tes:parentid>5004</tes:parentid>
+      <tes:parentname>MISC_LEGACY</tes:parentname>
+      <tes:priority>85</tes:priority>
+      <tes:active>Y</tes:active>
+      <tes:ownerid>13</tes:ownerid>
+      <tes:ownername>COMPLIANCE_TEAM</tes:ownername>
+      <tes:agentname>UNIX_FTP01</tes:agentname>
+      <tes:durationestimated>180</tes:durationestimated>
+      <tes:allowrerun>Y</tes:allowrerun>
+      <tes:calendarname>WEEKDAY_BUSINESS</tes:calendarname>
+      <tes:dependencies>
+        <tes:dependency type="job" jobid="4003" jobname="REGULATORY_FEED" condition="completed_normally"/>
+      </tes:dependencies>
+      <tes:variables>
+        <tes:variable name="FTP_HOST" value="regportal.gov.example"/>
+        <tes:variable name="FTP_REMOTE_DIR" value="/intake/daily/"/>
+      </tes:variables>
+    </tes:job>
+
+  </tes:JobDefinitions>
+</entry>
