@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Tidal Batch Job Reengineering &mdash; Demo Flow</title>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.3/dist/mermaid.min.js"></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -50,7 +51,11 @@
       overflow-x: auto;
     }
 
-    .mermaid svg { margin: 0 auto; display: block; }
+    .mermaid { text-align: center; }
+    .mermaid svg {
+      margin: 0 auto;
+      display: block;
+    }
 
     .legend {
       width: 100%;
@@ -126,51 +131,39 @@
     'secondaryColor':    '#f0fdf4',
     'tertiaryColor':     '#fef3c7',
     'lineColor':         '#64748b',
-    'fontSize':          '14px',
-    'fontFamily':        'Segoe UI, system-ui, sans-serif',
-    'nodeTextColor':     '#1e293b'
+    'fontSize':          '14px'
   }
 }}%%
 
 flowchart TD
-  %% ── Starting State ──
-  REPO["📂 <b>Demo Repository</b><br/>Tidal XML exports, COBOL programs,<br/>JCL scripts, failure logs<br/><i>20 interconnected batch jobs</i>"]
-  PROMPT["💬 <b>Presenter Prompts Devin</b><br/>Analyze the Tidal job landscape<br/>and generate documentation"]
+  REPO[Demo Repository]
+  PROMPT[Prompt Devin]
+  PARSE[Parse Tidal XML]
 
-  %% ── Devin Analysis Phase ──
-  PARSE["🔍 <b>Parse Tidal XML</b><br/>Extract job definitions, dependencies,<br/>schedules, agents, variables<br/><i>tes: namespace, 4 job groups</i>"]
-
-  subgraph ANALYSIS ["  Parallel Analysis  "]
-    direction TB
-    DEP["📊 <b>Map Dependencies</b><br/>Build full job DAG<br/>Detect broken references<br/><i>LEGACY_CTRL_CHK missing</i>"]
-    COBOL["📄 <b>Reverse-Engineer COBOL</b><br/>Document business logic<br/>Extract data flows<br/><i>3 programs, DB2 interactions</i>"]
-    FAIL["🔴 <b>Trace Failure Chain</b><br/>S0C7 abend root cause<br/>Cascading impact analysis<br/><i>5 downstream jobs blocked</i>"]
+  subgraph PAR [Parallel Analysis]
+    direction LR
+    DEP[Map Dependencies]
+    COBOL[Reverse-Engineer COBOL]
+    FAIL[Trace Failure Chain]
   end
 
-  TAG["🏷️ <b>Tag Job Metadata</b><br/>Purpose, owner, schedule,<br/>data sources, technology stack"]
+  TAG[Tag Job Metadata]
+  DASH[Generate Dashboard]
+  BROWSER[Open in Browser]
 
-  %% ── Output Phase ──
-  DASH["📈 <b>Generate Dashboard</b><br/>Interactive HTML with Mermaid<br/>dependency graph, job cards,<br/>failure trace visualization"]
-
-  BROWSER["🌐 <b>Open in Browser</b><br/>Presenter shows audience<br/>the complete job landscape"]
-
-  %% ── Connections ──
   REPO --> PROMPT
   PROMPT --> PARSE
-  PARSE --> DEP
-  PARSE --> COBOL
-  PARSE --> FAIL
+  PARSE --> PAR
   DEP --> TAG
   COBOL --> TAG
   FAIL --> TAG
   TAG --> DASH
   DASH --> BROWSER
 
-  %% ── Styles ──
   classDef repoNode    fill:#f0fdf4,stroke:#059669,stroke-width:2px,color:#064e3b
   classDef promptNode  fill:#e0e7ff,stroke:#6366f1,stroke-width:2px,color:#312e81
   classDef parseNode   fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#1e3a8a
-  classDef analysis    fill:#f0f9ff,stroke:#0ea5e9,stroke-width:1.5px,color:#0c4a6e
+  classDef analysisNode fill:#f0f9ff,stroke:#0ea5e9,stroke-width:1.5px,color:#0c4a6e
   classDef tagNode     fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#78350f
   classDef dashNode    fill:#d1fae5,stroke:#10b981,stroke-width:2px,color:#064e3b
   classDef browserNode fill:#f3e8ff,stroke:#a855f7,stroke-width:2px,color:#581c87
@@ -178,7 +171,7 @@ flowchart TD
   class REPO repoNode
   class PROMPT promptNode
   class PARSE parseNode
-  class DEP,COBOL,FAIL analysis
+  class DEP,COBOL,FAIL analysisNode
   class TAG tagNode
   class DASH dashNode
   class BROWSER browserNode
@@ -189,7 +182,7 @@ flowchart TD
   <section class="legend">
     <div class="legend-inner">
       <span class="legend-title">Legend</span>
-      <span class="legend-item"><span class="legend-swatch" style="background:#f0fdf4;border:2px solid #059669;"></span> Repository (Before State)</span>
+      <span class="legend-item"><span class="legend-swatch" style="background:#f0fdf4;border:2px solid #059669;"></span> Repository</span>
       <span class="legend-item"><span class="legend-swatch" style="background:#e0e7ff;border:2px solid #6366f1;"></span> Presenter Action</span>
       <span class="legend-item"><span class="legend-swatch" style="background:#dbeafe;border:2px solid #3b82f6;"></span> Devin Parsing</span>
       <span class="legend-item"><span class="legend-swatch" style="background:#f0f9ff;border:2px solid #0ea5e9;"></span> Devin Analysis</span>
@@ -203,18 +196,15 @@ flowchart TD
     Tidal Batch Job Reengineering Demo &copy; 2026 &middot; Tidal Workload Automation &middot; COBOL / JCL / DB2
   </footer>
 
-  <script type="module">
-    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+  <script>
     mermaid.initialize({
       startOnLoad: true,
       securityLevel: 'loose',
       flowchart: {
-        htmlLabels: true,
+        htmlLabels: false,
         curve: 'basis',
-        rankSpacing: 60,
-        nodeSpacing: 40,
-        padding: 16,
-        useMaxWidth: false
+        useMaxWidth: false,
+        padding: 20
       }
     });
   </script>
