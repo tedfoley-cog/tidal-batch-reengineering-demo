@@ -2,9 +2,57 @@
 
 AI agent reverse-engineers Tidal Workload Automation batch job workflows, maps dependencies, traces failures, and generates an interactive documentation dashboard.
 
-![Demo Flowchart](docs/flowchart.png)
+[![Demo Flowchart](docs/flowchart.png)](docs/flowchart.html)
 
-[View interactive flowchart](docs/flowchart.html)
+<details>
+<summary>View inline flowchart</summary>
+
+```mermaid
+flowchart TD
+  REPO[Demo Repository]
+  PROMPT[Prompt Devin]
+  PARSE[Parse Tidal XML]
+
+  subgraph PAR [Parallel Analysis]
+    direction LR
+    DEP[Map Dependencies]
+    COBOL[Reverse-Engineer COBOL]
+    FAIL[Trace Failure Chain]
+  end
+
+  TAG[Tag Job Metadata]
+  DASH[Generate Dashboard]
+  BROWSER[Open in Browser]
+
+  REPO --> PROMPT
+  PROMPT --> PARSE
+  PARSE --> PAR
+  DEP --> TAG
+  COBOL --> TAG
+  FAIL --> TAG
+  TAG --> DASH
+  DASH --> BROWSER
+
+  classDef repoNode    fill:#f0fdf4,stroke:#059669,stroke-width:2px,color:#064e3b
+  classDef promptNode  fill:#e0e7ff,stroke:#6366f1,stroke-width:2px,color:#312e81
+  classDef parseNode   fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#1e3a8a
+  classDef analysisNode fill:#f0f9ff,stroke:#0ea5e9,stroke-width:1.5px,color:#0c4a6e
+  classDef tagNode     fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#78350f
+  classDef dashNode    fill:#d1fae5,stroke:#10b981,stroke-width:2px,color:#064e3b
+  classDef browserNode fill:#f3e8ff,stroke:#a855f7,stroke-width:2px,color:#581c87
+
+  class REPO repoNode
+  class PROMPT promptNode
+  class PARSE parseNode
+  class DEP,COBOL,FAIL analysisNode
+  class TAG tagNode
+  class DASH dashNode
+  class BROWSER browserNode
+```
+
+</details>
+
+[View interactive flowchart (HTML)](docs/flowchart.html)
 
 ## What This Demo Shows
 
