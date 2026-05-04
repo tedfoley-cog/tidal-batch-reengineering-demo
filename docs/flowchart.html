@@ -136,13 +136,22 @@
 }}%%
 
 flowchart TD
-  REPO[Demo Repository]
+  REPO[Tidal Job Definitions]
   PROMPT[Prompt Devin]
   PARSE[Parse Tidal XML]
+  DISCOVER[Discover Cross-Repo Refs]
 
-  subgraph PAR [Parallel Analysis]
+  subgraph REPOS [Clone Connected Repos]
+    direction LR
+    GL[acme-gl-ledger]
+    PAY[acme-payroll-engine]
+    DW[acme-data-warehouse]
+  end
+
+  subgraph ANALYSIS [Cross-Repo Analysis]
     direction LR
     DEP[Map Dependencies]
+    DATA[Trace Data Lineage]
     COBOL[Reverse-Engineer COBOL]
     FAIL[Trace Failure Chain]
   end
@@ -153,8 +162,13 @@ flowchart TD
 
   REPO --> PROMPT
   PROMPT --> PARSE
-  PARSE --> PAR
+  PARSE --> DISCOVER
+  DISCOVER --> REPOS
+  GL --> ANALYSIS
+  PAY --> ANALYSIS
+  DW --> ANALYSIS
   DEP --> TAG
+  DATA --> TAG
   COBOL --> TAG
   FAIL --> TAG
   TAG --> DASH
@@ -163,6 +177,8 @@ flowchart TD
   classDef repoNode    fill:#f0fdf4,stroke:#059669,stroke-width:2px,color:#064e3b
   classDef promptNode  fill:#e0e7ff,stroke:#6366f1,stroke-width:2px,color:#312e81
   classDef parseNode   fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#1e3a8a
+  classDef discoverNode fill:#fce7f3,stroke:#ec4899,stroke-width:2px,color:#831843
+  classDef extRepoNode fill:#fff7ed,stroke:#f97316,stroke-width:2px,color:#7c2d12
   classDef analysisNode fill:#f0f9ff,stroke:#0ea5e9,stroke-width:1.5px,color:#0c4a6e
   classDef tagNode     fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#78350f
   classDef dashNode    fill:#d1fae5,stroke:#10b981,stroke-width:2px,color:#064e3b
@@ -171,7 +187,9 @@ flowchart TD
   class REPO repoNode
   class PROMPT promptNode
   class PARSE parseNode
-  class DEP,COBOL,FAIL analysisNode
+  class DISCOVER discoverNode
+  class GL,PAY,DW extRepoNode
+  class DEP,DATA,COBOL,FAIL analysisNode
   class TAG tagNode
   class DASH dashNode
   class BROWSER browserNode
@@ -182,10 +200,12 @@ flowchart TD
   <section class="legend">
     <div class="legend-inner">
       <span class="legend-title">Legend</span>
-      <span class="legend-item"><span class="legend-swatch" style="background:#f0fdf4;border:2px solid #059669;"></span> Repository</span>
+      <span class="legend-item"><span class="legend-swatch" style="background:#f0fdf4;border:2px solid #059669;"></span> Tidal Job Definitions</span>
       <span class="legend-item"><span class="legend-swatch" style="background:#e0e7ff;border:2px solid #6366f1;"></span> Presenter Action</span>
       <span class="legend-item"><span class="legend-swatch" style="background:#dbeafe;border:2px solid #3b82f6;"></span> Devin Parsing</span>
-      <span class="legend-item"><span class="legend-swatch" style="background:#f0f9ff;border:2px solid #0ea5e9;"></span> Devin Analysis</span>
+      <span class="legend-item"><span class="legend-swatch" style="background:#fce7f3;border:2px solid #ec4899;"></span> Cross-Repo Discovery</span>
+      <span class="legend-item"><span class="legend-swatch" style="background:#fff7ed;border:2px solid #f97316;"></span> Connected App Repos</span>
+      <span class="legend-item"><span class="legend-swatch" style="background:#f0f9ff;border:2px solid #0ea5e9;"></span> Cross-Repo Analysis</span>
       <span class="legend-item"><span class="legend-swatch" style="background:#fef3c7;border:2px solid #f59e0b;"></span> Metadata Tagging</span>
       <span class="legend-item"><span class="legend-swatch" style="background:#d1fae5;border:2px solid #10b981;"></span> Dashboard Generation</span>
       <span class="legend-item"><span class="legend-swatch" style="background:#f3e8ff;border:2px solid #a855f7;"></span> Audience View</span>

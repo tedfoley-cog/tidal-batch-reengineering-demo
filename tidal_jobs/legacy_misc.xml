@@ -69,12 +69,15 @@
     <!-- REGULATORY_FEED — Regulatory Reporting Data Feed             -->
     <!-- Generates regulatory compliance data extract.                -->
     <!-- Broken dependency: references deleted job LEGACY_CTRL_CHK.   -->
+    <!-- Feed spec: github.com/tedfoley-cog/acme-data-warehouse       -->
+    <!--   Config: compliance/sox_feed_spec.yml                        -->
+    <!--   Source: DW.FACT_GL_DAILY, DW.FACT_RECONCILIATION            -->
     <!-- ============================================================ -->
     <tes:job>
       <tes:id>4003</tes:id>
       <tes:name>REGULATORY_FEED</tes:name>
       <tes:alias>REGFEED</tes:alias>
-      <tes:description>Generate daily regulatory compliance data feed for SOX reporting. Extracts transaction audit trail and control totals.</tes:description>
+      <tes:description>Generate daily regulatory compliance data feed for SOX reporting. Extracts transaction audit trail and control totals from data warehouse (acme-data-warehouse compliance/sox_feed_spec.yml).</tes:description>
       <tes:type>2</tes:type>
       <tes:command>/opt/tidal/agents/unix/reg_feed_extract.sh</tes:command>
       <tes:parentid>5004</tes:parentid>

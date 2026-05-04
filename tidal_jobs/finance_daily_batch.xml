@@ -11,12 +11,14 @@
     <!-- ACCT_DAILY_EXTRACT — Account Daily Extract                   -->
     <!-- Extracts all account transactions from the previous day      -->
     <!-- from DB2 ACCTDB and writes to a sequential dataset.          -->
+    <!-- Source DB schema: github.com/tedfoley-cog/acme-gl-ledger     -->
+    <!--   Tables: ACME.GL_TRANSACTIONS, ACME.CHART_OF_ACCOUNTS       -->
     <!-- ============================================================ -->
     <tes:job>
       <tes:id>1001</tes:id>
       <tes:name>ACCT_DAILY_EXTRACT</tes:name>
       <tes:alias>ACCTEXTR</tes:alias>
-      <tes:description>Extract daily account transactions from DB2 ACCTDB to sequential file for downstream processing. Runs COBOL program ACCTEXTRACT via JCL ACCTEXTR.JCL on z/OS LPAR PROD1.</tes:description>
+      <tes:description>Extract daily account transactions from DB2 ACCTDB to sequential file for downstream processing. Runs COBOL program ACCTEXTRACT via JCL ACCTEXTR.JCL on z/OS LPAR PROD1. Source schema maintained in acme-gl-ledger repo (db2/ddl/).</tes:description>
       <tes:type>2</tes:type>  <!-- OSJob -->
       <tes:command>/opt/tidal/agents/zos/submit_jcl.sh ACCTEXTR.JCL</tes:command>
       <tes:parentid>5001</tes:parentid>
@@ -94,12 +96,15 @@
     <!-- GL_POSTING_BATCH — General Ledger Posting                    -->
     <!-- Posts validated transactions to the general ledger.           -->
     <!-- Runs COBOL program GLPOSTING.                                -->
+    <!-- Target DB schema: github.com/tedfoley-cog/acme-gl-ledger     -->
+    <!--   Tables: ACME.GL_MASTER, ACME.GL_CONTROL_TOTALS             -->
+    <!--   Stored proc: ACME.SP_GL_VALIDATION (prerequisite)           -->
     <!-- ============================================================ -->
     <tes:job>
       <tes:id>1003</tes:id>
       <tes:name>GL_POSTING_BATCH</tes:name>
       <tes:alias>GLPOST</tes:alias>
-      <tes:description>Post validated daily transactions to the General Ledger. Runs COBOL program GLPOSTING via JCL GLPOST.JCL. Updates GL master file and produces posting report.</tes:description>
+      <tes:description>Post validated daily transactions to the General Ledger. Runs COBOL program GLPOSTING via JCL GLPOST.JCL. Updates GL master file (acme-gl-ledger db2/ddl/gl_master.sql) and produces posting report.</tes:description>
       <tes:type>2</tes:type>
       <tes:command>/opt/tidal/agents/zos/submit_jcl.sh GLPOST.JCL</tes:command>
       <tes:parentid>5001</tes:parentid>
@@ -137,12 +142,15 @@
     <!-- GL_REPORT_DAILY — GL Daily Summary Report                    -->
     <!-- Generates the daily GL summary report and sends to           -->
     <!-- finance distribution list.                                   -->
+    <!-- ETL target: github.com/tedfoley-cog/acme-data-warehouse      -->
+    <!--   Pipeline: etl/configs/gl_daily_etl.yml                      -->
+    <!--   Report: reports/templates/gl_daily_summary.rpt              -->
     <!-- ============================================================ -->
     <tes:job>
       <tes:id>1004</tes:id>
       <tes:name>GL_REPORT_DAILY</tes:name>
       <tes:alias>GLRPT</tes:alias>
-      <tes:description>Generate daily General Ledger summary report. Reads posted transactions, produces PDF report, and distributes via email.</tes:description>
+      <tes:description>Generate daily General Ledger summary report. Reads posted transactions, loads to data warehouse (acme-data-warehouse etl/sql/load_gl_daily_summary.sql), produces PDF report, and distributes via email.</tes:description>
       <tes:type>2</tes:type>
       <tes:command>/opt/tidal/agents/unix/run_report.sh gl_daily_summary</tes:command>
       <tes:parentid>5001</tes:parentid>
