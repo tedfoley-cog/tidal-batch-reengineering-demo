@@ -11,12 +11,16 @@
     <!-- EOD_RECONCILIATION — End-of-Day Reconciliation               -->
     <!-- Reconciles all daily transactions across sub-ledgers.        -->
     <!-- This is the critical control job that gates month-end close. -->
+    <!-- Reads from: github.com/tedfoley-cog/acme-gl-ledger           -->
+    <!--   Table: ACME.GL_CONTROL_TOTALS                               -->
+    <!-- Writes to: github.com/tedfoley-cog/acme-data-warehouse       -->
+    <!--   Table: DW.FACT_RECONCILIATION                               -->
     <!-- ============================================================ -->
     <tes:job>
       <tes:id>3001</tes:id>
       <tes:name>EOD_RECONCILIATION</tes:name>
       <tes:alias>EODRECON</tes:alias>
-      <tes:description>End-of-day reconciliation across all sub-ledgers. Verifies that sum of sub-ledger postings equals GL control totals. Generates exception report for out-of-balance conditions. Runs via JCL EODRECON.JCL.</tes:description>
+      <tes:description>End-of-day reconciliation across all sub-ledgers. Verifies that sum of sub-ledger postings equals GL control totals (acme-gl-ledger db2/ddl/gl_control_totals.sql). Writes results to data warehouse (acme-data-warehouse schemas/fact_reconciliation.sql). Runs via JCL EODRECON.JCL.</tes:description>
       <tes:type>2</tes:type>
       <tes:command>/opt/tidal/agents/zos/submit_jcl.sh EODRECON.JCL</tes:command>
       <tes:parentid>5003</tes:parentid>

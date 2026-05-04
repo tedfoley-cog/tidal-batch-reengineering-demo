@@ -11,12 +11,17 @@
     <!-- PAYROLL_CALC — Payroll Calculation                           -->
     <!-- Main payroll calculation run. Processes time records,        -->
     <!-- applies tax tables, deductions, and benefits.                -->
+    <!-- Source app: github.com/tedfoley-cog/acme-payroll-engine      -->
+    <!--   Copybooks: cobol/copybooks/EMPRECORD.cpy, TAXTABLE.cpy,    -->
+    <!--              DEDCODES.cpy                                     -->
+    <!--   DB2 tables: ACME.EMPLOYEE_MASTER, ACME.PAY_HISTORY         -->
+    <!--   Config: config/payroll_params.properties                    -->
     <!-- ============================================================ -->
     <tes:job>
       <tes:id>2001</tes:id>
       <tes:name>PAYROLL_CALC</tes:name>
       <tes:alias>PAYCALC</tes:alias>
-      <tes:description>Execute payroll calculation for all active employees. Processes time records, applies federal/state tax tables, deductions, benefits, and garnishments. Runs COBOL program PAYROLLCALC via JCL.</tes:description>
+      <tes:description>Execute payroll calculation for all active employees. Processes time records, applies federal/state tax tables, deductions, benefits, and garnishments. Runs COBOL program PAYROLLCALC via JCL. Uses copybooks and config from acme-payroll-engine repo.</tes:description>
       <tes:type>2</tes:type>
       <tes:command>/opt/tidal/agents/zos/submit_jcl.sh PAYROLL.JCL</tes:command>
       <tes:parentid>5002</tes:parentid>
@@ -57,12 +62,14 @@
     <!-- ============================================================ -->
     <!-- PAYROLL_TIME_IMPORT — Import Time Records                    -->
     <!-- Imports employee time records from Kronos export file.       -->
+    <!-- Field mapping: github.com/tedfoley-cog/acme-payroll-engine   -->
+    <!--   Config: kronos_integration/kronos_field_mapping.cfg         -->
     <!-- ============================================================ -->
     <tes:job>
       <tes:id>2004</tes:id>
       <tes:name>PAYROLL_TIME_IMPORT</tes:name>
       <tes:alias>PAYTIME</tes:alias>
-      <tes:description>Import employee time records from Kronos timekeeping export. Validates employee IDs against HR master, checks for duplicate entries, and loads to payroll staging table.</tes:description>
+      <tes:description>Import employee time records from Kronos timekeeping export. Validates employee IDs against HR master, checks for duplicate entries, and loads to payroll staging table. Field mapping defined in acme-payroll-engine repo (kronos_integration/kronos_field_mapping.cfg).</tes:description>
       <tes:type>2</tes:type>
       <tes:command>/opt/tidal/agents/unix/import_time_records.sh</tes:command>
       <tes:parentid>5002</tes:parentid>
@@ -83,12 +90,14 @@
     <!-- ============================================================ -->
     <!-- PAYROLL_ACH_FILE — Generate ACH Payment File                 -->
     <!-- Generates NACHA ACH file for direct deposit payments.        -->
+    <!-- ACH config: github.com/tedfoley-cog/acme-payroll-engine      -->
+    <!--   Config: config/ach_routing.properties                       -->
     <!-- ============================================================ -->
     <tes:job>
       <tes:id>2002</tes:id>
       <tes:name>PAYROLL_ACH_FILE</tes:name>
       <tes:alias>PAYACH</tes:alias>
-      <tes:description>Generate NACHA-format ACH file for direct deposit payments. Reads payroll calculation output, formats per NACHA specifications, and stages for bank transmission.</tes:description>
+      <tes:description>Generate NACHA-format ACH file for direct deposit payments. Reads payroll calculation output, formats per NACHA specifications (acme-payroll-engine config/ach_routing.properties), and stages for bank transmission.</tes:description>
       <tes:type>2</tes:type>
       <tes:command>/opt/tidal/agents/zos/submit_jcl.sh PAYACH.JCL</tes:command>
       <tes:parentid>5002</tes:parentid>
