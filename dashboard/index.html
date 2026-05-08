@@ -162,14 +162,14 @@
   </div>
 
   <div class="nav">
-    <button class="active" onclick="switchTab('overview')">Overview</button>
-    <button onclick="switchTab('depgraph')">Dependency Graph</button>
-    <button onclick="switchTab('dataflow')">Data Flow</button>
-    <button onclick="switchTab('jobs')">Job Catalog</button>
-    <button onclick="switchTab('crossref')">Cross-Repo Map</button>
-    <button onclick="switchTab('lineage')">Data Lineage</button>
-    <button onclick="switchTab('alerts')">Alerts &amp; Issues</button>
-    <button onclick="switchTab('schedules')">Schedules</button>
+    <button class="active" onclick="switchTab('overview', event)">Overview</button>
+    <button onclick="switchTab('depgraph', event)">Dependency Graph</button>
+    <button onclick="switchTab('dataflow', event)">Data Flow</button>
+    <button onclick="switchTab('jobs', event)">Job Catalog</button>
+    <button onclick="switchTab('crossref', event)">Cross-Repo Map</button>
+    <button onclick="switchTab('lineage', event)">Data Lineage</button>
+    <button onclick="switchTab('alerts', event)">Alerts &amp; Issues</button>
+    <button onclick="switchTab('schedules', event)">Schedules</button>
   </div>
 
   <div class="main">
@@ -271,12 +271,12 @@
     <div id="tab-depgraph" class="tab-content">
       <div class="graph-container">
         <div class="graph-controls">
-          <button class="active" onclick="filterGraph('all')">All Jobs</button>
-          <button onclick="filterGraph('finance')">Finance Daily</button>
-          <button onclick="filterGraph('payroll')">Payroll</button>
-          <button onclick="filterGraph('eod')">EOD Nightly</button>
-          <button onclick="filterGraph('legacy')">Legacy/Misc</button>
-          <button onclick="filterGraph('cross')">Cross-Group Only</button>
+          <button class="active" onclick="filterGraph('all', event)">All Jobs</button>
+          <button onclick="filterGraph('finance', event)">Finance Daily</button>
+          <button onclick="filterGraph('payroll', event)">Payroll</button>
+          <button onclick="filterGraph('eod', event)">EOD Nightly</button>
+          <button onclick="filterGraph('legacy', event)">Legacy/Misc</button>
+          <button onclick="filterGraph('cross', event)">Cross-Group Only</button>
         </div>
         <div class="legend">
           <div class="legend-item"><div class="legend-swatch" style="background:var(--finance)"></div> Finance Daily</div>
@@ -668,11 +668,11 @@
 
     const TYPE_LABELS = { OSJob: "OS Job", FTPJob: "FTP Job", ServiceJob: "Service Job" };
 
-    function switchTab(tab) {
+    function switchTab(tab, e) {
       document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
       document.querySelectorAll('.nav button').forEach(b => b.classList.remove('active'));
       document.getElementById('tab-' + tab).classList.add('active');
-      event.target.classList.add('active');
+      e.target.classList.add('active');
     }
 
     function renderJobCards(filter) {
@@ -833,9 +833,9 @@
       svg.innerHTML = html;
     }
 
-    function filterGraph(filter) {
+    function filterGraph(filter, e) {
       document.querySelectorAll('.graph-controls button').forEach(function(b) { b.classList.remove('active'); });
-      event.target.classList.add('active');
+      e.target.classList.add('active');
 
       var groupMap = { finance: "FINANCE_DAILY", payroll: "PAYROLL_BIWEEKLY", eod: "EOD_NIGHTLY", legacy: "MISC_LEGACY" };
       var targetGroup = groupMap[filter];
