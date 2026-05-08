@@ -30,56 +30,36 @@
     body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); }
     a { color: var(--accent); text-decoration: none; }
     a:hover { text-decoration: underline; }
-
     .header { background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); border-bottom: 1px solid var(--border); padding: 1.25rem 2rem; display: flex; align-items: center; gap: 1rem; position: sticky; top: 0; z-index: 100; }
     .header h1 { font-size: 1.35rem; font-weight: 700; background: linear-gradient(90deg, var(--accent), var(--accent2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
     .header .subtitle { color: var(--text-dim); font-size: 0.8rem; margin-left: auto; }
     .header .logo { width: 32px; height: 32px; background: linear-gradient(135deg, var(--accent), var(--accent2)); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 1.1rem; color: #fff; flex-shrink: 0; }
-
     .nav { display: flex; gap: 0; background: var(--surface); border-bottom: 1px solid var(--border); padding: 0 2rem; overflow-x: auto; }
     .nav button { background: none; border: none; color: var(--text-dim); padding: 0.85rem 1.25rem; font-size: 0.85rem; font-weight: 500; cursor: pointer; border-bottom: 2px solid transparent; transition: all 0.2s; white-space: nowrap; font-family: inherit; }
     .nav button:hover { color: var(--text); background: rgba(255,255,255,0.03); }
     .nav button.active { color: var(--accent); border-bottom-color: var(--accent); }
-
-    .main { max-width: 1440px; margin: 0 auto; padding: 1.5rem 2rem 3rem; }
+    .main { max-width: 1500px; margin: 0 auto; padding: 1.5rem 2rem 3rem; }
     .tab-content { display: none; }
     .tab-content.active { display: block; }
-
-    .stats-bar { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 1.5rem; }
+    .stats-bar { display: grid; grid-template-columns: repeat(auto-fit, minmax(195px, 1fr)); gap: 1rem; margin-bottom: 1.5rem; }
     .stat-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.1rem 1.25rem; }
     .stat-card .label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-dim); margin-bottom: 0.35rem; }
     .stat-card .value { font-size: 1.7rem; font-weight: 700; }
     .stat-card .detail { font-size: 0.75rem; color: var(--text-dim); margin-top: 0.25rem; }
     .stat-card.alert { border-color: var(--red); }
     .stat-card.alert .value { color: var(--red); }
-
     .section { margin-bottom: 2rem; }
     .section-title { font-size: 1.1rem; font-weight: 600; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; }
     .section-title .dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
-
-    .graph-container { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem; overflow-x: auto; position: relative; min-height: 500px; }
+    .graph-container { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem; overflow: hidden; position: relative; }
     .graph-controls { display: flex; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap; }
     .graph-controls button { background: var(--surface2); border: 1px solid var(--border); color: var(--text); padding: 0.4rem 0.85rem; border-radius: 6px; font-size: 0.78rem; cursor: pointer; font-family: inherit; transition: all 0.15s; }
     .graph-controls button:hover { border-color: var(--accent); }
     .graph-controls button.active { background: var(--accent); color: var(--bg); border-color: var(--accent); }
-
-    svg.dep-graph { width: 100%; height: 520px; }
-    svg.dep-graph .node rect { rx: 8; ry: 8; stroke-width: 1.5; cursor: pointer; transition: all 0.2s; }
-    svg.dep-graph .node rect:hover { filter: brightness(1.2); stroke-width: 2.5; }
-    svg.dep-graph .node text { font-family: 'Segoe UI', system-ui, sans-serif; fill: #fff; pointer-events: none; }
-    svg.dep-graph .edge line { stroke: var(--border); stroke-width: 1.5; }
-    svg.dep-graph .edge polygon { fill: var(--border); }
-    svg.dep-graph .edge.highlight line { stroke: var(--accent); stroke-width: 2.5; }
-    svg.dep-graph .edge.highlight polygon { fill: var(--accent); }
-    svg.dep-graph .node.dimmed rect { opacity: 0.25; }
-    svg.dep-graph .node.dimmed text { opacity: 0.25; }
-    svg.dep-graph .edge.dimmed line { opacity: 0.1; }
-    svg.dep-graph .edge.dimmed polygon { opacity: 0.1; }
-
     .job-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)); gap: 1rem; }
     .job-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.25rem; transition: border-color 0.2s; cursor: pointer; }
     .job-card:hover { border-color: var(--accent); }
-    .job-card .job-header { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.6rem; }
+    .job-card .job-header { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.6rem; flex-wrap: wrap; }
     .job-card .job-name { font-weight: 700; font-size: 0.95rem; }
     .job-card .job-id { font-size: 0.7rem; color: var(--text-dim); background: var(--surface2); padding: 0.15rem 0.5rem; border-radius: 4px; }
     .job-card .job-alias { font-size: 0.7rem; color: var(--accent); }
@@ -94,31 +74,26 @@
     .tag-warn { background: rgba(248,113,113,0.2); color: var(--red); }
     .tag-repo { background: rgba(244,114,182,0.15); color: var(--pink); }
     .tag-priority { background: rgba(251,146,60,0.15); color: var(--orange); }
-
     .lineage-table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
-    .lineage-table th { text-align: left; padding: 0.7rem 0.9rem; background: var(--surface2); color: var(--text-dim); font-weight: 600; text-transform: uppercase; font-size: 0.7rem; letter-spacing: 0.05em; border-bottom: 1px solid var(--border); }
+    .lineage-table th { text-align: left; padding: 0.7rem 0.9rem; background: var(--surface2); color: var(--text-dim); font-weight: 600; text-transform: uppercase; font-size: 0.7rem; letter-spacing: 0.05em; border-bottom: 1px solid var(--border); position: sticky; top: 0; }
     .lineage-table td { padding: 0.7rem 0.9rem; border-bottom: 1px solid rgba(71,85,105,0.5); vertical-align: top; }
     .lineage-table tr:hover td { background: rgba(255,255,255,0.02); }
     .lineage-table .mono { font-family: 'Cascadia Code', 'Fira Code', monospace; font-size: 0.75rem; }
-
     .xref-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.25rem; margin-bottom: 1rem; }
-    .xref-card h3 { font-size: 0.95rem; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.5rem; }
+    .xref-card h3 { font-size: 0.95rem; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
     .xref-card .repo-badge { display: inline-flex; align-items: center; gap: 0.3rem; background: var(--surface2); padding: 0.25rem 0.65rem; border-radius: 5px; font-size: 0.75rem; color: var(--cyan); }
     .xref-card .file-list { list-style: none; font-size: 0.8rem; }
     .xref-card .file-list li { padding: 0.35rem 0; display: flex; align-items: center; gap: 0.4rem; }
     .xref-card .file-list .icon { color: var(--text-dim); font-size: 0.7rem; }
     .xref-card .used-by { font-size: 0.75rem; color: var(--text-dim); margin-top: 0.6rem; }
-
     .alert-item { background: var(--surface); border-left: 3px solid var(--red); border-radius: 0 var(--radius) var(--radius) 0; padding: 1rem 1.25rem; margin-bottom: 0.75rem; }
     .alert-item.warn { border-left-color: var(--yellow); }
+    .alert-item.info { border-left-color: var(--accent); }
     .alert-item .alert-title { font-weight: 600; font-size: 0.88rem; margin-bottom: 0.3rem; }
     .alert-item .alert-detail { font-size: 0.78rem; color: var(--text-dim); line-height: 1.5; }
-
-    .flow-svg { width: 100%; }
-
     .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 200; justify-content: center; align-items: center; }
     .modal-overlay.show { display: flex; }
-    .modal { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; max-width: 640px; width: 95%; max-height: 85vh; overflow-y: auto; padding: 1.75rem; position: relative; }
+    .modal { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; max-width: 680px; width: 95%; max-height: 85vh; overflow-y: auto; padding: 1.75rem; position: relative; }
     .modal-close { position: absolute; top: 0.75rem; right: 0.75rem; background: var(--surface2); border: none; color: var(--text); width: 28px; height: 28px; border-radius: 6px; cursor: pointer; font-size: 1rem; display: flex; align-items: center; justify-content: center; }
     .modal h2 { font-size: 1.15rem; margin-bottom: 0.5rem; }
     .modal .modal-id { color: var(--text-dim); font-size: 0.78rem; margin-bottom: 1rem; }
@@ -128,19 +103,20 @@
     .modal .dep-list { list-style: none; font-size: 0.82rem; }
     .modal .dep-list li { padding: 0.25rem 0; display: flex; gap: 0.4rem; align-items: center; }
     .modal .dep-list .dep-arrow { color: var(--accent); }
-
     .search-box { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 0.6rem 1rem; color: var(--text); font-size: 0.85rem; width: 100%; max-width: 400px; margin-bottom: 1rem; outline: none; font-family: inherit; }
     .search-box:focus { border-color: var(--accent); }
     .search-box::placeholder { color: var(--text-dim); }
-
     .legend { display: flex; flex-wrap: wrap; gap: 1rem; font-size: 0.75rem; color: var(--text-dim); margin-bottom: 1rem; padding: 0.75rem 1rem; background: var(--surface); border-radius: var(--radius); border: 1px solid var(--border); }
     .legend-item { display: flex; align-items: center; gap: 0.35rem; }
     .legend-swatch { width: 12px; height: 12px; border-radius: 3px; }
-
     .dur-bar { height: 6px; border-radius: 3px; background: var(--surface2); margin-top: 0.3rem; position: relative; }
-    .dur-bar .dur-fill { height: 100%; border-radius: 3px; background: var(--accent); }
+    .dur-bar .dur-fill { height: 100%; border-radius: 3px; }
     .dur-bar .dur-max { position: absolute; right: 0; top: -14px; font-size: 0.65rem; color: var(--text-dim); }
-
+    .timeline-row { display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 0; border-bottom: 1px solid rgba(71,85,105,0.3); }
+    .timeline-row .tl-name { width: 180px; font-size: 0.78rem; font-weight: 600; flex-shrink: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .timeline-row .tl-bar-wrap { flex: 1; height: 22px; position: relative; background: var(--surface2); border-radius: 4px; }
+    .timeline-row .tl-bar { position: absolute; height: 100%; border-radius: 4px; opacity: 0.85; display: flex; align-items: center; justify-content: center; font-size: 0.65rem; font-weight: 600; color: #fff; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding: 0 4px; cursor: pointer; transition: opacity 0.15s; }
+    .timeline-row .tl-bar:hover { opacity: 1; }
     @media (max-width: 768px) {
       .main { padding: 1rem; }
       .job-grid { grid-template-columns: 1fr; }
@@ -148,135 +124,57 @@
       .header { padding: 1rem; }
       .nav { padding: 0 1rem; }
     }
-
     ::-webkit-scrollbar { width: 6px; height: 6px; }
     ::-webkit-scrollbar-track { background: var(--bg); }
     ::-webkit-scrollbar-thumb { background: var(--surface2); border-radius: 3px; }
-  </style>
+</style>
 </head>
 <body>
+
   <div class="header">
     <div class="logo">T</div>
     <h1>Tidal Cross-Repo Job Landscape</h1>
     <span class="subtitle">4 repos &middot; 20 jobs &middot; Auto-generated from XML definitions</span>
   </div>
-
-  <div class="nav">
-    <button class="active" onclick="switchTab('overview', event)">Overview</button>
-    <button onclick="switchTab('depgraph', event)">Dependency Graph</button>
-    <button onclick="switchTab('dataflow', event)">Data Flow</button>
-    <button onclick="switchTab('jobs', event)">Job Catalog</button>
-    <button onclick="switchTab('crossref', event)">Cross-Repo Map</button>
-    <button onclick="switchTab('lineage', event)">Data Lineage</button>
-    <button onclick="switchTab('alerts', event)">Alerts &amp; Issues</button>
-    <button onclick="switchTab('schedules', event)">Schedules</button>
-  </div>
-
+  <nav class="nav" id="mainNav">
+    <button class="active" data-tab="overview">Overview</button>
+    <button data-tab="depgraph">Dependency Graph</button>
+    <button data-tab="dataflow">Data Flow</button>
+    <button data-tab="jobs">Job Catalog</button>
+    <button data-tab="crossref">Cross-Repo Map</button>
+    <button data-tab="lineage">Data Lineage</button>
+    <button data-tab="alerts">Alerts &amp; Issues</button>
+    <button data-tab="schedules">Schedules</button>
+  </nav>
   <div class="main">
-
-    <!-- ===================== OVERVIEW TAB ===================== -->
     <div id="tab-overview" class="tab-content active">
       <div class="stats-bar">
-        <div class="stat-card">
-          <div class="label">Total Jobs</div>
-          <div class="value">20</div>
-          <div class="detail">16 OS + 2 FTP + 2 Service jobs across 4 groups</div>
-        </div>
-        <div class="stat-card">
-          <div class="label">External Repos</div>
-          <div class="value">3</div>
-          <div class="detail">acme-gl-ledger, acme-payroll-engine, acme-data-warehouse</div>
-        </div>
-        <div class="stat-card">
-          <div class="label">Cross-Repo References</div>
-          <div class="value">12</div>
-          <div class="detail">DB tables, stored procs, configs, ETL pipelines</div>
-        </div>
-        <div class="stat-card">
-          <div class="label">Job Groups</div>
-          <div class="value">4</div>
-          <div class="detail">FINANCE_DAILY, PAYROLL_BIWEEKLY, EOD_NIGHTLY, MISC_LEGACY</div>
-        </div>
-        <div class="stat-card">
-          <div class="label">Tidal Agents</div>
-          <div class="value">12</div>
-          <div class="detail">ZOS_PROD1, DB2_PROD1, UNIX_RPT01, UNIX_FTP01, ...</div>
-        </div>
-        <div class="stat-card alert">
-          <div class="label">Issues Found</div>
-          <div class="value">4</div>
-          <div class="detail">1 broken ref, 2 undocumented jobs, 1 no-owner group</div>
-        </div>
+        <div class="stat-card"><div class="label">Total Jobs</div><div class="value">20</div><div class="detail">16 OS + 2 FTP + 2 Service jobs across 4 groups</div></div>
+        <div class="stat-card"><div class="label">External Repos</div><div class="value">3</div><div class="detail">acme-gl-ledger, acme-payroll-engine, acme-data-warehouse</div></div>
+        <div class="stat-card"><div class="label">Cross-Repo References</div><div class="value">12</div><div class="detail">DB tables, stored procs, configs, ETL pipelines</div></div>
+        <div class="stat-card"><div class="label">DB Tables Touched</div><div class="value">11</div><div class="detail">7 GL/Payroll source + 3 DW fact + 1 staging</div></div>
+        <div class="stat-card"><div class="label">Tidal Agents</div><div class="value">12</div><div class="detail">ZOS_PROD1, DB2_PROD1, UNIX_RPT01, UNIX_FTP01, ...</div></div>
+        <div class="stat-card alert"><div class="label">Issues Found</div><div class="value">5</div><div class="detail">1 broken ref, 2 undocumented jobs, 1 no-owner, 1 non-rerunnable chain</div></div>
       </div>
-
       <div class="section">
         <div class="section-title"><span class="dot" style="background:var(--accent)"></span> Job Group Summary</div>
         <div class="job-grid" style="grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));">
-          <div class="job-card" style="border-left: 3px solid var(--finance);">
-            <div class="job-header">
-              <span class="job-name">FINANCE_DAILY</span>
-              <span class="job-id">GRP 5001</span>
-            </div>
-            <div class="job-desc expanded">Daily finance batch: account extraction from DB2, validation, GL posting, reporting to data warehouse, archival, and downstream SFTP transfers. 7 child jobs.</div>
-            <div class="job-meta">
-              <span class="tag tag-cal">WEEKDAY_BUSINESS</span>
-              <span class="tag tag-agent">02:00 - 05:00</span>
-              <span class="tag tag-repo">acme-gl-ledger</span>
-              <span class="tag tag-repo">acme-data-warehouse</span>
-            </div>
-          </div>
-          <div class="job-card" style="border-left: 3px solid var(--payroll);">
-            <div class="job-header">
-              <span class="job-name">PAYROLL_BIWEEKLY</span>
-              <span class="job-id">GRP 5002</span>
-            </div>
-            <div class="job-desc expanded">Biweekly payroll: Kronos time import, payroll calculation with tax/deduction processing, NACHA ACH file generation, summary statistics. 4 child jobs.</div>
-            <div class="job-meta">
-              <span class="tag tag-cal">BIWEEKLY_PAYROLL</span>
-              <span class="tag tag-agent">01:00 - 06:00</span>
-              <span class="tag tag-repo">acme-payroll-engine</span>
-            </div>
-          </div>
-          <div class="job-card" style="border-left: 3px solid var(--eod);">
-            <div class="job-header">
-              <span class="job-name">EOD_NIGHTLY</span>
-              <span class="job-id">GRP 5003</span>
-            </div>
-            <div class="job-desc expanded">End-of-day processing: cross-sub-ledger reconciliation, full database backup, completion notifications, log rotation. 5 child jobs. Gates month-end close.</div>
-            <div class="job-meta">
-              <span class="tag tag-cal">EVERY_DAY</span>
-              <span class="tag tag-agent">22:00 - 02:00</span>
-              <span class="tag tag-repo">acme-gl-ledger</span>
-              <span class="tag tag-repo">acme-data-warehouse</span>
-            </div>
-          </div>
-          <div class="job-card" style="border-left: 3px solid var(--legacy);">
-            <div class="job-header">
-              <span class="job-name">MISC_LEGACY</span>
-              <span class="job-id">GRP 5004</span>
-              <span class="tag tag-warn">No Owner</span>
-            </div>
-            <div class="job-desc expanded">Legacy/miscellaneous jobs with incomplete documentation. Includes undocumented transformation processes and regulatory compliance feed. 4 child jobs.</div>
-            <div class="job-meta">
-              <span class="tag tag-cal">WEEKDAY_BUSINESS</span>
-              <span class="tag tag-warn">Broken Dependency</span>
-              <span class="tag tag-repo">acme-data-warehouse</span>
-            </div>
-          </div>
+          <div class="job-card" style="border-left: 3px solid var(--finance);"><div class="job-header"><span class="job-name">FINANCE_DAILY</span><span class="job-id">GRP 5001</span></div><div class="job-desc expanded">Daily finance batch: account extraction from DB2, validation, GL posting, reporting to data warehouse, archival, and downstream SFTP transfers. 7 child jobs.</div><div class="job-meta"><span class="tag tag-cal">WEEKDAY_BUSINESS</span><span class="tag tag-agent">02:00 - 05:00</span><span class="tag tag-repo">acme-gl-ledger</span><span class="tag tag-repo">acme-data-warehouse</span></div></div>
+          <div class="job-card" style="border-left: 3px solid var(--payroll);"><div class="job-header"><span class="job-name">PAYROLL_BIWEEKLY</span><span class="job-id">GRP 5002</span></div><div class="job-desc expanded">Biweekly payroll: Kronos time import, payroll calculation with tax/deduction processing, NACHA ACH file generation, summary statistics. 4 child jobs.</div><div class="job-meta"><span class="tag tag-cal">BIWEEKLY_PAYROLL</span><span class="tag tag-agent">01:00 - 06:00</span><span class="tag tag-repo">acme-payroll-engine</span></div></div>
+          <div class="job-card" style="border-left: 3px solid var(--eod);"><div class="job-header"><span class="job-name">EOD_NIGHTLY</span><span class="job-id">GRP 5003</span></div><div class="job-desc expanded">End-of-day processing: cross-sub-ledger reconciliation, full database backup, completion notifications, log rotation. 5 child jobs. Gates month-end close.</div><div class="job-meta"><span class="tag tag-cal">EVERY_DAY</span><span class="tag tag-agent">22:00 - 02:00</span><span class="tag tag-repo">acme-gl-ledger</span><span class="tag tag-repo">acme-data-warehouse</span></div></div>
+          <div class="job-card" style="border-left: 3px solid var(--legacy);"><div class="job-header"><span class="job-name">MISC_LEGACY</span><span class="job-id">GRP 5004</span><span class="tag tag-warn">No Owner</span></div><div class="job-desc expanded">Legacy/miscellaneous jobs with incomplete documentation. Includes undocumented transformation processes and regulatory compliance feed. 4 child jobs.</div><div class="job-meta"><span class="tag tag-cal">WEEKDAY_BUSINESS</span><span class="tag tag-warn">Broken Dependency</span><span class="tag tag-repo">acme-data-warehouse</span></div></div>
         </div>
       </div>
     </div>
-
-    <!-- ===================== DEPENDENCY GRAPH TAB ===================== -->
     <div id="tab-depgraph" class="tab-content">
       <div class="graph-container">
-        <div class="graph-controls">
-          <button class="active" onclick="filterGraph('all', event)">All Jobs</button>
-          <button onclick="filterGraph('finance', event)">Finance Daily</button>
-          <button onclick="filterGraph('payroll', event)">Payroll</button>
-          <button onclick="filterGraph('eod', event)">EOD Nightly</button>
-          <button onclick="filterGraph('legacy', event)">Legacy/Misc</button>
-          <button onclick="filterGraph('cross', event)">Cross-Group Only</button>
+        <div class="graph-controls" id="depGraphControls">
+          <button class="active" data-filter="all">All Jobs</button>
+          <button data-filter="finance">Finance Daily</button>
+          <button data-filter="payroll">Payroll</button>
+          <button data-filter="eod">EOD Nightly</button>
+          <button data-filter="legacy">Legacy/Misc</button>
+          <button data-filter="cross">Cross-Group Only</button>
         </div>
         <div class="legend">
           <div class="legend-item"><div class="legend-swatch" style="background:var(--finance)"></div> Finance Daily</div>
@@ -284,745 +182,264 @@
           <div class="legend-item"><div class="legend-swatch" style="background:var(--eod)"></div> EOD Nightly</div>
           <div class="legend-item"><div class="legend-swatch" style="background:var(--legacy)"></div> Legacy/Misc</div>
           <div class="legend-item"><div class="legend-swatch" style="background:var(--red)"></div> Broken Reference</div>
-          <div class="legend-item"><svg width="30" height="12"><line x1="0" y1="6" x2="20" y2="6" stroke="#475569" stroke-width="1.5"/><polygon points="20,3 26,6 20,9" fill="#475569"/></svg> Dependency</div>
+          <div class="legend-item"><svg width="30" height="12"><line x1="0" y1="6" x2="20" y2="6" stroke="var(--border)" stroke-width="1.5"/><polygon points="20,3 26,6 20,9" fill="var(--border)"/></svg> Dependency</div>
         </div>
-        <svg class="dep-graph" id="depGraph" viewBox="0 0 1200 540"></svg>
+        <div style="overflow-x:auto;min-height:520px;"><svg id="depGraph" viewBox="0 0 1300 500"></svg></div>
       </div>
     </div>
-
-    <!-- ===================== DATA FLOW TAB ===================== -->
     <div id="tab-dataflow" class="tab-content">
       <div class="section">
         <div class="section-title"><span class="dot" style="background:var(--cyan)"></span> End-to-End Data Flow Across Repositories</div>
-        <div class="graph-container" style="min-height: 600px;">
-          <svg class="flow-svg" id="flowDiagram" viewBox="0 0 1200 620"></svg>
-        </div>
+        <div class="graph-container" style="overflow-x:auto;"><svg id="flowDiagram" viewBox="0 0 1400 680" style="width:100%;min-height:660px;"></svg></div>
       </div>
     </div>
-
-    <!-- ===================== JOB CATALOG TAB ===================== -->
     <div id="tab-jobs" class="tab-content">
-      <input class="search-box" type="text" placeholder="Search jobs by name, ID, alias, or description..." oninput="filterJobs(this.value)" />
+      <input class="search-box" type="text" placeholder="Search jobs by name, ID, alias, or description..." id="jobSearch" />
       <div class="job-grid" id="jobGrid"></div>
     </div>
-
-    <!-- ===================== CROSS-REPO MAP TAB ===================== -->
     <div id="tab-crossref" class="tab-content">
       <div class="section">
         <div class="section-title"><span class="dot" style="background:var(--pink)"></span> Cross-Repository Reference Map</div>
-
-        <div class="xref-card">
-          <h3>
-            <span class="repo-badge"><svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 110-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 01-1.072 1.05A2.495 2.495 0 012 11.5v-9z"/></svg> tedfoley-cog/acme-gl-ledger</span>
-            General Ledger System
-          </h3>
-          <ul class="file-list">
-            <li><span class="icon">&#128196;</span> <code>db2/ddl/gl_transactions.sql</code> &mdash; ACME.GL_TRANSACTIONS staging table</li>
-            <li><span class="icon">&#128196;</span> <code>db2/ddl/chart_of_accounts.sql</code> &mdash; ACME.CHART_OF_ACCOUNTS reference</li>
-            <li><span class="icon">&#128196;</span> <code>db2/ddl/gl_master.sql</code> &mdash; ACME.GL_MASTER posted transactions</li>
-            <li><span class="icon">&#128196;</span> <code>db2/ddl/gl_control_totals.sql</code> &mdash; ACME.GL_CONTROL_TOTALS daily controls</li>
-            <li><span class="icon">&#9881;</span> <code>db2/stored_procedures/sp_gl_validation.sql</code> &mdash; SP_GL_VALIDATION integrity check</li>
-            <li><span class="icon">&#9881;</span> <code>db2/stored_procedures/sp_gl_period_close.sql</code> &mdash; SP_GL_PERIOD_CLOSE month-end</li>
-            <li><span class="icon">&#128295;</span> <code>config/batch_params.properties</code> &mdash; Batch job parameters</li>
-            <li><span class="icon">&#128295;</span> <code>config/db2_connections.xml</code> &mdash; DB2 connection definitions (GLDB, ACCTDB)</li>
-          </ul>
-          <div class="used-by"><strong>Referenced by Tidal jobs:</strong> ACCT_DAILY_EXTRACT (1001), ACCT_VALIDATION (1002), GL_POSTING_BATCH (1003), SP_GL_VALIDATION (2003), GL_REPORT_DAILY (1004), EOD_RECONCILIATION (3001)</div>
-        </div>
-
-        <div class="xref-card">
-          <h3>
-            <span class="repo-badge"><svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 110-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 01-1.072 1.05A2.495 2.495 0 012 11.5v-9z"/></svg> tedfoley-cog/acme-payroll-engine</span>
-            Payroll Processing Engine
-          </h3>
-          <ul class="file-list">
-            <li><span class="icon">&#128196;</span> <code>db2/ddl/employee_master.sql</code> &mdash; ACME.EMPLOYEE_MASTER (~12k active employees)</li>
-            <li><span class="icon">&#128196;</span> <code>db2/ddl/pay_history.sql</code> &mdash; ACME.PAY_HISTORY calculation results</li>
-            <li><span class="icon">&#128221;</span> <code>cobol/copybooks/EMPRECORD.cpy</code> &mdash; Employee record COBOL layout</li>
-            <li><span class="icon">&#128221;</span> <code>cobol/copybooks/TAXTABLE.cpy</code> &mdash; Tax bracket structure</li>
-            <li><span class="icon">&#128221;</span> <code>cobol/copybooks/DEDCODES.cpy</code> &mdash; Deduction/benefit code definitions</li>
-            <li><span class="icon">&#128295;</span> <code>config/payroll_params.properties</code> &mdash; Tax rates, 401k/HSA limits</li>
-            <li><span class="icon">&#128295;</span> <code>config/ach_routing.properties</code> &mdash; NACHA ACH file configuration</li>
-            <li><span class="icon">&#128295;</span> <code>kronos_integration/kronos_field_mapping.cfg</code> &mdash; Kronos CSV import mapping</li>
-          </ul>
-          <div class="used-by"><strong>Referenced by Tidal jobs:</strong> PAYROLL_CALC (2001), PAYROLL_TIME_IMPORT (2004), PAYROLL_ACH_FILE (2002)</div>
-        </div>
-
-        <div class="xref-card">
-          <h3>
-            <span class="repo-badge"><svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 110-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 01-1.072 1.05A2.495 2.495 0 012 11.5v-9z"/></svg> tedfoley-cog/acme-data-warehouse</span>
-            Enterprise Data Warehouse
-          </h3>
-          <ul class="file-list">
-            <li><span class="icon">&#128196;</span> <code>schemas/fact_gl_daily.sql</code> &mdash; DW.FACT_GL_DAILY posting summary</li>
-            <li><span class="icon">&#128196;</span> <code>schemas/fact_reconciliation.sql</code> &mdash; DW.FACT_RECONCILIATION results</li>
-            <li><span class="icon">&#128196;</span> <code>schemas/fact_payroll.sql</code> &mdash; DW.FACT_PAYROLL pay history</li>
-            <li><span class="icon">&#9881;</span> <code>etl/sql/load_gl_daily_summary.sql</code> &mdash; GL ETL transform/load script</li>
-            <li><span class="icon">&#128295;</span> <code>etl/configs/gl_daily_etl.yml</code> &mdash; ETL pipeline configuration</li>
-            <li><span class="icon">&#128295;</span> <code>compliance/sox_feed_spec.yml</code> &mdash; SOX regulatory feed spec</li>
-            <li><span class="icon">&#128196;</span> <code>reports/templates/gl_daily_summary.rpt</code> &mdash; GL daily PDF report template</li>
-          </ul>
-          <div class="used-by"><strong>Referenced by Tidal jobs:</strong> GL_REPORT_DAILY (1004), EOD_RECONCILIATION (3001), REGULATORY_FEED (4003), SP_PAYROLL_SUMMARY (2005)</div>
-        </div>
+        <div id="xrefCards"></div>
       </div>
     </div>
-
-    <!-- ===================== DATA LINEAGE TAB ===================== -->
     <div id="tab-lineage" class="tab-content">
       <div class="section">
         <div class="section-title"><span class="dot" style="background:var(--green)"></span> Database Table Lineage</div>
-        <div style="overflow-x:auto;">
-          <table class="lineage-table">
-            <thead>
-              <tr>
-                <th>Table</th>
-                <th>Repo</th>
-                <th>Written By</th>
-                <th>Read By</th>
-                <th>Data Flow</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td class="mono">ACME.GL_TRANSACTIONS</td>
-                <td><span class="tag tag-repo">acme-gl-ledger</span></td>
-                <td>ACCT_DAILY_EXTRACT (1001)</td>
-                <td>ACCT_VALIDATION (1002), SP_GL_VALIDATION (2003), GL_POSTING_BATCH (1003)</td>
-                <td>E &rarr; V &rarr; P (or R)</td>
-              </tr>
-              <tr>
-                <td class="mono">ACME.CHART_OF_ACCOUNTS</td>
-                <td><span class="tag tag-repo">acme-gl-ledger</span></td>
-                <td>Reference data (manual)</td>
-                <td>SP_GL_VALIDATION (2003), GL_REPORT_DAILY (1004)</td>
-                <td>Read-only reference</td>
-              </tr>
-              <tr>
-                <td class="mono">ACME.GL_MASTER</td>
-                <td><span class="tag tag-repo">acme-gl-ledger</span></td>
-                <td>GL_POSTING_BATCH (1003)</td>
-                <td>GL_REPORT_DAILY (1004), EOD_RECONCILIATION (3001)</td>
-                <td>Posted transactions &rarr; DW &amp; reports</td>
-              </tr>
-              <tr>
-                <td class="mono">ACME.GL_CONTROL_TOTALS</td>
-                <td><span class="tag tag-repo">acme-gl-ledger</span></td>
-                <td>GL_POSTING_BATCH (1003)</td>
-                <td>EOD_RECONCILIATION (3001), GL_REPORT_DAILY (1004), SP_GL_PERIOD_CLOSE</td>
-                <td>Control totals &rarr; reconciliation</td>
-              </tr>
-              <tr>
-                <td class="mono">ACME.EMPLOYEE_MASTER</td>
-                <td><span class="tag tag-repo">acme-payroll-engine</span></td>
-                <td>HR system (external)</td>
-                <td>PAYROLL_CALC (2001), PAYROLL_TIME_IMPORT (2004)</td>
-                <td>Employee data &rarr; payroll calc</td>
-              </tr>
-              <tr>
-                <td class="mono">ACME.PAY_HISTORY</td>
-                <td><span class="tag tag-repo">acme-payroll-engine</span></td>
-                <td>PAYROLL_CALC (2001)</td>
-                <td>PAYROLL_ACH_FILE (2002), SP_PAYROLL_SUMMARY (2005)</td>
-                <td>C &rarr; A &rarr; P (or V)</td>
-              </tr>
-              <tr>
-                <td class="mono">DW.FACT_GL_DAILY</td>
-                <td><span class="tag tag-repo">acme-data-warehouse</span></td>
-                <td>GL_REPORT_DAILY (1004) via ETL</td>
-                <td>REGULATORY_FEED (4003), downstream BI</td>
-                <td>GL_MASTER &rarr; ETL &rarr; DW fact</td>
-              </tr>
-              <tr>
-                <td class="mono">DW.FACT_RECONCILIATION</td>
-                <td><span class="tag tag-repo">acme-data-warehouse</span></td>
-                <td>EOD_RECONCILIATION (3001)</td>
-                <td>REGULATORY_FEED (4003), period close</td>
-                <td>Control totals &rarr; recon results &rarr; SOX feed</td>
-              </tr>
-              <tr>
-                <td class="mono">DW.FACT_PAYROLL</td>
-                <td><span class="tag tag-repo">acme-data-warehouse</span></td>
-                <td>SP_PAYROLL_SUMMARY (2005)</td>
-                <td>Quarterly tax reports, BI</td>
-                <td>PAY_HISTORY &rarr; summary &rarr; DW fact</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+        <div style="overflow-x:auto;"><table class="lineage-table"><thead><tr><th>Table</th><th>Database</th><th>Repo</th><th>Written By</th><th>Read By</th><th>Data Flow</th></tr></thead><tbody id="lineageBody"></tbody></table></div>
       </div>
-
-      <div class="section" style="margin-top: 2rem;">
-        <div class="section-title"><span class="dot" style="background:var(--orange)"></span> File-Based Data Movement</div>
-        <div style="overflow-x:auto;">
-          <table class="lineage-table">
-            <thead>
-              <tr>
-                <th>File / Dataset</th>
-                <th>Producer</th>
-                <th>Consumer</th>
-                <th>Transfer Method</th>
-                <th>Destination</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td class="mono">/data/kronos/export/TIME_EXPORT_*.csv</td>
-                <td>Kronos Workforce Central</td>
-                <td>PAYROLL_TIME_IMPORT (2004)</td>
-                <td>File trigger</td>
-                <td>PAY_TIME_STAGING table</td>
-              </tr>
-              <tr>
-                <td class="mono">ACME.ACCT.EXTRACT.D&amp;SYSDATE</td>
-                <td>ACCT_DAILY_EXTRACT (1001)</td>
-                <td>ACCT_VALIDATION (1002)</td>
-                <td>z/OS sequential dataset</td>
-                <td>Staging for validation</td>
-              </tr>
-              <tr>
-                <td class="mono">/data/gl/posted/GL_POSTED_&amp;SYSDATE.dat</td>
-                <td>GL_POSTING_BATCH (1003)</td>
-                <td>FTP_GL_DOWNSTREAM (1006)</td>
-                <td>SFTP</td>
-                <td>erp-integration.acme-corp.internal:/incoming/gl/</td>
-              </tr>
-              <tr>
-                <td class="mono">ACH_PAYROLL_{YYYYMMDD}.ach</td>
-                <td>PAYROLL_ACH_FILE (2002)</td>
-                <td>Bank transmission</td>
-                <td>SFTP</td>
-                <td>ach.acme-bank.example:/incoming/ach/</td>
-              </tr>
-              <tr>
-                <td class="mono">/data/reports/gl/daily/GL_SUMMARY_*.pdf</td>
-                <td>GL_REPORT_DAILY (1004)</td>
-                <td>Email distribution</td>
-                <td>Email</td>
-                <td>finance-mgr@acme-corp.internal</td>
-              </tr>
-              <tr>
-                <td class="mono">/data/regulatory/SOX_DAILY_{YYYYMMDD}.dat</td>
-                <td>REGULATORY_FEED (4003)</td>
-                <td>FTP_REG_SUBMIT (4004)</td>
-                <td>SFTP</td>
-                <td>regportal.gov.example:/intake/daily/</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+      <div class="section">
+        <div class="section-title"><span class="dot" style="background:var(--accent2)"></span> Stored Procedure &amp; Config Lineage</div>
+        <div style="overflow-x:auto;"><table class="lineage-table"><thead><tr><th>Artifact</th><th>Type</th><th>Repo</th><th>Used By Jobs</th><th>Purpose</th></tr></thead><tbody id="artifactBody"></tbody></table></div>
       </div>
     </div>
-
-    <!-- ===================== ALERTS TAB ===================== -->
     <div id="tab-alerts" class="tab-content">
       <div class="section">
-        <div class="section-title"><span class="dot" style="background:var(--red)"></span> Issues &amp; Risks</div>
-
-        <div class="alert-item">
-          <div class="alert-title">Broken Dependency: REGULATORY_FEED &rarr; LEGACY_CTRL_CHK (Job 9999)</div>
-          <div class="alert-detail">
-            <strong>Job:</strong> REGULATORY_FEED (4003) in MISC_LEGACY group<br/>
-            <strong>Issue:</strong> Depends on job ID 9999 (LEGACY_CTRL_CHK) which has been deleted but the dependency reference remains in the XML.<br/>
-            <strong>Impact:</strong> The REGULATORY_FEED job cannot execute because the predecessor condition can never be satisfied. This blocks the daily SOX compliance feed to the external regulator portal.<br/>
-            <strong>Downstream:</strong> FTP_REG_SUBMIT (4004) is also blocked since it depends on REGULATORY_FEED.<br/>
-            <strong>Recommendation:</strong> Remove the dangling dependency or create a replacement control check job.
-          </div>
-        </div>
-
-        <div class="alert-item warn">
-          <div class="alert-title">Undocumented Job: JOB_X47B (3005)</div>
-          <div class="alert-detail">
-            <strong>Group:</strong> EOD_NIGHTLY<br/>
-            <strong>Issue:</strong> No description, no owner (ownerid=0), cryptic alias "X47B". Purpose is unclear &mdash; appears to be a data staging step.<br/>
-            <strong>Risk:</strong> This is a critical dependency of EOD_RECONCILIATION (3001), which gates month-end close. If X47B fails, the entire EOD chain is blocked and regulatory feeds cannot run.<br/>
-            <strong>Recommendation:</strong> Investigate the JCL script X47BRUN.JCL, assign an owner, and document the job's purpose.
-          </div>
-        </div>
-
-        <div class="alert-item warn">
-          <div class="alert-title">Undocumented Legacy Jobs: PROC_LEGACY_01 (4001) &amp; PROC_LEGACY_02 (4002)</div>
-          <div class="alert-detail">
-            <strong>Group:</strong> MISC_LEGACY<br/>
-            <strong>Issue:</strong> PROC_LEGACY_01 has a "DO NOT MODIFY" note referencing ticket INC00847392. PROC_LEGACY_02 has no description at all. Both have ownerid=0 (no owner).<br/>
-            <strong>Risk:</strong> Original developer is no longer with the company. These jobs run transformation logic via <code>/opt/legacy/bin/proc_transform.sh</code> and cannot be safely maintained.<br/>
-            <strong>PROC_LEGACY_01</strong> depends on ACCT_DAILY_EXTRACT (cross-group dependency from FINANCE_DAILY).<br/>
-            <strong>Recommendation:</strong> Reverse-engineer the transformation scripts, document, assign ownership, and consider migration off the legacy agents.
-          </div>
-        </div>
-
-        <div class="alert-item warn">
-          <div class="alert-title">Unowned Job Group: MISC_LEGACY (5004)</div>
-          <div class="alert-detail">
-            <strong>Issue:</strong> Job group has no description and ownerid=0. Contains 4 child jobs, 2 of which are also unowned.<br/>
-            <strong>Risk:</strong> No clear escalation path for failures. Notifications go to compliance@acme-corp.internal for some jobs but no owner is accountable for the group.<br/>
-            <strong>Recommendation:</strong> Assign the COMPLIANCE_TEAM or BATCH_FINANCE team as owner.
-          </div>
-        </div>
-
-        <div class="alert-item warn">
-          <div class="alert-title">Non-Rerunnable Critical Jobs</div>
-          <div class="alert-detail">
-            <strong>Jobs:</strong> GL_POSTING_BATCH (1003), PAYROLL_CALC (2001), PAYROLL_ACH_FILE (2002), JOB_X47B (3005), PROC_LEGACY_01 (4001)<br/>
-            <strong>Issue:</strong> These jobs have <code>allowrerun=N</code>, meaning failures require manual intervention to reset and re-execute.<br/>
-            <strong>Risk:</strong> GL_POSTING_BATCH and PAYROLL_CALC are critical path jobs. A transient failure (e.g., DB2 timeout, DASD full) would halt the entire batch chain until operations manually intervenes.<br/>
-            <strong>Recommendation:</strong> Evaluate if idempotent rerun logic can be added to the COBOL programs to allow safe reruns.
-          </div>
-        </div>
+        <div class="section-title"><span class="dot" style="background:var(--red)"></span> Issues &amp; Risk Analysis</div>
+        <div id="alertsList"></div>
       </div>
     </div>
-
-    <!-- ===================== SCHEDULES TAB ===================== -->
     <div id="tab-schedules" class="tab-content">
       <div class="section">
-        <div class="section-title"><span class="dot" style="background:var(--yellow)"></span> Calendar Definitions</div>
-        <div class="job-grid" style="grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));">
-          <div class="job-card">
-            <div class="job-header"><span class="job-name">WEEKDAY_BUSINESS</span><span class="job-id">CAL 100</span></div>
-            <div class="job-desc expanded">Monday through Friday, excluding US federal holidays and company-specific closures.</div>
-            <div class="job-meta">
-              <span class="tag tag-cal">MON-FRI</span>
-              <span class="tag tag-type">Excludes Holidays</span>
-            </div>
-            <div style="margin-top: 0.6rem; font-size: 0.78rem; color: var(--text-dim);">
-              <strong>Used by:</strong> FINANCE_DAILY, most Finance + Legacy jobs
-            </div>
+        <div class="section-title"><span class="dot" style="background:var(--yellow)"></span> Schedule &amp; Timeline View</div>
+        <div class="graph-container">
+          <div class="graph-controls" id="schedControls">
+            <button class="active" data-sched="all">All Schedules</button>
+            <button data-sched="WEEKDAY_BUSINESS">Weekday Business</button>
+            <button data-sched="BIWEEKLY_PAYROLL">Biweekly Payroll</button>
+            <button data-sched="EVERY_DAY">Every Day</button>
           </div>
-          <div class="job-card">
-            <div class="job-header"><span class="job-name">EVERY_DAY</span><span class="job-id">CAL 101</span></div>
-            <div class="job-desc expanded">Every day including weekends and holidays. Used for infrastructure jobs that must always run.</div>
-            <div class="job-meta">
-              <span class="tag tag-cal">7 days/week</span>
-              <span class="tag tag-type">No Exclusions</span>
-            </div>
-            <div style="margin-top: 0.6rem; font-size: 0.78rem; color: var(--text-dim);">
-              <strong>Used by:</strong> EOD_NIGHTLY (backup, notifications, log cleanup)
-            </div>
+          <div id="scheduleCalendars"></div>
+          <div style="margin-top:1.5rem;">
+            <div class="section-title" style="font-size:0.95rem;"><span class="dot" style="background:var(--orange)"></span> Estimated Runtime Timeline</div>
+            <div style="display:flex;gap:0.5rem;font-size:0.7rem;color:var(--text-dim);margin-bottom:0.75rem;"><span>00:00</span><div style="flex:1;height:1px;background:var(--border);margin-top:0.5em;"></div><span>06:00</span></div>
+            <div id="timelineRows"></div>
           </div>
-          <div class="job-card">
-            <div class="job-header"><span class="job-name">BIWEEKLY_PAYROLL</span><span class="job-id">CAL 102</span></div>
-            <div class="job-desc expanded">Every other Wednesday &mdash; payroll processing days. Anchor date: 2026-01-08.</div>
-            <div class="job-meta">
-              <span class="tag tag-cal">Every 14 days</span>
-              <span class="tag tag-type">Excludes Holidays</span>
-              <span class="tag tag-agent">Anchor: Jan 8, 2026</span>
-            </div>
-            <div style="margin-top: 0.6rem; font-size: 0.78rem; color: var(--text-dim);">
-              <strong>Used by:</strong> PAYROLL_BIWEEKLY group (all payroll jobs)
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="section" style="margin-top: 1.5rem;">
-        <div class="section-title"><span class="dot" style="background:var(--accent2)"></span> Job Execution Timeline (Typical Weekday)</div>
-        <div class="graph-container" style="min-height: 260px; padding: 1.25rem;">
-          <svg id="timelineSvg" viewBox="0 0 1100 240" style="width: 100%; height: 240px;"></svg>
         </div>
       </div>
     </div>
-
   </div>
-
-  <!-- Job Detail Modal -->
-  <div class="modal-overlay" id="jobModal">
-    <div class="modal">
-      <button class="modal-close" onclick="closeModal()">&times;</button>
-      <h2 id="modalTitle"></h2>
-      <div class="modal-id" id="modalId"></div>
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal" id="modalContent">
+      <button class="modal-close" id="modalClose">&times;</button>
       <div id="modalBody"></div>
     </div>
   </div>
 
-  <script>
-    const JOBS = [
-      { id: 1001, name: "ACCT_DAILY_EXTRACT", alias: "ACCTEXTR", group: "FINANCE_DAILY", groupId: 5001, type: "OSJob", agent: "ZOS_PROD1", calendar: "WEEKDAY_BUSINESS", priority: 80, rerun: true, duration: { est: 1200, min: 900, max: 3600 }, time: { from: "02:00", to: "05:00" }, deps: [], desc: "Extract daily account transactions from DB2 ACCTDB to sequential file for downstream processing. Runs COBOL program ACCTEXTRACT via JCL ACCTEXTR.JCL on z/OS LPAR PROD1. Source schema maintained in acme-gl-ledger repo (db2/ddl/).", owner: "BATCH_FINANCE", repos: ["acme-gl-ledger"], tables: { reads: ["ACME.GL_TRANSACTIONS", "ACME.CHART_OF_ACCOUNTS"], writes: ["ACME.ACCT.EXTRACT.D&SYSDATE"] }, vars: { EXTRACT_DATE: "&SYSDATE-1", OUTPUT_DSN: "ACME.ACCT.EXTRACT.D&SYSDATE" } },
-      { id: 1002, name: "ACCT_VALIDATION", alias: "ACCTVAL", group: "FINANCE_DAILY", groupId: 5001, type: "OSJob", agent: "ZOS_PROD1", calendar: "WEEKDAY_BUSINESS", priority: 75, rerun: true, duration: { est: 300, min: 180, max: 900 }, deps: [1001], desc: "Validate extracted account data: record count reconciliation, checksum verification, and referential integrity check against GL master file.", owner: "BATCH_FINANCE", repos: ["acme-gl-ledger"], tables: { reads: ["ACME.GL_TRANSACTIONS"], writes: [] } },
-      { id: 2003, name: "SP_GL_VALIDATION", alias: "SPGLVAL", group: "FINANCE_DAILY", groupId: 5001, type: "ServiceJob", agent: "DB2_PROD1", calendar: "WEEKDAY_BUSINESS", priority: 75, rerun: true, duration: { est: 180 }, deps: [1002], desc: "Execute DB2 stored procedure SP_GL_VALIDATION to verify trial balance integrity and cross-check control totals before GL posting.", owner: "DBA_TEAM", repos: ["acme-gl-ledger"], tables: { reads: ["ACME.GL_TRANSACTIONS", "ACME.CHART_OF_ACCOUNTS"], writes: ["ACME.GL_TRANSACTIONS"] } },
-      { id: 1003, name: "GL_POSTING_BATCH", alias: "GLPOST", group: "FINANCE_DAILY", groupId: 5001, type: "OSJob", agent: "ZOS_PROD1", calendar: "WEEKDAY_BUSINESS", priority: 80, rerun: false, duration: { est: 1800, min: 1200, max: 5400 }, deps: [1002, 2003], desc: "Post validated daily transactions to the General Ledger. Runs COBOL program GLPOSTING via JCL GLPOST.JCL. Updates GL master file and produces posting report.", owner: "BATCH_FINANCE", repos: ["acme-gl-ledger"], tables: { reads: ["ACME.GL_TRANSACTIONS"], writes: ["ACME.GL_MASTER", "ACME.GL_CONTROL_TOTALS"] } },
-      { id: 1004, name: "GL_REPORT_DAILY", alias: "GLRPT", group: "FINANCE_DAILY", groupId: 5001, type: "OSJob", agent: "UNIX_RPT01", calendar: "WEEKDAY_BUSINESS", priority: 60, rerun: true, duration: { est: 600, min: 300, max: 1800 }, deps: [1003], desc: "Generate daily GL summary report. Reads posted transactions, loads to data warehouse via ETL, produces PDF report, and distributes via email.", owner: "BATCH_FINANCE", repos: ["acme-gl-ledger", "acme-data-warehouse"], tables: { reads: ["ACME.GL_MASTER", "ACME.GL_CONTROL_TOTALS", "ACME.CHART_OF_ACCOUNTS"], writes: ["DW.FACT_GL_DAILY", "DW.DIM_ACCOUNT"] } },
-      { id: 1005, name: "ACCT_ARCHIVE", alias: "ACCTARC", group: "FINANCE_DAILY", groupId: 5001, type: "OSJob", agent: "UNIX_ARCHIVE01", calendar: "WEEKDAY_BUSINESS", priority: 40, rerun: true, duration: { est: 300 }, deps: [1003, 1004], desc: "Archive processed daily account extract files. Compresses and moves to tape archive. Retains 7 years per SOX compliance.", owner: "BATCH_FINANCE", repos: [], tables: { reads: [], writes: [] } },
-      { id: 1006, name: "FTP_GL_DOWNSTREAM", alias: "FTPGLDS", group: "FINANCE_DAILY", groupId: 5001, type: "FTPJob", agent: "UNIX_FTP01", calendar: "WEEKDAY_BUSINESS", priority: 70, rerun: true, duration: { est: 120 }, deps: [1003], desc: "Transfer GL posting results to ERP integration server via SFTP. Target: erp-integration.acme-corp.internal:/incoming/gl/", owner: "BATCH_FINANCE", repos: [], tables: { reads: [], writes: [] }, vars: { FTP_HOST: "erp-integration.acme-corp.internal", FTP_REMOTE_DIR: "/incoming/gl/" } },
-      { id: 2004, name: "PAYROLL_TIME_IMPORT", alias: "PAYTIME", group: "PAYROLL_BIWEEKLY", groupId: 5002, type: "OSJob", agent: "UNIX_PAYROLL01", calendar: "BIWEEKLY_PAYROLL", priority: 85, rerun: true, duration: { est: 600 }, deps: [], fileDep: "/data/kronos/export/TIME_EXPORT_*.csv", desc: "Import employee time records from Kronos timekeeping export. Validates employee IDs against HR master, checks for duplicate entries, and loads to payroll staging table.", owner: "BATCH_PAYROLL", repos: ["acme-payroll-engine"], tables: { reads: ["ACME.EMPLOYEE_MASTER"], writes: ["ACME.PAY_TIME_STAGING"] } },
-      { id: 2001, name: "PAYROLL_CALC", alias: "PAYCALC", group: "PAYROLL_BIWEEKLY", groupId: 5002, type: "OSJob", agent: "ZOS_PROD1", calendar: "BIWEEKLY_PAYROLL", priority: 90, rerun: false, duration: { est: 3600, min: 2400, max: 7200 }, time: { from: "01:00", to: "06:00" }, deps: [2004], desc: "Execute payroll calculation for all active employees. Processes time records, applies federal/state tax tables, deductions, benefits, and garnishments. Runs COBOL program PAYROLLCALC.", owner: "BATCH_PAYROLL", repos: ["acme-payroll-engine"], tables: { reads: ["ACME.EMPLOYEE_MASTER", "ACME.PAY_TIME_STAGING", "ACME.TAX_TABLES", "ACME.DEDUCTION_CODES"], writes: ["ACME.PAY_HISTORY", "ACME.EMPLOYEE_MASTER"] } },
-      { id: 2002, name: "PAYROLL_ACH_FILE", alias: "PAYACH", group: "PAYROLL_BIWEEKLY", groupId: 5002, type: "OSJob", agent: "ZOS_PROD1", calendar: "BIWEEKLY_PAYROLL", priority: 85, rerun: false, duration: { est: 900 }, deps: [2001], desc: "Generate NACHA-format ACH file for direct deposit payments. Reads payroll calculation output, formats per NACHA specifications, and stages for bank transmission.", owner: "BATCH_PAYROLL", repos: ["acme-payroll-engine"], tables: { reads: ["ACME.PAY_HISTORY"], writes: [] } },
-      { id: 2005, name: "SP_PAYROLL_SUMMARY", alias: "SPPAYSUM", group: "PAYROLL_BIWEEKLY", groupId: 5002, type: "ServiceJob", agent: "DB2_PROD1", calendar: "BIWEEKLY_PAYROLL", priority: 70, rerun: true, duration: { est: 120 }, deps: [2001], desc: "Execute stored procedure to generate payroll summary statistics: total gross, net, taxes by jurisdiction, deduction totals. Writes to PAYROLL_SUMMARY table.", owner: "DBA_TEAM", repos: ["acme-data-warehouse"], tables: { reads: ["ACME.PAY_HISTORY"], writes: ["DW.FACT_PAYROLL"] } },
-      { id: 3005, name: "JOB_X47B", alias: "X47B", group: "EOD_NIGHTLY", groupId: 5003, type: "OSJob", agent: "ZOS_PROD1", calendar: "WEEKDAY_BUSINESS", priority: 75, rerun: false, duration: { est: 450 }, deps: [1003], desc: "[UNDOCUMENTED] Purpose unclear. Appears to be a data staging step. No description, no owner assigned, cryptic alias.", owner: "", repos: [], tables: { reads: [], writes: [] }, warn: "Undocumented legacy job" },
-      { id: 3001, name: "EOD_RECONCILIATION", alias: "EODRECON", group: "EOD_NIGHTLY", groupId: 5003, type: "OSJob", agent: "ZOS_PROD1", calendar: "WEEKDAY_BUSINESS", priority: 90, rerun: true, duration: { est: 2400, min: 1800, max: 5400 }, time: { from: "22:00", to: "02:00" }, deps: [1003, 3005], desc: "End-of-day reconciliation across all sub-ledgers. Verifies that sum of sub-ledger postings equals GL control totals. Writes results to data warehouse. Critical gate for month-end close.", owner: "BATCH_FINANCE", repos: ["acme-gl-ledger", "acme-data-warehouse"], tables: { reads: ["ACME.GL_CONTROL_TOTALS"], writes: ["DW.FACT_RECONCILIATION"] } },
-      { id: 3002, name: "EOD_BACKUP", alias: "EODBKUP", group: "EOD_NIGHTLY", groupId: 5003, type: "OSJob", agent: "UNIX_BACKUP01", calendar: "EVERY_DAY", priority: 85, rerun: true, duration: { est: 5400, min: 3600, max: 10800 }, deps: [3001], desc: "Full backup of production databases (ACCTDB, GLDB, PAYROLLDB, HRDB) after end-of-day processing completes. Writes to tape and verifies checksums.", owner: "INFRA_OPS", repos: [], tables: { reads: [], writes: [] } },
-      { id: 3003, name: "EOD_NOTIFY_COMPLETE", alias: "EODNOTFY", group: "EOD_NIGHTLY", groupId: 5003, type: "OSJob", agent: "UNIX_NOTIFY01", calendar: "EVERY_DAY", priority: 50, rerun: true, duration: { est: 30 }, deps: [3002, 1005], desc: "Send end-of-day completion notification with summary statistics to management distribution list. Includes job run times, record counts, and exception summary.", owner: "INFRA_OPS", repos: [], tables: { reads: [], writes: [] } },
-      { id: 3004, name: "EOD_LOG_CLEANUP", alias: "EODLOGS", group: "EOD_NIGHTLY", groupId: 5003, type: "OSJob", agent: "UNIX_MAINT01", calendar: "EVERY_DAY", priority: 30, rerun: true, duration: { est: 600 }, deps: [3002], desc: "Archive and purge application logs older than 30 days. Compresses to gzip and moves to long-term storage.", owner: "INFRA_OPS", repos: [], tables: { reads: [], writes: [] } },
-      { id: 4001, name: "PROC_LEGACY_01", alias: "LEG01", group: "MISC_LEGACY", groupId: 5004, type: "OSJob", agent: "UNIX_LEGACY01", calendar: "WEEKDAY_BUSINESS", priority: 60, rerun: false, duration: { est: 900 }, deps: [1001], desc: "Legacy transformation proc - DO NOT MODIFY - see ticket INC00847392. Created 2014, original developer no longer with company.", owner: "", repos: [], tables: { reads: [], writes: [] }, warn: "Undocumented legacy job" },
-      { id: 4002, name: "PROC_LEGACY_02", alias: "LEG02", group: "MISC_LEGACY", groupId: 5004, type: "OSJob", agent: "UNIX_LEGACY02", calendar: "WEEKDAY_BUSINESS", priority: 55, rerun: true, duration: { est: 600 }, deps: [4001], desc: "[No description]. Appears related to PROC_LEGACY_01 but runs on different agent.", owner: "", repos: [], tables: { reads: [], writes: [] }, warn: "Undocumented legacy job" },
-      { id: 4003, name: "REGULATORY_FEED", alias: "REGFEED", group: "MISC_LEGACY", groupId: 5004, type: "OSJob", agent: "UNIX_COMPLIANCE01", calendar: "WEEKDAY_BUSINESS", priority: 80, rerun: true, duration: { est: 1200 }, deps: [3001, 9999], desc: "Generate daily regulatory compliance data feed for SOX reporting. Extracts transaction audit trail and control totals from data warehouse.", owner: "COMPLIANCE_TEAM", repos: ["acme-data-warehouse"], tables: { reads: ["DW.FACT_GL_DAILY", "DW.FACT_RECONCILIATION"], writes: [] }, brokenDep: { id: 9999, name: "LEGACY_CTRL_CHK" } },
-      { id: 4004, name: "FTP_REG_SUBMIT", alias: "FTPREG", group: "MISC_LEGACY", groupId: 5004, type: "FTPJob", agent: "UNIX_FTP01", calendar: "WEEKDAY_BUSINESS", priority: 85, rerun: true, duration: { est: 180 }, deps: [4003], desc: "Transfer regulatory compliance feed to external regulator portal via SFTP. Target: regportal.gov.example:/intake/daily/", owner: "COMPLIANCE_TEAM", repos: [], tables: { reads: [], writes: [] } }
-    ];
+<script>
+/* === DATA MODEL === */
 
-    const GROUPS = [
-      { id: 5001, name: "FINANCE_DAILY", color: "var(--finance)", jobs: 7 },
-      { id: 5002, name: "PAYROLL_BIWEEKLY", color: "var(--payroll)", jobs: 4 },
-      { id: 5003, name: "EOD_NIGHTLY", color: "var(--eod)", jobs: 5 },
-      { id: 5004, name: "MISC_LEGACY", color: "var(--legacy)", jobs: 4 }
-    ];
+var JOBS=[
+{id:1001,name:"ACCT_DAILY_EXTRACT",alias:"ACCTEXTR",type:"OSJob",group:"FINANCE_DAILY",groupId:5001,agent:"ZOS_PROD1",owner:"BATCH_FINANCE",calendar:"WEEKDAY_BUSINESS",priority:80,rerun:true,durEst:1200,durMax:3600,window:{from:"02:00",to:"05:00"},deps:[],desc:"Extract daily account transactions from DB2 ACCTDB to sequential file. Runs COBOL ACCTEXTRACT via JCL. Source schema in acme-gl-ledger (db2/ddl/).",command:"/opt/tidal/agents/zos/submit_jcl.sh ACCTEXTR.JCL",vars:[{name:"EXTRACT_DATE",value:"&SYSDATE-1"},{name:"OUTPUT_DSN",value:"ACME.ACCT.EXTRACT.D&SYSDATE"}],repos:["acme-gl-ledger"],tables:{reads:["ACME.GL_TRANSACTIONS","ACME.CHART_OF_ACCOUNTS"],writes:["ACME.ACCT.EXTRACT (seq file)"]},files:["db2/ddl/gl_transactions.sql","db2/ddl/chart_of_accounts.sql"]},
+{id:1002,name:"ACCT_VALIDATION",alias:"ACCTVAL",type:"OSJob",group:"FINANCE_DAILY",groupId:5001,agent:"ZOS_PROD1",owner:"BATCH_FINANCE",calendar:"WEEKDAY_BUSINESS",priority:75,rerun:true,durEst:300,durMax:900,deps:[{type:"job",id:1001,name:"ACCT_DAILY_EXTRACT",cond:"completed_normally"}],desc:"Validate extracted account data: record count reconciliation, checksum verification, referential integrity check against GL master.",command:"/opt/tidal/agents/zos/submit_jcl.sh ACCTVAL.JCL",repos:["acme-gl-ledger"],tables:{reads:["ACME.GL_TRANSACTIONS","ACME.CHART_OF_ACCOUNTS"],writes:["ACME.GL_TRANSACTIONS (status)"]},files:["db2/ddl/gl_transactions.sql"]},
+{id:1003,name:"GL_POSTING_BATCH",alias:"GLPOST",type:"OSJob",group:"FINANCE_DAILY",groupId:5001,agent:"ZOS_PROD1",owner:"BATCH_FINANCE",calendar:"WEEKDAY_BUSINESS",priority:80,rerun:false,durEst:1800,durMax:5400,deps:[{type:"job",id:1002,name:"ACCT_VALIDATION",cond:"completed_normally"},{type:"job",id:2003,name:"SP_GL_VALIDATION",cond:"completed_normally"}],desc:"Post validated daily transactions to the General Ledger. COBOL GLPOSTING via JCL. Updates GL master and produces posting report.",command:"/opt/tidal/agents/zos/submit_jcl.sh GLPOST.JCL",repos:["acme-gl-ledger"],tables:{reads:["ACME.GL_TRANSACTIONS"],writes:["ACME.GL_MASTER","ACME.GL_CONTROL_TOTALS"]},files:["db2/ddl/gl_master.sql","db2/ddl/gl_control_totals.sql"]},
+{id:1004,name:"GL_REPORT_DAILY",alias:"GLRPT",type:"OSJob",group:"FINANCE_DAILY",groupId:5001,agent:"UNIX_RPT01",owner:"BATCH_FINANCE",calendar:"WEEKDAY_BUSINESS",priority:60,rerun:true,durEst:600,durMax:1800,deps:[{type:"job",id:1003,name:"GL_POSTING_BATCH",cond:"completed_normally"}],desc:"Generate daily GL summary report. Loads to data warehouse via ETL, produces PDF, distributes via email.",command:"/opt/tidal/agents/unix/run_report.sh gl_daily_summary",repos:["acme-gl-ledger","acme-data-warehouse"],tables:{reads:["ACME.GL_MASTER","ACME.GL_CONTROL_TOTALS"],writes:["DW.FACT_GL_DAILY","DW.DIM_ACCOUNT"]},files:["etl/sql/load_gl_daily_summary.sql","etl/configs/gl_daily_etl.yml","reports/templates/gl_daily_summary.rpt"]},
+{id:1005,name:"ACCT_ARCHIVE",alias:"ACCTARC",type:"OSJob",group:"FINANCE_DAILY",groupId:5001,agent:"UNIX_ARCHIVE01",owner:"BATCH_FINANCE",calendar:"WEEKDAY_BUSINESS",priority:40,rerun:true,durEst:300,deps:[{type:"job",id:1003,name:"GL_POSTING_BATCH",cond:"completed_normally"},{type:"job",id:1004,name:"GL_REPORT_DAILY",cond:"completed_normally"}],desc:"Archive processed daily account extract files. Compress to tape. 7-year SOX retention.",command:"/opt/tidal/agents/unix/archive_logs.sh ACCT",repos:[],tables:{reads:[],writes:[]},files:[]},
+{id:1006,name:"FTP_GL_DOWNSTREAM",alias:"FTPGLDS",type:"FTPJob",group:"FINANCE_DAILY",groupId:5001,agent:"UNIX_FTP01",owner:"BATCH_FINANCE",calendar:"WEEKDAY_BUSINESS",priority:70,rerun:true,durEst:120,deps:[{type:"job",id:1003,name:"GL_POSTING_BATCH",cond:"completed_normally"}],desc:"Transfer GL posting results to ERP via SFTP. Target: erp-integration.acme-corp.internal:/incoming/gl/",command:"sftp",vars:[{name:"FTP_HOST",value:"erp-integration.acme-corp.internal"}],repos:[],tables:{reads:[],writes:[]},files:[]},
+{id:2003,name:"SP_GL_VALIDATION",alias:"SPGLVAL",type:"ServiceJob",group:"FINANCE_DAILY",groupId:5001,agent:"DB2_PROD1",owner:"DBA_TEAM",calendar:"WEEKDAY_BUSINESS",priority:75,rerun:true,durEst:180,deps:[{type:"job",id:1002,name:"ACCT_VALIDATION",cond:"completed_normally"}],desc:"DB2 stored procedure SP_GL_VALIDATION: verifies trial balance integrity and cross-checks control totals before GL posting.",command:"/opt/tidal/agents/db2/call_sp.sh SP_GL_VALIDATION",repos:["acme-gl-ledger"],tables:{reads:["ACME.GL_TRANSACTIONS","ACME.CHART_OF_ACCOUNTS"],writes:["ACME.GL_TRANSACTIONS (status)"]},files:["db2/stored_procedures/sp_gl_validation.sql"]},
+{id:2001,name:"PAYROLL_CALC",alias:"PAYCALC",type:"OSJob",group:"PAYROLL_BIWEEKLY",groupId:5002,agent:"ZOS_PROD1",owner:"BATCH_PAYROLL",calendar:"BIWEEKLY_PAYROLL",priority:90,rerun:false,durEst:3600,durMax:7200,window:{from:"01:00",to:"06:00"},deps:[{type:"job",id:2004,name:"PAYROLL_TIME_IMPORT",cond:"completed_normally"}],desc:"Execute payroll calculation for all active employees (~12k). Processes time records, applies federal/state tax tables, deductions, benefits. COBOL PAYROLLCALC via JCL.",command:"/opt/tidal/agents/zos/submit_jcl.sh PAYROLL.JCL",repos:["acme-payroll-engine"],tables:{reads:["ACME.EMPLOYEE_MASTER","ACME.TAX_TABLES","ACME.DEDUCTION_CODES","ACME.PAY_TIME_STAGING"],writes:["ACME.PAY_HISTORY","ACME.EMPLOYEE_MASTER (YTD)"]},files:["cobol/copybooks/EMPRECORD.cpy","cobol/copybooks/TAXTABLE.cpy","cobol/copybooks/DEDCODES.cpy","config/payroll_params.properties"]},
+{id:2004,name:"PAYROLL_TIME_IMPORT",alias:"PAYTIME",type:"OSJob",group:"PAYROLL_BIWEEKLY",groupId:5002,agent:"UNIX_PAYROLL01",owner:"BATCH_PAYROLL",calendar:"BIWEEKLY_PAYROLL",priority:85,rerun:true,durEst:600,deps:[{type:"file",path:"/data/kronos/export/TIME_EXPORT_*.csv",cond:"exists"}],desc:"Import time records from Kronos CSV export. Validates employee IDs, checks duplicates, loads to payroll staging.",command:"/opt/tidal/agents/unix/import_time_records.sh",repos:["acme-payroll-engine"],tables:{reads:[],writes:["ACME.PAY_TIME_STAGING"]},files:["kronos_integration/kronos_field_mapping.cfg"]},
+{id:2002,name:"PAYROLL_ACH_FILE",alias:"PAYACH",type:"OSJob",group:"PAYROLL_BIWEEKLY",groupId:5002,agent:"ZOS_PROD1",owner:"BATCH_PAYROLL",calendar:"BIWEEKLY_PAYROLL",priority:85,rerun:false,durEst:900,deps:[{type:"job",id:2001,name:"PAYROLL_CALC",cond:"completed_normally"}],desc:"Generate NACHA-format ACH file for direct deposit. Reads payroll calc output, formats per NACHA specs, stages for bank transmission.",command:"/opt/tidal/agents/zos/submit_jcl.sh PAYACH.JCL",repos:["acme-payroll-engine"],tables:{reads:["ACME.PAY_HISTORY"],writes:["ACH file (NACHA)"]},files:["config/ach_routing.properties"]},
+{id:2005,name:"SP_PAYROLL_SUMMARY",alias:"SPPAYSUM",type:"ServiceJob",group:"PAYROLL_BIWEEKLY",groupId:5002,agent:"DB2_PROD1",owner:"DBA_TEAM",calendar:"BIWEEKLY_PAYROLL",priority:70,rerun:true,durEst:120,deps:[{type:"job",id:2001,name:"PAYROLL_CALC",cond:"completed_normally"}],desc:"Stored procedure: payroll summary statistics - total gross, net, taxes by jurisdiction, deduction totals.",command:"/opt/tidal/agents/db2/call_sp.sh SP_PAYROLL_SUMMARY",repos:[],tables:{reads:["ACME.PAY_HISTORY"],writes:["ACME.PAYROLL_SUMMARY"]},files:[]},
+{id:3001,name:"EOD_RECONCILIATION",alias:"EODRECON",type:"OSJob",group:"EOD_NIGHTLY",groupId:5003,agent:"ZOS_PROD1",owner:"BATCH_FINANCE",calendar:"WEEKDAY_BUSINESS",priority:90,rerun:true,durEst:2400,durMax:5400,window:{from:"22:00",to:"02:00"},deps:[{type:"job",id:1003,name:"GL_POSTING_BATCH",cond:"completed_normally"},{type:"job",id:3005,name:"JOB_X47B",cond:"completed_normally"}],desc:"End-of-day reconciliation across all sub-ledgers. Verifies sub-ledger postings equal GL control totals. Writes to data warehouse.",command:"/opt/tidal/agents/zos/submit_jcl.sh EODRECON.JCL",repos:["acme-gl-ledger","acme-data-warehouse"],tables:{reads:["ACME.GL_CONTROL_TOTALS"],writes:["DW.FACT_RECONCILIATION"]},files:["db2/ddl/gl_control_totals.sql","schemas/fact_reconciliation.sql"]},
+{id:3002,name:"EOD_BACKUP",alias:"EODBKUP",type:"OSJob",group:"EOD_NIGHTLY",groupId:5003,agent:"UNIX_BACKUP01",owner:"INFRA_OPS",calendar:"EVERY_DAY",priority:85,rerun:true,durEst:5400,durMax:10800,deps:[{type:"job",id:3001,name:"EOD_RECONCILIATION",cond:"completed_normally"}],desc:"Full backup of production databases (ACCTDB, GLDB, PAYROLLDB, HRDB). Writes to tape, verifies checksums.",command:"/opt/tidal/agents/unix/eod_backup.sh",repos:[],tables:{reads:[],writes:[]},files:[]},
+{id:3003,name:"EOD_NOTIFY_COMPLETE",alias:"EODNOTFY",type:"OSJob",group:"EOD_NIGHTLY",groupId:5003,agent:"UNIX_NOTIFY01",owner:"INFRA_OPS",calendar:"EVERY_DAY",priority:50,rerun:true,durEst:30,deps:[{type:"job",id:3002,name:"EOD_BACKUP",cond:"completed_normally"},{type:"job",id:1005,name:"ACCT_ARCHIVE",cond:"completed_normally"}],desc:"Send EOD completion notification with summary statistics to management distribution list.",command:"/opt/tidal/agents/unix/notify_ops.sh EOD_COMPLETE",repos:[],tables:{reads:[],writes:[]},files:[]},
+{id:3004,name:"EOD_LOG_CLEANUP",alias:"EODLOGS",type:"OSJob",group:"EOD_NIGHTLY",groupId:5003,agent:"UNIX_MAINT01",owner:"INFRA_OPS",calendar:"EVERY_DAY",priority:30,rerun:true,durEst:600,deps:[{type:"job",id:3002,name:"EOD_BACKUP",cond:"completed_normally"}],desc:"Archive and purge application logs older than 30 days. Gzip compress to long-term storage.",command:"/opt/tidal/agents/unix/archive_logs.sh ALL",repos:[],tables:{reads:[],writes:[]},files:[]},
+{id:3005,name:"JOB_X47B",alias:"X47B",type:"OSJob",group:"EOD_NIGHTLY",groupId:5003,agent:"ZOS_PROD1",owner:"",calendar:"WEEKDAY_BUSINESS",priority:75,rerun:false,durEst:450,deps:[{type:"job",id:1003,name:"GL_POSTING_BATCH",cond:"completed_normally"}],desc:"[UNDOCUMENTED] Purpose unclear. Appears to be a data staging step. No owner assigned.",command:"/opt/tidal/agents/zos/submit_jcl.sh X47BRUN.JCL",repos:[],tables:{reads:[],writes:[]},files:[],undocumented:true},
+{id:4001,name:"PROC_LEGACY_01",alias:"LEG01",type:"OSJob",group:"MISC_LEGACY",groupId:5004,agent:"UNIX_LEGACY01",owner:"",calendar:"WEEKDAY_BUSINESS",priority:60,rerun:false,durEst:900,deps:[{type:"job",id:1001,name:"ACCT_DAILY_EXTRACT",cond:"completed_normally"}],desc:"legacy transformation proc - DO NOT MODIFY - see ticket INC00847392",command:"/opt/legacy/bin/proc_transform.sh -c /opt/legacy/conf/leg01.cfg",repos:[],tables:{reads:[],writes:["DW.DIM_LEGACY_XREF (undoc)"]},files:[],undocumented:true},
+{id:4002,name:"PROC_LEGACY_02",alias:"LEG02",type:"OSJob",group:"MISC_LEGACY",groupId:5004,agent:"UNIX_LEGACY02",owner:"",calendar:"WEEKDAY_BUSINESS",priority:55,rerun:true,durEst:600,deps:[{type:"job",id:4001,name:"PROC_LEGACY_01",cond:"completed_normally"}],desc:"[UNDOCUMENTED] Related to PROC_LEGACY_01 but runs on different agent. Dependency chain unclear.",command:"/opt/legacy/bin/proc_transform.sh -c /opt/legacy/conf/leg02.cfg -m MERGE",repos:[],tables:{reads:[],writes:["DW.DIM_LEGACY_XREF (undoc)"]},files:[],undocumented:true},
+{id:4003,name:"REGULATORY_FEED",alias:"REGFEED",type:"OSJob",group:"MISC_LEGACY",groupId:5004,agent:"UNIX_COMPLIANCE01",owner:"COMPLIANCE_TEAM",calendar:"WEEKDAY_BUSINESS",priority:80,rerun:true,durEst:1200,deps:[{type:"job",id:3001,name:"EOD_RECONCILIATION",cond:"completed_normally"},{type:"job",id:9999,name:"LEGACY_CTRL_CHK",cond:"completed_normally",broken:true}],desc:"Generate daily SOX regulatory compliance feed. Extracts audit trail and control totals from data warehouse.",command:"/opt/tidal/agents/unix/reg_feed_extract.sh",repos:["acme-data-warehouse"],tables:{reads:["DW.FACT_GL_DAILY","DW.FACT_RECONCILIATION"],writes:["SOX_DAILY file (EBCDIC)"]},files:["compliance/sox_feed_spec.yml"]},
+{id:4004,name:"FTP_REG_SUBMIT",alias:"FTPREG",type:"FTPJob",group:"MISC_LEGACY",groupId:5004,agent:"UNIX_FTP01",owner:"COMPLIANCE_TEAM",calendar:"WEEKDAY_BUSINESS",priority:85,rerun:true,durEst:180,deps:[{type:"job",id:4003,name:"REGULATORY_FEED",cond:"completed_normally"}],desc:"Transfer SOX compliance feed to regulator portal via SFTP. Target: regportal.gov.example:/intake/daily/",command:"sftp",vars:[{name:"FTP_HOST",value:"regportal.gov.example"}],repos:[],tables:{reads:[],writes:[]},files:[]}
+];
+var CALENDARS=[
+{id:100,name:"WEEKDAY_BUSINESS",desc:"Mon-Fri, excluding US federal holidays",days:"MON-FRI",holidays:true},
+{id:101,name:"EVERY_DAY",desc:"Every day including weekends and holidays",days:"MON-SUN",holidays:false},
+{id:102,name:"BIWEEKLY_PAYROLL",desc:"Every other Wednesday (anchor: 2026-01-08)",days:"Every 14 days",holidays:true}
+];
+var XREF_REPOS=[
+{repo:"tedfoley-cog/acme-gl-ledger",label:"General Ledger System",files:[{path:"db2/ddl/gl_transactions.sql",icon:"table",desc:"ACME.GL_TRANSACTIONS staging table"},{path:"db2/ddl/chart_of_accounts.sql",icon:"table",desc:"ACME.CHART_OF_ACCOUNTS reference"},{path:"db2/ddl/gl_master.sql",icon:"table",desc:"ACME.GL_MASTER posted transactions"},{path:"db2/ddl/gl_control_totals.sql",icon:"table",desc:"ACME.GL_CONTROL_TOTALS daily controls"},{path:"db2/stored_procedures/sp_gl_validation.sql",icon:"proc",desc:"SP_GL_VALIDATION integrity check"},{path:"db2/stored_procedures/sp_gl_period_close.sql",icon:"proc",desc:"SP_GL_PERIOD_CLOSE month-end"},{path:"config/batch_params.properties",icon:"config",desc:"Batch job parameters"},{path:"config/db2_connections.xml",icon:"config",desc:"DB2 connection definitions (GLDB, ACCTDB)"}],jobs:[1001,1002,1003,2003,1004,3001]},
+{repo:"tedfoley-cog/acme-payroll-engine",label:"Payroll Processing Engine",files:[{path:"db2/ddl/employee_master.sql",icon:"table",desc:"ACME.EMPLOYEE_MASTER (~12k employees)"},{path:"db2/ddl/pay_history.sql",icon:"table",desc:"ACME.PAY_HISTORY calculation results"},{path:"cobol/copybooks/EMPRECORD.cpy",icon:"cobol",desc:"Employee record COBOL layout"},{path:"cobol/copybooks/TAXTABLE.cpy",icon:"cobol",desc:"Tax bracket structure"},{path:"cobol/copybooks/DEDCODES.cpy",icon:"cobol",desc:"Deduction/benefit code definitions"},{path:"config/payroll_params.properties",icon:"config",desc:"Tax rates, 401k/HSA limits"},{path:"config/ach_routing.properties",icon:"config",desc:"NACHA ACH file configuration"},{path:"kronos_integration/kronos_field_mapping.cfg",icon:"config",desc:"Kronos CSV import mapping"}],jobs:[2001,2004,2002]},
+{repo:"tedfoley-cog/acme-data-warehouse",label:"Enterprise Data Warehouse",files:[{path:"schemas/fact_gl_daily.sql",icon:"table",desc:"DW.FACT_GL_DAILY posting summary"},{path:"schemas/fact_reconciliation.sql",icon:"table",desc:"DW.FACT_RECONCILIATION results"},{path:"schemas/fact_payroll.sql",icon:"table",desc:"DW.FACT_PAYROLL pay history"},{path:"etl/sql/load_gl_daily_summary.sql",icon:"proc",desc:"GL ETL transform/load script"},{path:"etl/configs/gl_daily_etl.yml",icon:"config",desc:"ETL pipeline configuration"},{path:"compliance/sox_feed_spec.yml",icon:"config",desc:"SOX regulatory feed spec"},{path:"reports/templates/gl_daily_summary.rpt",icon:"report",desc:"GL daily PDF report template"}],jobs:[1004,3001,4003,2005]}
+];
+var LINEAGE=[
+{table:"ACME.GL_TRANSACTIONS",db:"ACCTDB",repo:"acme-gl-ledger",writes:["ACCT_DAILY_EXTRACT (1001)"],reads:["ACCT_VALIDATION (1002)","SP_GL_VALIDATION (2003)","GL_POSTING_BATCH (1003)"],flow:"Source > Extract > Validate > Post"},
+{table:"ACME.CHART_OF_ACCOUNTS",db:"GLDB",repo:"acme-gl-ledger",writes:["(Reference data)"],reads:["ACCT_DAILY_EXTRACT (1001)","SP_GL_VALIDATION (2003)"],flow:"Static reference for validation"},
+{table:"ACME.GL_MASTER",db:"GLDB",repo:"acme-gl-ledger",writes:["GL_POSTING_BATCH (1003)"],reads:["GL_REPORT_DAILY (1004)"],flow:"Posted transactions > DW ETL"},
+{table:"ACME.GL_CONTROL_TOTALS",db:"GLDB",repo:"acme-gl-ledger",writes:["GL_POSTING_BATCH (1003)"],reads:["EOD_RECONCILIATION (3001)","GL_REPORT_DAILY (1004)"],flow:"Daily controls > Recon > DW"},
+{table:"ACME.EMPLOYEE_MASTER",db:"PAYROLLDB",repo:"acme-payroll-engine",writes:["PAYROLL_CALC (2001) YTD"],reads:["PAYROLL_CALC (2001)","PAYROLL_TIME_IMPORT (2004)"],flow:"HR source > Pay calc > YTD update"},
+{table:"ACME.PAY_TIME_STAGING",db:"PAYROLLDB",repo:"acme-payroll-engine",writes:["PAYROLL_TIME_IMPORT (2004)"],reads:["PAYROLL_CALC (2001)"],flow:"Kronos CSV > Staging > Calc"},
+{table:"ACME.PAY_HISTORY",db:"PAYROLLDB",repo:"acme-payroll-engine",writes:["PAYROLL_CALC (2001)"],reads:["PAYROLL_ACH_FILE (2002)","SP_PAYROLL_SUMMARY (2005)"],flow:"Calc results > ACH + Summary + DW"},
+{table:"DW.FACT_GL_DAILY",db:"DWDB",repo:"acme-data-warehouse",writes:["GL_REPORT_DAILY (1004)"],reads:["REGULATORY_FEED (4003)"],flow:"GL Master > ETL > SOX feed"},
+{table:"DW.FACT_RECONCILIATION",db:"DWDB",repo:"acme-data-warehouse",writes:["EOD_RECONCILIATION (3001)"],reads:["REGULATORY_FEED (4003)"],flow:"GL Controls > Recon > SOX"},
+{table:"DW.FACT_PAYROLL",db:"DWDB",repo:"acme-data-warehouse",writes:["(Biweekly ETL)"],reads:["(Quarterly tax report)"],flow:"Pay History > ETL > Tax filing"},
+{table:"DW.DIM_LEGACY_XREF",db:"DWDB",repo:"acme-data-warehouse",writes:["PROC_LEGACY_01 (4001)","PROC_LEGACY_02 (4002)"],reads:["(Unknown)"],flow:"Undocumented legacy xref"}
+];
+var ARTIFACTS=[
+{name:"SP_GL_VALIDATION",type:"Stored Proc",repo:"acme-gl-ledger",jobs:["SP_GL_VALIDATION (2003)"],purpose:"Validates staged GL transactions: invalid accounts, missing cost centers, duplicate docs. RC=0/4/8."},
+{name:"SP_GL_PERIOD_CLOSE",type:"Stored Proc",repo:"acme-gl-ledger",jobs:["(Month-end manual)"],purpose:"Month-end period close. Verifies all days reconciled and all transactions posted."},
+{name:"load_gl_daily_summary.sql",type:"ETL Script",repo:"acme-data-warehouse",jobs:["GL_REPORT_DAILY (1004)"],purpose:"Transforms GL_MASTER data and loads into FACT_GL_DAILY via dimension joins."},
+{name:"gl_daily_etl.yml",type:"ETL Config",repo:"acme-data-warehouse",jobs:["GL_REPORT_DAILY (1004)"],purpose:"Pipeline config: source GLDB tables, target DWDB tables, quality checks."},
+{name:"sox_feed_spec.yml",type:"Compliance Spec",repo:"acme-data-warehouse",jobs:["REGULATORY_FEED (4003)"],purpose:"Fixed-width EBCDIC format for SOX daily compliance extract (400-byte records). 7-yr retention."},
+{name:"gl_daily_summary.rpt",type:"Report Template",repo:"acme-data-warehouse",jobs:["GL_REPORT_DAILY (1004)"],purpose:"Crystal Reports template: executive summary, posting detail, recon status, exceptions."},
+{name:"EMPRECORD.cpy",type:"COBOL Copybook",repo:"acme-payroll-engine",jobs:["PAYROLL_CALC (2001)"],purpose:"Employee master record layout (46 lines). Maps to EMPLOYEE_MASTER table."},
+{name:"TAXTABLE.cpy",type:"COBOL Copybook",repo:"acme-payroll-engine",jobs:["PAYROLL_CALC (2001)"],purpose:"Tax bracket structure + FICA/Medicare constants for 2026."},
+{name:"DEDCODES.cpy",type:"COBOL Copybook",repo:"acme-payroll-engine",jobs:["PAYROLL_CALC (2001)"],purpose:"Deduction/benefit code definitions: MED, DEN, VIS, LIF, 401k, HSA, FSA, union dues."},
+{name:"kronos_field_mapping.cfg",type:"Integration Config",repo:"acme-payroll-engine",jobs:["PAYROLL_TIME_IMPORT (2004)"],purpose:"Maps Kronos CSV columns to PAY_TIME_STAGING DB2 columns with validation rules."},
+{name:"ach_routing.properties",type:"Config",repo:"acme-payroll-engine",jobs:["PAYROLL_ACH_FILE (2002)"],purpose:"NACHA ACH originator info, file format (PPD, 94-byte), SFTP transmission config."},
+{name:"batch_params.properties",type:"Config",repo:"acme-gl-ledger",jobs:["ACCT_DAILY_EXTRACT (1001)","GL_POSTING_BATCH (1003)","GL_REPORT_DAILY (1004)"],purpose:"DSN names, DB/schema/table refs, report paths, SOX archive retention."}
+];
+var ALERTS=[
+{severity:"critical",title:"Broken Dependency: REGULATORY_FEED > LEGACY_CTRL_CHK (Job 9999)",detail:"REGULATORY_FEED (4003) depends on deleted job 9999 (LEGACY_CTRL_CHK). This blocks SOX compliance feed execution and daily regulatory submissions to regportal.gov.example. The dependency must be removed or replaced.",impact:"SOX compliance at risk. Regulatory feed cannot complete until resolved."},
+{severity:"warning",title:"Undocumented Job: JOB_X47B (3005) - No Owner, No Description",detail:"JOB_X47B is a dependency of EOD_RECONCILIATION but has no description, no owner, and a cryptic alias. Runs on ZOS_PROD1 via X47BRUN.JCL. Not rerunnable.",impact:"Single point of failure in EOD chain. Unknown purpose creates operational risk."},
+{severity:"warning",title:"Undocumented Legacy Jobs: PROC_LEGACY_01 (4001) & PROC_LEGACY_02 (4002)",detail:"Both jobs have no owner. PROC_LEGACY_01 says DO NOT MODIFY (ticket INC00847392). They write to DW.DIM_LEGACY_XREF but purpose is unclear. PROC_LEGACY_01 is not rerunnable.",impact:"Undocumented jobs feeding DW dimension table. Unknown data quality impact."},
+{severity:"warning",title:"Non-Rerunnable Critical Chain: GL_POSTING > PAYROLL_CALC > ACH_FILE",detail:"GL_POSTING_BATCH (1003), PAYROLL_CALC (2001), and PAYROLL_ACH_FILE (2002) all have allowRerun=N. Manual recovery required on failure. Highest-value financial transactions.",impact:"Financial data corruption risk if failed jobs restarted without proper recovery."},
+{severity:"info",title:"MISC_LEGACY Group (5004) Has No Owner",detail:"MISC_LEGACY group has ownerid=0, no ownername. Contains 4 jobs including SOX regulatory feed. No escalation path for group-level failures.",impact:"Operational accountability gap for compliance-critical jobs."},
+{severity:"info",title:"Cross-Group Dependencies Create Hidden Coupling",detail:"3 cross-group chains: (1) FINANCE > EOD via GL_POSTING > EOD_RECON, (2) FINANCE > LEGACY via EXTRACT > PROC_LEGACY_01, (3) EOD > LEGACY via RECON > REG_FEED. Finance failure cascades everywhere.",impact:"Finance batch delays cascade to EOD, regulatory reporting, and legacy transformations."}
+];
 
-    const jobMap = {};
-    JOBS.forEach(j => jobMap[j.id] = j);
+/* === HELPERS === */
 
-    const TYPE_LABELS = { OSJob: "OS Job", FTPJob: "FTP Job", ServiceJob: "Service Job" };
+function gc(g){return{FINANCE_DAILY:"var(--finance)",PAYROLL_BIWEEKLY:"var(--payroll)",EOD_NIGHTLY:"var(--eod)",MISC_LEGACY:"var(--legacy)"}[g]||"var(--border)";}
+function fmtDur(s){if(!s)return"-";var m=Math.round(s/60);return m>=60?Math.floor(m/60)+"h "+m%60+"m":m+"m";}
+function jobById(id){for(var i=0;i<JOBS.length;i++){if(JOBS[i].id===id)return JOBS[i];}return null;}
 
-    function switchTab(tab, e) {
-      document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-      document.querySelectorAll('.nav button').forEach(b => b.classList.remove('active'));
-      document.getElementById('tab-' + tab).classList.add('active');
-      e.target.classList.add('active');
-    }
+/* === TAB NAV === */
 
-    function renderJobCards(filter) {
-      const grid = document.getElementById('jobGrid');
-      const f = (filter || '').toLowerCase();
-      const filtered = JOBS.filter(j => !f ||
-        j.name.toLowerCase().includes(f) ||
-        j.alias.toLowerCase().includes(f) ||
-        String(j.id).includes(f) ||
-        j.desc.toLowerCase().includes(f) ||
-        j.group.toLowerCase().includes(f) ||
-        j.agent.toLowerCase().includes(f)
-      );
-      grid.innerHTML = filtered.map(j => {
-        const g = GROUPS.find(g => g.id === j.groupId);
-        const durMin = Math.round(j.duration.est / 60);
-        const warnings = [];
-        if (j.warn) warnings.push('<span class="tag tag-warn">' + j.warn + '</span>');
-        if (j.brokenDep) warnings.push('<span class="tag tag-warn">Broken dep: ' + j.brokenDep.name + '</span>');
-        if (!j.rerun) warnings.push('<span class="tag tag-warn">No Rerun</span>');
-        if (!j.owner) warnings.push('<span class="tag tag-warn">No Owner</span>');
-        return '<div class="job-card" style="border-left: 3px solid ' + (g ? g.color : 'var(--border)') + ';" onclick="showJobDetail(' + j.id + ')">' +
-          '<div class="job-header">' +
-            '<span class="job-name">' + j.name + '</span>' +
-            '<span class="job-id">#' + j.id + '</span>' +
-            '<span class="job-alias">' + j.alias + '</span>' +
-          '</div>' +
-          '<div class="job-desc">' + j.desc + '</div>' +
-          '<div class="job-meta">' +
-            '<span class="tag tag-type">' + (TYPE_LABELS[j.type] || j.type) + '</span>' +
-            '<span class="tag tag-agent">' + j.agent + '</span>' +
-            '<span class="tag tag-group">' + j.group + '</span>' +
-            '<span class="tag tag-cal">' + j.calendar + '</span>' +
-            '<span class="tag tag-priority">P' + j.priority + '</span>' +
-            j.repos.map(function(r) { return '<span class="tag tag-repo">' + r + '</span>'; }).join('') +
-            warnings.join('') +
-          '</div>' +
-          '<div class="dur-bar" title="Est: ' + durMin + 'm' + (j.duration.max ? ', Max: ' + Math.round(j.duration.max/60) + 'm' : '') + '">' +
-            '<div class="dur-fill" style="width: ' + Math.min(100, (j.duration.est / (j.duration.max || j.duration.est)) * 100) + '%"></div>' +
-            (j.duration.max ? '<span class="dur-max">' + Math.round(j.duration.max/60) + 'm max</span>' : '') +
-          '</div>' +
-        '</div>';
-      }).join('');
-    }
-    function filterJobs(val) { renderJobCards(val); }
+document.getElementById("mainNav").addEventListener("click",function(e){
+  var btn=e.target.closest("button");if(!btn||!btn.dataset.tab)return;
+  this.querySelectorAll("button").forEach(function(b){b.classList.remove("active");});
+  btn.classList.add("active");
+  document.querySelectorAll(".tab-content").forEach(function(t){t.classList.remove("active");});
+  document.getElementById("tab-"+btn.dataset.tab).classList.add("active");
+});
 
-    function showJobDetail(id) {
-      var j = jobMap[id];
-      if (!j) return;
-      document.getElementById('modalTitle').textContent = j.name;
-      document.getElementById('modalId').textContent = 'ID: ' + j.id + '  |  Alias: ' + j.alias + '  |  Group: ' + j.group;
-      var depsList = j.deps.filter(function(d) { return d !== 9999; }).map(function(d) {
-        var dj = jobMap[d];
-        return '<li><span class="dep-arrow">&rarr;</span> ' + (dj ? dj.name + ' (' + d + ')' : 'Unknown (' + d + ')') + '</li>';
-      }).join('');
-      var brokenDeps = j.brokenDep ? '<li style="color:var(--red)"><span class="dep-arrow">&rarr;</span> ' + j.brokenDep.name + ' (' + j.brokenDep.id + ') &mdash; BROKEN</li>' : '';
-      var successors = JOBS.filter(function(sj) { return sj.deps.includes(j.id); }).map(function(sj) { return '<li><span class="dep-arrow">&larr;</span> ' + sj.name + ' (' + sj.id + ')</li>'; }).join('');
+/* === MODAL === */
 
-      var body = '<div class="field"><div class="field-label">Description</div><div class="field-value">' + j.desc + '</div></div>' +
-        '<div class="field"><div class="field-label">Type / Agent</div><div class="field-value">' + (TYPE_LABELS[j.type] || j.type) + ' on ' + j.agent + '</div></div>' +
-        '<div class="field"><div class="field-label">Owner</div><div class="field-value">' + (j.owner || '<span style="color:var(--red)">UNASSIGNED</span>') + '</div></div>' +
-        '<div class="field"><div class="field-label">Calendar / Priority</div><div class="field-value">' + j.calendar + ' &middot; Priority ' + j.priority + (j.time ? ' &middot; Window ' + j.time.from + ' - ' + j.time.to : '') + '</div></div>' +
-        '<div class="field"><div class="field-label">Duration</div><div class="field-value">Est: ' + Math.round(j.duration.est/60) + 'm' + (j.duration.min ? ' &middot; Min: ' + Math.round(j.duration.min/60) + 'm' : '') + (j.duration.max ? ' &middot; Max: ' + Math.round(j.duration.max/60) + 'm' : '') + '</div></div>' +
-        '<div class="field"><div class="field-label">Rerunnable</div><div class="field-value">' + (j.rerun ? 'Yes' : '<span style="color:var(--yellow)">No &mdash; manual intervention required on failure</span>') + '</div></div>';
+var overlay=document.getElementById("modalOverlay");
+document.getElementById("modalClose").addEventListener("click",function(){overlay.classList.remove("show");});
+overlay.addEventListener("click",function(e){if(e.target===overlay)overlay.classList.remove("show");});
+function showJobModal(job){
+  if(!job)return;var b=document.getElementById("modalBody");
+  var depH="";if(job.deps&&job.deps.length){depH='<ul class="dep-list">'+job.deps.map(function(d){var s=d.broken?' style="color:var(--red)"':"";return '<li><span class="dep-arrow">&rarr;</span> <span'+s+'>'+d.name+" ("+d.id+")"+(d.broken?" [BROKEN]":"")+"</span> <span style=\"color:var(--text-dim);font-size:0.75rem;\">"+d.cond+"</span></li>";}).join("")+"</ul>";}else{depH='<span style="color:var(--text-dim)">No dependencies (entry point)</span>';}
+  var succs=JOBS.filter(function(j){return j.deps.some(function(d){return d.id===job.id;});});
+  var succH=succs.length?'<ul class="dep-list">'+succs.map(function(s){return '<li><span class="dep-arrow">&larr;</span> '+s.name+" ("+s.id+")</li>";}).join("")+"</ul>":'<span style="color:var(--text-dim)">No downstream jobs</span>';
+  var rTags=(job.repos||[]).map(function(r){return '<span class="tag tag-repo">'+r+"</span>";}).join(" ");
+  var varH=(job.vars||[]).map(function(v){return "<code>"+v.name+"="+v.value+"</code>";}).join("<br>");
+  b.innerHTML='<h2>'+job.name+'</h2><div class="modal-id">ID: '+job.id+" &middot; Alias: "+job.alias+" &middot; "+job.type+"</div>"+
+    '<div class="field"><div class="field-label">Description</div><div class="field-value">'+(job.desc||"<em>None</em>")+"</div></div>"+
+    '<div class="field"><div class="field-label">Command</div><div class="field-value"><code>'+job.command+"</code></div></div>"+
+    '<div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">'+
+    '<div class="field"><div class="field-label">Agent</div><div class="field-value">'+job.agent+"</div></div>"+
+    '<div class="field"><div class="field-label">Owner</div><div class="field-value">'+(job.owner||'<span class="tag tag-warn">Unassigned</span>')+"</div></div>"+
+    '<div class="field"><div class="field-label">Calendar</div><div class="field-value">'+job.calendar+"</div></div>"+
+    '<div class="field"><div class="field-label">Priority</div><div class="field-value">'+job.priority+"</div></div>"+
+    '<div class="field"><div class="field-label">Rerunnable</div><div class="field-value">'+(job.rerun?"Yes":'<span style="color:var(--red)">No</span>')+"</div></div>"+
+    '<div class="field"><div class="field-label">Duration (est)</div><div class="field-value">'+fmtDur(job.durEst)+(job.durMax?" (max "+fmtDur(job.durMax)+")":"")+"</div></div></div>"+
+    (job.window?'<div class="field"><div class="field-label">Time Window</div><div class="field-value">'+job.window.from+" - "+job.window.to+"</div></div>':"")+
+    '<div class="field"><div class="field-label">Dependencies (predecessors)</div><div class="field-value">'+depH+"</div></div>"+
+    '<div class="field"><div class="field-label">Downstream (successors)</div><div class="field-value">'+succH+"</div></div>"+
+    (rTags?'<div class="field"><div class="field-label">External Repos</div><div class="field-value">'+rTags+"</div></div>":"")+
+    (job.tables&&(job.tables.reads.length||job.tables.writes.length)?'<div class="field"><div class="field-label">Tables Read</div><div class="field-value"><code>'+(job.tables.reads.join("</code>, <code>")||"-")+'</code></div></div><div class="field"><div class="field-label">Tables Written</div><div class="field-value"><code>'+(job.tables.writes.join("</code>, <code>")||"-")+"</code></div></div>":"")+
+    (varH?'<div class="field"><div class="field-label">Variables</div><div class="field-value">'+varH+"</div></div>":"");
+  overlay.classList.add("show");
+}
 
-      if (depsList || brokenDeps) body += '<div class="field"><div class="field-label">Predecessors</div><ul class="dep-list">' + depsList + brokenDeps + '</ul></div>';
-      if (successors) body += '<div class="field"><div class="field-label">Successors</div><ul class="dep-list">' + successors + '</ul></div>';
-      if (j.repos.length) body += '<div class="field"><div class="field-label">External Repos</div><div class="field-value">' + j.repos.map(function(r) { return '<a href="https://github.com/tedfoley-cog/' + r + '" target="_blank">' + r + '</a>'; }).join(', ') + '</div></div>';
-      if (j.tables && (j.tables.reads.length || j.tables.writes.length)) {
-        body += '<div class="field"><div class="field-label">Tables Read</div><div class="field-value mono">' + (j.tables.reads.join(', ') || 'None') + '</div></div>';
-        body += '<div class="field"><div class="field-label">Tables Written</div><div class="field-value mono">' + (j.tables.writes.join(', ') || 'None') + '</div></div>';
-      }
-      if (j.vars) body += '<div class="field"><div class="field-label">Variables</div><div class="field-value mono">' + Object.entries(j.vars).map(function(e) { return e[0] + ' = ' + e[1]; }).join('<br/>') + '</div></div>';
-      if (j.warn) body += '<div class="field"><div class="field-label">Warning</div><div class="field-value" style="color:var(--yellow)">' + j.warn + '</div></div>';
+/* === DEPENDENCY GRAPH === */
 
-      document.getElementById('modalBody').innerHTML = body;
-      document.getElementById('jobModal').classList.add('show');
-    }
-    function closeModal() { document.getElementById('jobModal').classList.remove('show'); }
-    document.getElementById('jobModal').addEventListener('click', function(e) { if (e.target === this) closeModal(); });
-    document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeModal(); });
+function buildDepGraph(){
+  var svg=document.getElementById("depGraph");
+  var pos={1001:{x:30,y:30,w:175,h:36},1002:{x:255,y:30,w:155,h:36},2003:{x:255,y:86,w:160,h:36},1003:{x:470,y:55,w:170,h:36},1004:{x:695,y:20,w:160,h:36},1005:{x:910,y:20,w:135,h:36},1006:{x:695,y:75,w:180,h:36},2004:{x:30,y:180,w:190,h:36},2001:{x:275,y:180,w:150,h:36},2002:{x:475,y:165,w:170,h:36},2005:{x:475,y:215,w:180,h:36},3005:{x:695,y:140,w:115,h:36},3001:{x:695,y:290,w:180,h:36},3002:{x:930,y:290,w:135,h:36},3003:{x:1110,y:260,w:180,h:36},3004:{x:1110,y:315,w:165,h:36},4001:{x:30,y:340,w:160,h:36},4002:{x:245,y:340,w:160,h:36},4003:{x:695,y:400,w:165,h:36},4004:{x:915,y:400,w:160,h:36},9999:{x:475,y:430,w:175,h:36}};
+  var edges=[];JOBS.forEach(function(j){j.deps.forEach(function(d){if(d.type==="job")edges.push({from:d.id,to:j.id,broken:!!d.broken});});});
+  var h='<defs><marker id="arr" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="var(--border)"/></marker><marker id="arrB" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="var(--red)"/></marker></defs>';
+  edges.forEach(function(e){var f=pos[e.from],t=pos[e.to];if(!f||!t)return;var x1=f.x+f.w,y1=f.y+f.h/2,x2=t.x,y2=t.y+t.h/2,mx=(x1+x2)/2;var st=e.broken?"var(--red)":"var(--border)",mk=e.broken?"url(#arrB)":"url(#arr)",da=e.broken?' stroke-dasharray="6,3"':"";h+='<path class="epath" data-f="'+e.from+'" data-t="'+e.to+'" d="M'+x1+","+y1+" C"+mx+","+y1+" "+mx+","+y2+" "+x2+","+y2+'" fill="none" stroke="'+st+'" stroke-width="1.5"'+da+' marker-end="'+mk+'"/>';});
+  JOBS.forEach(function(j){var p=pos[j.id];if(!p)return;var sc=j.undocumented?"var(--yellow)":gc(j.group);h+='<g class="dnode" data-id="'+j.id+'" data-g="'+j.group+'" style="cursor:pointer"><rect x="'+p.x+'" y="'+p.y+'" width="'+p.w+'" height="'+p.h+'" rx="7" fill="var(--surface2)" stroke="'+sc+'" stroke-width="1.5"/><text x="'+(p.x+p.w/2)+'" y="'+(p.y+p.h/2+1)+'" text-anchor="middle" dominant-baseline="middle" fill="var(--text)" font-size="10" font-weight="600" font-family="Segoe UI,system-ui,sans-serif">'+j.name+"</text></g>";});
+  if(pos[9999]){var bp=pos[9999];h+='<g class="dnode" data-id="9999" data-g="broken"><rect x="'+bp.x+'" y="'+bp.y+'" width="'+bp.w+'" height="'+bp.h+'" rx="7" fill="none" stroke="var(--red)" stroke-width="1.5" stroke-dasharray="5,3"/><text x="'+(bp.x+bp.w/2)+'" y="'+(bp.y+bp.h/2+1)+'" text-anchor="middle" dominant-baseline="middle" fill="var(--red)" font-size="9.5" font-weight="600" font-family="Segoe UI,system-ui,sans-serif">LEGACY_CTRL_CHK [DELETED]</text></g>';}
+  svg.innerHTML=h;
+  svg.addEventListener("click",function(e){var n=e.target.closest(".dnode");if(!n)return;var j=jobById(parseInt(n.dataset.id));if(j)showJobModal(j);});
+  svg.addEventListener("mouseover",function(e){var n=e.target.closest(".dnode");if(!n)return;var id=n.dataset.id;svg.querySelectorAll(".dnode").forEach(function(x){x.style.opacity="0.25";});svg.querySelectorAll(".epath").forEach(function(x){x.style.opacity="0.08";});n.style.opacity="1";svg.querySelectorAll(".epath").forEach(function(p){if(p.dataset.f===id||p.dataset.t===id){p.style.opacity="1";p.style.stroke="var(--accent)";p.style.strokeWidth="2.5";var oid=p.dataset.f===id?p.dataset.t:p.dataset.f;var on=svg.querySelector('.dnode[data-id="'+oid+'"]');if(on)on.style.opacity="1";}});});
+  svg.addEventListener("mouseout",function(e){if(!e.target.closest(".dnode"))return;svg.querySelectorAll(".dnode").forEach(function(x){x.style.opacity="1";});svg.querySelectorAll(".epath").forEach(function(x){x.style.opacity="1";x.style.stroke="";x.style.strokeWidth="";});});
+  document.getElementById("depGraphControls").addEventListener("click",function(ev){var btn=ev.target.closest("button");if(!btn||!btn.dataset.filter)return;this.querySelectorAll("button").forEach(function(b){b.classList.remove("active");});btn.classList.add("active");var f=btn.dataset.filter,gm={finance:"FINANCE_DAILY",payroll:"PAYROLL_BIWEEKLY",eod:"EOD_NIGHTLY",legacy:"MISC_LEGACY"};svg.querySelectorAll(".dnode").forEach(function(n){if(f==="all"){n.style.opacity="1";return;}if(f==="cross"){var id=parseInt(n.dataset.id),job=jobById(id);var ic=job&&job.deps.some(function(d){var dj=jobById(d.id);return dj&&dj.group!==job.group;});var it=JOBS.some(function(j){return j.group!==n.dataset.g&&j.deps.some(function(d){return d.id===id;});});n.style.opacity=(ic||it)?"1":"0.12";}else{n.style.opacity=n.dataset.g===gm[f]?"1":"0.12";}});svg.querySelectorAll(".epath").forEach(function(p){if(f==="all"){p.style.opacity="1";return;}var fn=svg.querySelector('.dnode[data-id="'+p.dataset.f+'"]'),tn=svg.querySelector('.dnode[data-id="'+p.dataset.t+'"]');p.style.opacity=(fn&&fn.style.opacity!=="0.12"&&tn&&tn.style.opacity!=="0.12")?"1":"0.06";});});
+}
 
-    function drawDepGraph() {
-      var svg = document.getElementById('depGraph');
-      var nodeW = 130, nodeH = 40;
+/* === DATA FLOW === */
 
-      var positions = {
-        1001: { x: 60, y: 50 },
-        1002: { x: 230, y: 50 },
-        2003: { x: 230, y: 120 },
-        1003: { x: 420, y: 80 },
-        1004: { x: 610, y: 40 },
-        1005: { x: 780, y: 40 },
-        1006: { x: 610, y: 130 },
-        2004: { x: 60, y: 230 },
-        2001: { x: 230, y: 230 },
-        2002: { x: 420, y: 210 },
-        2005: { x: 420, y: 270 },
-        3005: { x: 610, y: 310 },
-        3001: { x: 780, y: 260 },
-        3002: { x: 950, y: 220 },
-        3003: { x: 950, y: 310 },
-        3004: { x: 1060, y: 220 },
-        4001: { x: 60, y: 400 },
-        4002: { x: 230, y: 400 },
-        4003: { x: 950, y: 400 },
-        4004: { x: 1060, y: 400 }
-      };
+function buildFlowDiagram(){
+  var svg=document.getElementById("flowDiagram"),lH=130,pad=15,html="";
+  var lanes=[{label:"External Sources",color:"var(--cyan)",items:[{x:80,w:140,label:"Kronos CSV",sub:"TIME_EXPORT_*.csv"},{x:320,w:160,label:"DB2 ACCTDB",sub:"GL_TRANSACTIONS"},{x:580,w:140,label:"HR Master",sub:"EMPLOYEE_MASTER"}]},{label:"acme-payroll-engine",color:"var(--payroll)",items:[{x:30,w:180,label:"PAYROLL_TIME_IMPORT",sub:"(2004) > PAY_TIME_STAGING"},{x:260,w:150,label:"PAYROLL_CALC",sub:"(2001) > PAY_HISTORY"},{x:460,w:170,label:"PAYROLL_ACH_FILE",sub:"(2002) > NACHA ACH"},{x:680,w:185,label:"SP_PAYROLL_SUMMARY",sub:"(2005) > PAYROLL_SUMMARY"}]},{label:"acme-gl-ledger",color:"var(--finance)",items:[{x:30,w:185,label:"ACCT_DAILY_EXTRACT",sub:"(1001) GL_TRANSACTIONS"},{x:260,w:160,label:"ACCT_VALIDATION",sub:"(1002) + SP_GL_VALIDATION"},{x:470,w:175,label:"GL_POSTING_BATCH",sub:"(1003) > GL_MASTER"},{x:700,w:165,label:"GL_REPORT_DAILY",sub:"(1004) > PDF Report"}]},{label:"acme-data-warehouse",color:"var(--eod)",items:[{x:30,w:180,label:"FACT_GL_DAILY",sub:"Loaded by job 1004 ETL"},{x:260,w:200,label:"FACT_RECONCILIATION",sub:"Written by EOD_RECON (3001)"},{x:510,w:160,label:"FACT_PAYROLL",sub:"Biweekly ETL"},{x:720,w:170,label:"REGULATORY_FEED",sub:"(4003) > SOX daily file"}]},{label:"External Targets",color:"var(--pink)",items:[{x:80,w:140,label:"ERP System",sub:"SFTP /incoming/gl/"},{x:320,w:140,label:"Bank (ACH)",sub:"SFTP ach.acme-bank"},{x:560,w:180,label:"Regulator Portal",sub:"SFTP regportal.gov"},{x:840,w:150,label:"Tape Archive",sub:"7-yr SOX retention"}]}];
+  lanes.forEach(function(lane,li){var ly=li*lH+pad;html+='<rect x="0" y="'+ly+'" width="1400" height="'+(lH-8)+'" rx="6" fill="rgba(255,255,255,0.02)" stroke="'+lane.color+'" stroke-width="0.5" stroke-dasharray="4,4"/><text x="8" y="'+(ly+18)+'" fill="'+lane.color+'" font-size="11" font-weight="700" font-family="Segoe UI,system-ui,sans-serif">'+lane.label+"</text>";lane.items.forEach(function(it){var bx=it.x,by=ly+30,bw=it.w,bh=72;html+='<rect x="'+bx+'" y="'+by+'" width="'+bw+'" height="'+bh+'" rx="8" fill="var(--surface)" stroke="'+lane.color+'" stroke-width="1"/><text x="'+(bx+bw/2)+'" y="'+(by+28)+'" text-anchor="middle" fill="var(--text)" font-size="10.5" font-weight="600" font-family="Segoe UI,system-ui,sans-serif">'+it.label+'</text><text x="'+(bx+bw/2)+'" y="'+(by+48)+'" text-anchor="middle" fill="var(--text-dim)" font-size="8.5" font-family="Segoe UI,system-ui,sans-serif">'+it.sub+"</text>";});});
+  [{x1:150,y1:115,x2:120,y2:160,c:"var(--cyan)"},{x1:660,y1:115,x2:335,y2:160,c:"var(--cyan)"},{x1:400,y1:115,x2:122,y2:290,c:"var(--cyan)"},{x1:210,y1:196,x2:260,y2:196,c:"var(--payroll)"},{x1:410,y1:186,x2:460,y2:186,c:"var(--payroll)"},{x1:410,y1:206,x2:680,y2:206,c:"var(--payroll)"},{x1:215,y1:326,x2:260,y2:326,c:"var(--finance)"},{x1:420,y1:326,x2:470,y2:326,c:"var(--finance)"},{x1:645,y1:326,x2:700,y2:326,c:"var(--finance)"},{x1:782,y1:362,x2:120,y2:420,c:"var(--green)"},{x1:557,y1:362,x2:360,y2:420,c:"var(--green)"},{x1:335,y1:232,x2:590,y2:420,c:"var(--payroll)"},{x1:120,y1:492,x2:150,y2:550,c:"var(--pink)"},{x1:545,y1:232,x2:390,y2:550,c:"var(--pink)"},{x1:805,y1:492,x2:650,y2:550,c:"var(--pink)"},{x1:865,y1:362,x2:915,y2:550,c:"var(--pink)"}].forEach(function(a){html+='<line x1="'+a.x1+'" y1="'+a.y1+'" x2="'+a.x2+'" y2="'+a.y2+'" stroke="'+a.c+'" stroke-width="1.2" opacity="0.5" marker-end="url(#farr)"/>';});
+  svg.innerHTML='<defs><marker id="farr" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="var(--text-dim)"/></marker></defs>'+html;
+}
 
-      var groupColors = {
-        FINANCE_DAILY: "#38bdf8",
-        PAYROLL_BIWEEKLY: "#a78bfa",
-        EOD_NIGHTLY: "#34d399",
-        MISC_LEGACY: "#fbbf24"
-      };
+/* === JOB CATALOG === */
 
-      var html = '';
+function buildJobCatalog(){
+  var grid=document.getElementById("jobGrid"),html="";
+  JOBS.forEach(function(job){var warns=[];if(job.undocumented)warns.push("Undocumented");if(!job.owner)warns.push("No Owner");if(!job.rerun)warns.push("Not Rerunnable");if(job.deps.some(function(d){return d.broken;}))warns.push("Broken Dep");
+    html+='<div class="job-card" data-s="'+[job.name,job.id,job.alias,job.desc,job.group,job.agent].join(" ").toLowerCase()+'" onclick="showJobModal(jobById('+job.id+'))" style="border-left:3px solid '+gc(job.group)+';"><div class="job-header"><span class="job-name">'+job.name+'</span><span class="job-id">#'+job.id+'</span><span class="job-alias">'+job.alias+'</span></div><div class="job-desc">'+(job.desc||"<em>None</em>")+'</div><div class="job-meta"><span class="tag tag-type">'+job.type+'</span><span class="tag tag-agent">'+job.agent+'</span><span class="tag tag-group">'+job.group+'</span><span class="tag tag-cal">'+job.calendar+'</span><span class="tag tag-priority">P'+job.priority+"</span>"+warns.map(function(w){return '<span class="tag tag-warn">'+w+"</span>";}).join("")+(job.repos||[]).map(function(r){return '<span class="tag tag-repo">'+r+"</span>";}).join("")+'</div><div class="dur-bar"><div class="dur-fill" style="width:'+Math.min(100,job.durEst/108*100)+"%;background:"+gc(job.group)+';"></div><span class="dur-max">'+fmtDur(job.durEst)+(job.durMax?" / "+fmtDur(job.durMax):"")+"</span></div></div>";});
+  grid.innerHTML=html;
+  document.getElementById("jobSearch").addEventListener("input",function(){var q=this.value.toLowerCase();grid.querySelectorAll(".job-card").forEach(function(c){c.style.display=!q||c.dataset.s.indexOf(q)>=0?"":"none";});});
+}
 
-      JOBS.forEach(function(j) {
-        var to = positions[j.id];
-        if (!to) return;
-        j.deps.forEach(function(depId) {
-          var from = positions[depId];
-          if (!from) {
-            if (j.brokenDep && j.brokenDep.id === depId) {
-              var bx = to.x - 100, by = to.y + nodeH/2;
-              html += '<g class="edge broken" data-from="' + depId + '" data-to="' + j.id + '">' +
-                '<line x1="' + bx + '" y1="' + by + '" x2="' + to.x + '" y2="' + (to.y + nodeH/2) + '" stroke="var(--red)" stroke-width="2" stroke-dasharray="6,4"/>' +
-                '<polygon points="' + (to.x-6) + ',' + (to.y+nodeH/2-4) + ' ' + to.x + ',' + (to.y+nodeH/2) + ' ' + (to.x-6) + ',' + (to.y+nodeH/2+4) + '" fill="var(--red)"/>' +
-                '<text x="' + (bx-10) + '" y="' + (by+4) + '" fill="var(--red)" font-size="9" text-anchor="end">' + j.brokenDep.name + '</text>' +
-                '<text x="' + (bx-10) + '" y="' + (by+14) + '" fill="var(--red)" font-size="8" text-anchor="end">(DELETED #' + depId + ')</text>' +
-              '</g>';
-            }
-            return;
-          }
-          var x1 = from.x + nodeW, y1 = from.y + nodeH/2;
-          var x2 = to.x, y2 = to.y + nodeH/2;
-          var isCross = jobMap[depId] && jobMap[depId].group !== j.group;
-          html += '<g class="edge" data-from="' + depId + '" data-to="' + j.id + '" data-cross="' + isCross + '">' +
-            '<line x1="' + x1 + '" y1="' + y1 + '" x2="' + x2 + '" y2="' + y2 + '"' + (isCross ? ' stroke="var(--orange)" stroke-dasharray="6,3"' : '') + '/>' +
-            '<polygon points="' + (x2-6) + ',' + (y2-4) + ' ' + x2 + ',' + y2 + ' ' + (x2-6) + ',' + (y2+4) + '"' + (isCross ? ' fill="var(--orange)"' : '') + '/>' +
-          '</g>';
-        });
-      });
+/* === CROSS-REF === */
 
-      JOBS.forEach(function(j) {
-        var pos = positions[j.id];
-        if (!pos) return;
-        var color = groupColors[j.group] || "#94a3b8";
-        var fillColor = j.warn || j.brokenDep ? (j.brokenDep ? '#7f1d1d' : '#78350f') : '#1e293b';
-        html += '<g class="node" data-id="' + j.id + '" data-group="' + j.group + '" onclick="showJobDetail(' + j.id + ')">' +
-          '<rect x="' + pos.x + '" y="' + pos.y + '" width="' + nodeW + '" height="' + nodeH + '" fill="' + fillColor + '" stroke="' + color + '"/>' +
-          '<text x="' + (pos.x + nodeW/2) + '" y="' + (pos.y + 16) + '" text-anchor="middle" font-size="10" font-weight="600">' + (j.name.length > 16 ? j.name.substring(0,15) + '..' : j.name) + '</text>' +
-          '<text x="' + (pos.x + nodeW/2) + '" y="' + (pos.y + 30) + '" text-anchor="middle" font-size="8" fill="' + color + '">#' + j.id + ' &middot; ' + j.alias + '</text>' +
-        '</g>';
-      });
+function buildXref(){
+  var c=document.getElementById("xrefCards"),im={table:"&#128196;",proc:"&#9881;",config:"&#128295;",cobol:"&#128221;",report:"&#128202;"},html="";
+  XREF_REPOS.forEach(function(xr){html+='<div class="xref-card"><h3><span class="repo-badge"><svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 110-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 01-1.072 1.05A2.495 2.495 0 012 11.5v-9z"/></svg> '+xr.repo+"</span> "+xr.label+'</h3><ul class="file-list">'+xr.files.map(function(f){return '<li><span class="icon">'+(im[f.icon]||"")+"</span> <code>"+f.path+"</code> &mdash; "+f.desc+"</li>";}).join("")+'</ul><div class="used-by"><strong>Referenced by Tidal jobs:</strong> '+xr.jobs.map(function(jid){var j=jobById(jid);return j?j.name+" ("+jid+")":""+jid;}).join(", ")+"</div></div>";});
+  c.innerHTML=html;
+}
 
-      svg.innerHTML = html;
-    }
+/* === DATA LINEAGE === */
 
-    function filterGraph(filter, e) {
-      document.querySelectorAll('.graph-controls button').forEach(function(b) { b.classList.remove('active'); });
-      e.target.classList.add('active');
+function buildLineage(){
+  var rc={"acme-gl-ledger":"var(--finance)","acme-payroll-engine":"var(--payroll)","acme-data-warehouse":"var(--eod)"};
+  document.getElementById("lineageBody").innerHTML=LINEAGE.map(function(l){return "<tr><td class=\"mono\" style=\"font-weight:600;\">"+l.table+"</td><td class=\"mono\">"+l.db+'</td><td><span class="tag tag-repo" style="border-left:2px solid '+(rc[l.repo]||"var(--border)")+';">'+l.repo+"</span></td><td>"+l.writes.join("<br>")+"</td><td>"+l.reads.join("<br>")+"</td><td style=\"color:var(--text-dim);font-size:0.75rem;\">"+l.flow+"</td></tr>";}).join("");
+  var tc={"Stored Proc":"var(--accent)","ETL Script":"var(--green)","ETL Config":"var(--green)","Compliance Spec":"var(--red)","Report Template":"var(--orange)","COBOL Copybook":"var(--yellow)","Integration Config":"var(--cyan)","Config":"var(--text-dim)"};
+  document.getElementById("artifactBody").innerHTML=ARTIFACTS.map(function(a){return "<tr><td class=\"mono\" style=\"font-weight:600;\">"+a.name+'</td><td><span class="tag" style="background:rgba(255,255,255,0.05);color:'+(tc[a.type]||"var(--text)")+';">'+a.type+'</span></td><td><span class="tag tag-repo">'+a.repo+"</span></td><td>"+a.jobs.join(", ")+"</td><td style=\"color:var(--text-dim);font-size:0.75rem;\">"+a.purpose+"</td></tr>";}).join("");
+}
 
-      var groupMap = { finance: "FINANCE_DAILY", payroll: "PAYROLL_BIWEEKLY", eod: "EOD_NIGHTLY", legacy: "MISC_LEGACY" };
-      var targetGroup = groupMap[filter];
+/* === ALERTS === */
 
-      document.querySelectorAll('#depGraph .node').forEach(function(n) {
-        var g = n.dataset.group;
-        if (filter === 'all') { n.classList.remove('dimmed'); }
-        else if (filter === 'cross') { n.classList.remove('dimmed'); }
-        else { n.classList.toggle('dimmed', g !== targetGroup); }
-      });
-      document.querySelectorAll('#depGraph .edge').forEach(function(e) {
-        if (filter === 'all') { e.classList.remove('dimmed', 'highlight'); }
-        else if (filter === 'cross') {
-          var isCross = e.dataset.cross === 'true';
-          e.classList.toggle('highlight', isCross);
-          e.classList.toggle('dimmed', !isCross);
-        } else {
-          var fromJob = jobMap[parseInt(e.dataset.from)];
-          var toJob = jobMap[parseInt(e.dataset.to)];
-          var relevant = (fromJob && fromJob.group === targetGroup) || (toJob && toJob.group === targetGroup);
-          e.classList.toggle('dimmed', !relevant);
-          e.classList.remove('highlight');
-        }
-      });
-    }
+function buildAlerts(){
+  var c=document.getElementById("alertsList"),sc={critical:"",warning:"warn",info:"info"},sl={critical:"CRITICAL",warning:"WARNING",info:"INFO"};
+  c.innerHTML=ALERTS.map(function(a){var cs=a.severity==="critical"?"background:rgba(248,113,113,0.2);color:var(--red)":a.severity==="warning"?"background:rgba(251,191,36,0.2);color:var(--yellow)":"background:rgba(56,189,248,0.15);color:var(--accent)";return '<div class="alert-item '+(sc[a.severity]||"")+'"><div class="alert-title"><span class="tag" style="margin-right:0.4rem;'+cs+'">'+sl[a.severity]+"</span> "+a.title+'</div><div class="alert-detail">'+a.detail+'</div><div style="margin-top:0.5rem;font-size:0.75rem;color:'+(a.severity==="critical"?"var(--red)":"var(--text-dim)")+';font-weight:600;">'+a.impact+"</div></div>";}).join("");
+}
 
-    function drawFlowDiagram() {
-      var svg = document.getElementById('flowDiagram');
-      var columns = [
-        { x: 30, label: "External Sources", color: "#94a3b8" },
-        { x: 220, label: "Staging / Import", color: "var(--finance)" },
-        { x: 410, label: "Validation", color: "var(--accent)" },
-        { x: 600, label: "Core Processing", color: "var(--green)" },
-        { x: 790, label: "Data Warehouse", color: "var(--cyan)" },
-        { x: 980, label: "Output / Delivery", color: "var(--pink)" }
-      ];
+/* === SCHEDULES === */
 
-      var html = '';
+function buildSchedules(){
+  document.getElementById("scheduleCalendars").innerHTML=CALENDARS.map(function(c){return '<div class="xref-card" style="display:inline-block;width:320px;vertical-align:top;margin-right:1rem;"><h3 style="font-size:0.9rem;">'+c.name+' <span style="font-size:0.7rem;color:var(--text-dim);">(ID '+c.id+')</span></h3><div style="font-size:0.78rem;color:var(--text-dim);margin-bottom:0.5rem;">'+c.desc+'</div><div class="job-meta"><span class="tag tag-cal">'+c.days+"</span>"+(c.holidays?'<span class="tag tag-warn" style="background:rgba(251,191,36,0.1);color:var(--yellow);">Excl. Holidays</span>':'<span class="tag tag-group">Incl. Holidays</span>')+'</div><div style="margin-top:0.6rem;font-size:0.75rem;color:var(--text-dim);"><strong>Jobs:</strong> '+JOBS.filter(function(j){return j.calendar===c.name;}).map(function(j){return j.name;}).join(", ")+"</div></div>";}).join("");
+  document.getElementById("schedControls").addEventListener("click",function(ev){var btn=ev.target.closest("button");if(!btn||!btn.dataset.sched)return;this.querySelectorAll("button").forEach(function(b){b.classList.remove("active");});btn.classList.add("active");buildTimeline(btn.dataset.sched);});
+  buildTimeline("all");
+}
+function buildTimeline(filter){
+  var c=document.getElementById("timelineRows"),total=360;
+  var jobs=JOBS.filter(function(j){return filter==="all"||j.calendar===filter;}).sort(function(a,b){var wa=a.window?parseInt(a.window.from.replace(":",""),10):200,wb=b.window?parseInt(b.window.from.replace(":",""),10):200;return wa-wb||a.groupId-b.groupId;});
+  c.innerHTML=jobs.map(function(job){var sm=120;if(job.window){var p=job.window.from.split(":");sm=parseInt(p[0],10)*60+parseInt(p[1],10);if(sm>=1200)sm-=1440;sm=Math.max(0,sm);}var dm=Math.round(job.durEst/60),lp=sm/total*100,wp=Math.max(2,dm/total*100);if(lp+wp>100)wp=100-lp;return '<div class="timeline-row"><div class="tl-name" style="color:'+gc(job.group)+';">'+job.name+'</div><div class="tl-bar-wrap"><div class="tl-bar" style="left:'+lp+"%;width:"+wp+"%;background:"+gc(job.group)+';" onclick="showJobModal(jobById('+job.id+'))">'+fmtDur(job.durEst)+"</div></div></div>";}).join("");
+}
 
-      columns.forEach(function(c) {
-        html += '<text x="' + (c.x + 75) + '" y="20" text-anchor="middle" fill="' + c.color + '" font-size="11" font-weight="600">' + c.label + '</text>';
-        html += '<line x1="' + (c.x + 75) + '" y1="28" x2="' + (c.x + 75) + '" y2="600" stroke="' + c.color + '" stroke-width="0.5" stroke-dasharray="3,6" opacity="0.3"/>';
-      });
-
-      var nodes = [
-        { id: "db2_acctdb", x: 30, y: 55, w: 150, h: 35, label: "DB2 ACCTDB", sub: "GL_TRANSACTIONS", color: "#64748b", fill: "#1e293b" },
-        { id: "kronos", x: 30, y: 200, w: 150, h: 35, label: "Kronos Export", sub: "TIME_EXPORT_*.csv", color: "#64748b", fill: "#1e293b" },
-        { id: "coa_ref", x: 30, y: 120, w: 150, h: 35, label: "Chart of Accounts", sub: "Reference Data", color: "#64748b", fill: "#1e293b" },
-        { id: "j1001", x: 220, y: 55, w: 150, h: 35, label: "ACCT_DAILY_EXTRACT", sub: "#1001 COBOL", color: "var(--finance)", fill: "#172554" },
-        { id: "j2004", x: 220, y: 200, w: 150, h: 35, label: "PAYROLL_TIME_IMPORT", sub: "#2004 Import", color: "var(--payroll)", fill: "#2e1065" },
-        { id: "j1002", x: 410, y: 55, w: 150, h: 35, label: "ACCT_VALIDATION", sub: "#1002 Checksums", color: "var(--accent)", fill: "#172554" },
-        { id: "j2003", x: 410, y: 120, w: 150, h: 35, label: "SP_GL_VALIDATION", sub: "#2003 Stored Proc", color: "var(--accent)", fill: "#172554" },
-        { id: "j1003", x: 600, y: 55, w: 150, h: 35, label: "GL_POSTING_BATCH", sub: "#1003 COBOL", color: "var(--green)", fill: "#052e16" },
-        { id: "j2001", x: 600, y: 200, w: 150, h: 35, label: "PAYROLL_CALC", sub: "#2001 COBOL", color: "var(--green)", fill: "#052e16" },
-        { id: "j3005", x: 600, y: 330, w: 150, h: 35, label: "JOB_X47B", sub: "#3005 Unknown", color: "var(--yellow)", fill: "#422006" },
-        { id: "j1004", x: 790, y: 55, w: 150, h: 35, label: "GL_REPORT_DAILY", sub: "#1004 ETL + Report", color: "var(--cyan)", fill: "#083344" },
-        { id: "j3001", x: 790, y: 260, w: 150, h: 35, label: "EOD_RECONCILIATION", sub: "#3001 Recon", color: "var(--cyan)", fill: "#083344" },
-        { id: "j2005", x: 790, y: 200, w: 150, h: 35, label: "SP_PAYROLL_SUMMARY", sub: "#2005 Summary", color: "var(--cyan)", fill: "#083344" },
-        { id: "j2002", x: 790, y: 140, w: 150, h: 35, label: "PAYROLL_ACH_FILE", sub: "#2002 NACHA", color: "var(--cyan)", fill: "#083344" },
-        { id: "dw_gl", x: 980, y: 55, w: 150, h: 35, label: "DW.FACT_GL_DAILY", sub: "Data Warehouse", color: "var(--pink)", fill: "#4a1942" },
-        { id: "dw_recon", x: 980, y: 260, w: 150, h: 35, label: "DW.FACT_RECONCILIATION", sub: "Data Warehouse", color: "var(--pink)", fill: "#4a1942" },
-        { id: "dw_pay", x: 980, y: 200, w: 150, h: 35, label: "DW.FACT_PAYROLL", sub: "Data Warehouse", color: "var(--pink)", fill: "#4a1942" },
-        { id: "erp", x: 980, y: 120, w: 150, h: 35, label: "ERP Integration", sub: "SFTP Transfer", color: "var(--pink)", fill: "#4a1942" },
-        { id: "ach_bank", x: 980, y: 160, w: 150, h: 35, label: "ACH Bank Transfer", sub: "SFTP to Bank", color: "var(--pink)", fill: "#4a1942" },
-        { id: "pdf_rpt", x: 980, y: 80, w: 150, h: 35, label: "GL Summary PDF", sub: "Email Distribution", color: "var(--pink)", fill: "#4a1942" },
-        { id: "j4003", x: 790, y: 390, w: 150, h: 35, label: "REGULATORY_FEED", sub: "#4003 SOX", color: "var(--red)", fill: "#450a0a" },
-        { id: "reg_portal", x: 980, y: 390, w: 150, h: 35, label: "Regulator Portal", sub: "SFTP gov.example", color: "var(--red)", fill: "#450a0a" },
-        { id: "j4001", x: 220, y: 460, w: 150, h: 35, label: "PROC_LEGACY_01", sub: "#4001 Transform", color: "var(--yellow)", fill: "#422006" },
-        { id: "j4002", x: 410, y: 460, w: 150, h: 35, label: "PROC_LEGACY_02", sub: "#4002 Merge", color: "var(--yellow)", fill: "#422006" },
-        { id: "j3002", x: 790, y: 330, w: 150, h: 35, label: "EOD_BACKUP", sub: "#3002 Full Backup", color: "var(--eod)", fill: "#052e16" },
-        { id: "j1005", x: 980, y: 460, w: 150, h: 35, label: "ACCT_ARCHIVE", sub: "#1005 SOX 7yr", color: "var(--finance)", fill: "#172554" }
-      ];
-
-      var flows = [
-        ["db2_acctdb", "j1001"], ["coa_ref", "j2003"], ["kronos", "j2004"],
-        ["j1001", "j1002"], ["j1002", "j2003"], ["j1002", "j1003"], ["j2003", "j1003"],
-        ["j1003", "j1004"], ["j1003", "j3005"], ["j1003", "j1005"],
-        ["j1004", "dw_gl"], ["j1004", "pdf_rpt"],
-        ["j1003", "erp"],
-        ["j3005", "j3001"], ["j1003", "j3001"],
-        ["j3001", "dw_recon"], ["j3001", "j3002"], ["j3001", "j4003"],
-        ["j4003", "reg_portal"],
-        ["j2004", "j2001"], ["j2001", "j2002"], ["j2001", "j2005"],
-        ["j2002", "ach_bank"], ["j2005", "dw_pay"],
-        ["j1001", "j4001"], ["j4001", "j4002"]
-      ];
-
-      var nodeMap = {};
-      nodes.forEach(function(n) { nodeMap[n.id] = n; });
-
-      flows.forEach(function(pair) {
-        var f = nodeMap[pair[0]], t = nodeMap[pair[1]];
-        if (!f || !t) return;
-        var x1 = f.x + f.w, y1 = f.y + f.h/2;
-        var x2 = t.x, y2 = t.y + t.h/2;
-        html += '<line x1="' + x1 + '" y1="' + y1 + '" x2="' + x2 + '" y2="' + y2 + '" stroke="#475569" stroke-width="1.2" opacity="0.6"/>';
-        html += '<polygon points="' + (x2-5) + ',' + (y2-3) + ' ' + x2 + ',' + y2 + ' ' + (x2-5) + ',' + (y2+3) + '" fill="#475569" opacity="0.6"/>';
-      });
-
-      nodes.forEach(function(n) {
-        html += '<g>' +
-          '<rect x="' + n.x + '" y="' + n.y + '" width="' + n.w + '" height="' + n.h + '" rx="6" fill="' + n.fill + '" stroke="' + n.color + '" stroke-width="1.2"/>' +
-          '<text x="' + (n.x + n.w/2) + '" y="' + (n.y + 15) + '" text-anchor="middle" fill="#fff" font-size="9" font-weight="600">' + (n.label.length > 22 ? n.label.substring(0,21) + '..' : n.label) + '</text>' +
-          '<text x="' + (n.x + n.w/2) + '" y="' + (n.y + 27) + '" text-anchor="middle" fill="' + n.color + '" font-size="7.5">' + n.sub + '</text>' +
-        '</g>';
-      });
-
-      var repoLabels = [
-        { x: 20, y: 560, label: "acme-gl-ledger", color: "var(--finance)", desc: "GL schema, stored procs, configs" },
-        { x: 300, y: 560, label: "acme-payroll-engine", color: "var(--payroll)", desc: "COBOL copybooks, payroll configs" },
-        { x: 620, y: 560, label: "acme-data-warehouse", color: "var(--cyan)", desc: "DW schemas, ETL, compliance specs" },
-        { x: 920, y: 560, label: "tidal-batch-reengineering-demo", color: "var(--text-dim)", desc: "Tidal XML job definitions" }
-      ];
-      repoLabels.forEach(function(r) {
-        html += '<rect x="' + r.x + '" y="' + r.y + '" width="260" height="36" rx="6" fill="var(--surface)" stroke="' + r.color + '" stroke-width="1" stroke-dasharray="4,3"/>';
-        html += '<text x="' + (r.x+10) + '" y="' + (r.y+15) + '" fill="' + r.color + '" font-size="10" font-weight="600">' + r.label + '</text>';
-        html += '<text x="' + (r.x+10) + '" y="' + (r.y+28) + '" fill="var(--text-dim)" font-size="8">' + r.desc + '</text>';
-      });
-
-      svg.innerHTML = html;
-    }
-
-    function drawTimeline() {
-      var svg = document.getElementById('timelineSvg');
-      var W = 1100, H = 240;
-      var html = '';
-
-      for (var h = 0; h <= 24; h += 2) {
-        var x = 60 + (h / 24) * (W - 80);
-        html += '<line x1="' + x + '" y1="30" x2="' + x + '" y2="' + (H-10) + '" stroke="var(--border)" stroke-width="0.5" stroke-dasharray="3,5"/>';
-        html += '<text x="' + x + '" y="22" text-anchor="middle" fill="var(--text-dim)" font-size="9">' + String(h).padStart(2,'0') + ':00</text>';
-      }
-
-      var lanes = [
-        { label: "FINANCE_DAILY", y: 45, color: "var(--finance)", jobs: [
-          { name: "ACCT_DAILY_EXTRACT", from: 2, dur: 0.33 },
-          { name: "ACCT_VALIDATION", from: 2.33, dur: 0.083 },
-          { name: "SP_GL_VALIDATION", from: 2.42, dur: 0.05 },
-          { name: "GL_POSTING_BATCH", from: 2.47, dur: 0.5 },
-          { name: "GL_REPORT_DAILY", from: 2.97, dur: 0.17 },
-          { name: "FTP_GL_DOWNSTREAM", from: 2.97, dur: 0.033 },
-          { name: "ACCT_ARCHIVE", from: 3.14, dur: 0.083 }
-        ]},
-        { label: "PAYROLL (biweekly)", y: 95, color: "var(--payroll)", jobs: [
-          { name: "PAYROLL_TIME_IMPORT", from: 1, dur: 0.17 },
-          { name: "PAYROLL_CALC", from: 1.17, dur: 1.0 },
-          { name: "PAYROLL_ACH_FILE", from: 2.17, dur: 0.25 },
-          { name: "SP_PAYROLL_SUMMARY", from: 2.17, dur: 0.033 }
-        ]},
-        { label: "EOD_NIGHTLY", y: 145, color: "var(--eod)", jobs: [
-          { name: "JOB_X47B", from: 22, dur: 0.125 },
-          { name: "EOD_RECONCILIATION", from: 22.13, dur: 0.67 },
-          { name: "EOD_BACKUP", from: 22.8, dur: 1.5 },
-          { name: "EOD_LOG_CLEANUP", from: 0.3, dur: 0.17 },
-          { name: "EOD_NOTIFY_COMPLETE", from: 0.3, dur: 0.008 }
-        ]},
-        { label: "MISC_LEGACY", y: 195, color: "var(--legacy)", jobs: [
-          { name: "PROC_LEGACY_01", from: 2.33, dur: 0.25 },
-          { name: "PROC_LEGACY_02", from: 2.58, dur: 0.17 },
-          { name: "REGULATORY_FEED", from: 23.5, dur: 0.33 },
-          { name: "FTP_REG_SUBMIT", from: 23.83, dur: 0.05 }
-        ]}
-      ];
-
-      lanes.forEach(function(lane) {
-        html += '<text x="5" y="' + (lane.y + 18) + '" fill="' + lane.color + '" font-size="8" font-weight="600">' + lane.label + '</text>';
-        html += '<rect x="60" y="' + lane.y + '" width="' + (W-80) + '" height="35" rx="4" fill="var(--surface)" stroke="var(--border)" stroke-width="0.5"/>';
-
-        lane.jobs.forEach(function(j) {
-          var startX = 60 + (j.from / 24) * (W - 80);
-          var width = Math.max(4, (j.dur / 24) * (W - 80));
-          html += '<rect x="' + startX + '" y="' + (lane.y + 4) + '" width="' + width + '" height="27" rx="3" fill="' + lane.color + '" opacity="0.7"/>';
-          if (width > 30) {
-            var fontSize = width > 80 ? 7 : 6;
-            var maxChars = Math.floor(width/4);
-            html += '<text x="' + (startX + width/2) + '" y="' + (lane.y + 21) + '" text-anchor="middle" fill="#fff" font-size="' + fontSize + '" font-weight="500">' + (j.name.length > maxChars ? j.name.substring(0, maxChars) + '..' : j.name) + '</text>';
-          }
-        });
-      });
-
-      svg.innerHTML = html;
-    }
-
-    renderJobCards('');
-    drawDepGraph();
-    drawFlowDiagram();
-    drawTimeline();
-  </script>
+/* === INIT === */
+buildDepGraph();buildFlowDiagram();buildJobCatalog();buildXref();buildLineage();buildAlerts();buildSchedules();
+</script>
 </body>
 </html>
