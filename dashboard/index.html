@@ -899,8 +899,8 @@
         { id: "dw_recon", x: 980, y: 260, w: 150, h: 35, label: "DW.FACT_RECONCILIATION", sub: "Data Warehouse", color: "var(--pink)", fill: "#4a1942" },
         { id: "dw_pay", x: 980, y: 200, w: 150, h: 35, label: "DW.FACT_PAYROLL", sub: "Data Warehouse", color: "var(--pink)", fill: "#4a1942" },
         { id: "erp", x: 980, y: 120, w: 150, h: 35, label: "ERP Integration", sub: "SFTP Transfer", color: "var(--pink)", fill: "#4a1942" },
-        { id: "ach_bank", x: 980, y: 140, w: 150, h: 35, label: "ACH Bank Transfer", sub: "SFTP to Bank", color: "var(--pink)", fill: "#4a1942" },
-        { id: "pdf_rpt", x: 980, y: 90, w: 150, h: 35, label: "GL Summary PDF", sub: "Email Distribution", color: "var(--pink)", fill: "#4a1942" },
+        { id: "ach_bank", x: 980, y: 160, w: 150, h: 35, label: "ACH Bank Transfer", sub: "SFTP to Bank", color: "var(--pink)", fill: "#4a1942" },
+        { id: "pdf_rpt", x: 980, y: 80, w: 150, h: 35, label: "GL Summary PDF", sub: "Email Distribution", color: "var(--pink)", fill: "#4a1942" },
         { id: "j4003", x: 790, y: 390, w: 150, h: 35, label: "REGULATORY_FEED", sub: "#4003 SOX", color: "var(--red)", fill: "#450a0a" },
         { id: "reg_portal", x: 980, y: 390, w: 150, h: 35, label: "Regulator Portal", sub: "SFTP gov.example", color: "var(--red)", fill: "#450a0a" },
         { id: "j4001", x: 220, y: 460, w: 150, h: 35, label: "PROC_LEGACY_01", sub: "#4001 Transform", color: "var(--yellow)", fill: "#422006" },
@@ -920,8 +920,7 @@
         ["j4003", "reg_portal"],
         ["j2004", "j2001"], ["j2001", "j2002"], ["j2001", "j2005"],
         ["j2002", "ach_bank"], ["j2005", "dw_pay"],
-        ["j1001", "j4001"], ["j4001", "j4002"],
-        ["j3002", "j1005"]
+        ["j1001", "j4001"], ["j4001", "j4002"]
       ];
 
       var nodeMap = {};
